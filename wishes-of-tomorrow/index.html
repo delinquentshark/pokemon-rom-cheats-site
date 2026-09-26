@@ -358,7 +358,7 @@ CF6066B3 C97D9FA5
   <section class="panel" id="encounters" role="tabpanel" aria-labelledby="tab-encounters" hidden>
     <div class="block">
       <h2>Wild encounters by location</h2>
-      <p class="lede">Search by place or by Pokémon, or pick a marker. The map is the game's own Fly map, captured in the emulator. Chances are per encounter, from the game's slot tables.</p>
+      <p class="lede">Search by place name or by Pokémon, or pick a marker. The map is the game's own Fly map, captured in the emulator. Chances are per encounter, from the game's slot tables.</p>
       <div class="controls">
         <input id="mq" class="search" type="search" placeholder="Place or Pokémon: Munen Tunnel, Ashlands, Bagon, 0.77…" aria-label="Search by place or Pokémon" autocomplete="off">
         <label class="toggle"><input type="checkbox" id="leftovers"> Include unused Hoenn tables</label>
@@ -369,6 +369,7 @@ CF6066B3 C97D9FA5
           <div class="mapbox" id="mapbox">
             <img alt="Region map of Wishes of Tomorrow" src="img/region_map.png" width="240" height="144">
           </div>
+          <p class="maplegend"><span class="mk" aria-hidden="true"></span>One area. <span class="mk" aria-hidden="true">6</span>Several areas share that spot on the Fly map, and the number says how many. The 6 is both National Park areas plus all four Distortion World areas. Click the marker again to step through them, or hover to see their names.</p>
           <div class="loclist" id="loclist" role="group" aria-label="Locations"></div>
         </div>
         <div class="detail" id="detail" aria-live="polite"></div>
@@ -581,10 +582,12 @@ const results = document.getElementById("results");
 function visible(){ return LOCS.map((l,i)=>[l,i]).filter(([l]) => l.region || showLeft); }
 const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
 let nterm = "";
+// Place search looks only at the place's own name (plus its area label) and its map ID,
+// matching from the start of a word. Places you enter FROM another place don't match it.
+const startsWord = (hay, t) => (" " + hay).includes(" " + t);
 function placeMatch(l){
   if (!nterm) return false;
-  const hay = norm([l.name, l.sub, l.map, "map " + l.map, l.via ? l.via : ""].join(" | "));
-  return hay.includes(nterm);
+  return startsWord(norm(l.name + " " + (l.sub || "")), nterm) || startsWord(norm("map " + l.map), nterm);
 }
 function monMatch(x){ return !!nterm && norm(x.n).includes(nterm); }
 function monsIn(l){ return Object.values(l.methods).some(m => m.mons.some(monMatch)); }
@@ -605,9 +608,10 @@ function drawMarkers(){
     b.style.left = ((8 + 8*x + 4) / 240 * 100) + "%";
     b.style.top = ((16 + 8*y + 4) / 144 * 100) + "%";
     b.textContent = idx.length > 1 ? idx.length : "";
-    const names = [...new Set(idx.map(i => LOCS[i].name))];
-    b.setAttribute("aria-label", names.join(", "));
-    b.title = names.join(", ");
+    const areas = idx.map(i => locLabel(LOCS[i]));
+    const label = idx.length > 1 ? `${idx.length} areas here: ${areas.join(", ")}. Click again for the next one.` : areas[0];
+    b.setAttribute("aria-label", label);
+    b.title = label;
     b.setAttribute("aria-pressed", idx.includes(selected) ? "true" : "false");
     if (nterm){ if (idx.some(i => matches(LOCS[i]))) b.classList.add("hit"); else b.classList.add("dim"); }
     b.addEventListener("click", () => {
@@ -685,7 +689,7 @@ function drawResults(){
   }
   if (!places.length && !mons.length){
     const hidden = !showLeft && LOCS.some(l => !l.region && matches(l));
-    const quiet = NOENC.filter(n => norm(n).includes(nterm));
+    const quiet = NOENC.filter(n => startsWord(norm(n), nterm));
     const p = document.createElement("p"); p.className = "muted";
     p.textContent = quiet.length
       ? `${quiet.join(", ")} ${quiet.length === 1 ? "has" : "have"} no wild encounters in the ROM's tables.`
