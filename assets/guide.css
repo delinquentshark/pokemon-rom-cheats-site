@@ -39,9 +39,10 @@ section.panel{display:flex; flex-direction:column; gap:22px}
 .block{display:flex; flex-direction:column; gap:12px}
 
 /* tabs */
-.tabs{position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); padding-block:8px; display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid var(--line)}
+.tabs{position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); padding-block:8px; border-bottom:1px solid var(--line)}
+.tablist{display:flex; gap:6px; flex-wrap:wrap}
 .tab{font:inherit; font-weight:700; font-size:14px; padding:9px 14px; border-radius:8px 8px 0 0; border:1px solid transparent; background:transparent; color:var(--muted); cursor:pointer}
-@media (max-width:480px){ .tab{font-size:13px; padding:8px 9px} }
+@media (max-width:600px){ .tab{font-size:13px; padding:8px 9px} }
 .tab[aria-selected="true"]{color:var(--ink); background:var(--surface); border-color:var(--line); border-bottom-color:var(--surface); margin-bottom:-9px; padding-bottom:17px}
 .tab:focus-visible, .search:focus-visible, .chip:focus-visible, .copy:focus-visible, .seg button:focus-visible, .marker:focus-visible, .loc:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 
@@ -239,3 +240,19 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
 .theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
+
+/* Theme fade. site.js runs the switch inside document.startViewTransition(): the old and new
+   page are crossfaded as two GPU snapshots, so nothing is restyled or repainted per frame.
+   While it runs (0.25 s) the page is a snapshot, so clicks are ignored; scrolling still works. */
+::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
+
+/* Docked switch. On pages whose sticky bar has data-theme-dock (the guides' tab bar), site.js
+   adds a copy of the switch at the bar's right end. It fades in while the top switch is
+   scrolled out of view (site.js sets data-docked). Only opacity and transform animate. */
+[data-theme-dock]{padding-right:72px}
+@media (max-width:360px){ [data-theme-dock] .tab{padding-inline:7px} }
+/* top: centred on the first row of tabs (bar padding 8px + half a tab's height - half the switch's 32px). */
+.theme-toggle.dock{position:absolute; right:0; top:calc(8px + (1.55 * 14px + 20px - 32px) / 2); margin:0; opacity:0; visibility:hidden; transform:scale(.85); transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s}
+[data-docked] > .theme-toggle.dock{opacity:1; visibility:visible; transform:none; transition:opacity .16s ease, transform .16s ease, visibility 0s}
+@media (max-width:600px){ .theme-toggle.dock{top:calc(8px + (1.55 * 13px + 18px - 32px) / 2)} }
+@media (prefers-reduced-motion:reduce){ .theme-toggle.dock{transition:none} }

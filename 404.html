@@ -23,6 +23,7 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
 .theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
 .theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
+::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
 </style>
 </head>
 <body>
@@ -40,13 +41,18 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
   // Project sites live under /<repo>/, so link to that folder rather than the domain root.
   const seg = location.pathname.split("/").filter(Boolean)[0];
   if (location.hostname.endsWith("github.io") && seg) document.getElementById("home").href = "/" + seg + "/";
-  // Same theme switch as assets/site.js.
+  // Same theme switch as assets/site.js, including the View Transition fade.
   (() => {
     const KEY = "prc-theme", root = document.documentElement, b = document.querySelector(".theme-toggle");
-    const cur = () => (root.dataset.theme === "light" ? "light" : "dark");
-    const apply = (t, save) => { root.dataset.theme = t; b.setAttribute("aria-checked", t === "dark" ? "true" : "false"); b.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; if (save) { try { localStorage.setItem(KEY, t); } catch (e) {} } };
-    apply(cur(), false);
-    b.addEventListener("click", () => apply(cur() === "dark" ? "light" : "dark", true));
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let theme = root.dataset.theme === "light" ? "light" : "dark";
+    const paint = t => { theme = t; root.dataset.theme = t; b.setAttribute("aria-checked", t === "dark" ? "true" : "false"); b.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; };
+    paint(theme);
+    b.addEventListener("click", () => {
+      const t = theme === "dark" ? "light" : "dark";
+      try { localStorage.setItem(KEY, t); } catch (e) {}
+      if (!document.startViewTransition || still.matches) paint(t); else document.startViewTransition(() => paint(t));
+    });
   })();
 </script>
 </body>

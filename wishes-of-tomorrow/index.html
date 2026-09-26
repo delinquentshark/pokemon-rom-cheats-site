@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/guide.css?v=2fb21c42c8">
+<link rel="stylesheet" href="../assets/guide.css?v=bfe381d069">
 </head>
 <body>
 <div class="wrap">
@@ -32,12 +32,14 @@
     </div>
   </header>
 
-  <nav class="tabs" role="tablist" aria-label="Guide sections">
-    <button class="tab" role="tab" id="tab-pc" aria-controls="pc" aria-selected="true" type="button">PC items</button>
-    <button class="tab" role="tab" id="tab-codes" aria-controls="codes" aria-selected="false" type="button">Encounter codes</button>
-    <button class="tab" role="tab" id="tab-species" aria-controls="species" aria-selected="false" type="button">Species IDs</button>
-    <button class="tab" role="tab" id="tab-encounters" aria-controls="encounters" aria-selected="false" type="button">Encounter map</button>
-  </nav>
+  <div class="tabs" data-theme-dock>
+    <div class="tablist" role="tablist" aria-label="Guide sections">
+      <button class="tab" role="tab" id="tab-pc" aria-controls="pc" aria-selected="true" type="button">PC items</button>
+      <button class="tab" role="tab" id="tab-codes" aria-controls="codes" aria-selected="false" type="button">Encounter codes</button>
+      <button class="tab" role="tab" id="tab-species" aria-controls="species" aria-selected="false" type="button">Species IDs</button>
+      <button class="tab" role="tab" id="tab-encounters" aria-controls="encounters" aria-selected="false" type="button">Encounter map</button>
+    </div>
+  </div>
 
   <!-- ============ PC ITEMS ============ -->
   <section class="panel" id="pc" role="tabpanel" aria-labelledby="tab-pc">
@@ -748,6 +750,6 @@ VERIFY.forEach(v => {
   vb.appendChild(tr);
 });
 </script>
-<script src="../assets/site.js?v=7ff128205c" defer></script>
+<script src="../assets/site.js?v=d1e728757b" defer></script>
 </body>
 </html>
