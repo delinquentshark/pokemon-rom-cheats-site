@@ -1,0 +1,14 @@
+{
+  "games": [
+    {
+      "slug": "wishes-of-tomorrow",
+      "title": "Wishes of Tomorrow",
+      "platform": "GBA",
+      "engine": "pokeemerald-expansion 1.15.3",
+      "emulator": "mGBA 0.10.5",
+      "rom_sha1": "b26eca106827ece4506fee585a78d34bf5314f47",
+      "sections": ["PC items", "Shiny", "Perfect IVs", "Pick species", "Pick nature", "Pick gender", "Species IDs", "Encounter map"],
+      "updated": "2026-09-26"
+    }
+  ]
+}

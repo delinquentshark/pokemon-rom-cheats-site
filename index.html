@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokémon ROM Hack Field Guides</title>
+<meta name="description" content="Action Replay codes and wild encounter data for Pokémon ROM hacks, pulled from each ROM and tested in an emulator.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/guide.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Action Replay codes · encounter data</span>
+    <h1>Pokémon ROM Hack Field Guides</h1>
+    <p class="lede">Cheat codes and wild encounter data, pulled from each ROM itself and tested in an emulator before they go up here. Pick a game.</p>
+  </header>
+
+  <main class="games" id="games" aria-live="polite">
+    <noscript><p>This list needs JavaScript. Open a guide directly: <a href="wishes-of-tomorrow/">Wishes of Tomorrow</a>.</p></noscript>
+  </main>
+
+  <footer class="site-foot">
+    <p>Every code targets one exact ROM build. Check the SHA-1 on the guide against your file before using it.</p>
+    <p>No ROMs are hosted here.</p>
+  </footer>
+</div>
+
+<script>
+(async () => {
+  const box = document.getElementById("games");
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  try {
+    const res = await fetch("games.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error(res.status);
+    const { games } = await res.json();
+    games.forEach(g => {
+      const a = el("a", "game"); a.href = g.slug + "/";
+      a.append(el("span", "eyebrow", [g.platform, g.engine].filter(Boolean).join(" · ")));
+      a.append(el("h2", null, g.title));
+      const meta = [];
+      if (g.emulator) meta.push("Tested in " + g.emulator);
+      if (g.updated) meta.push("Updated " + new Date(g.updated + "T00:00:00").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }));
+      a.append(el("p", "meta", meta.join(" · ")));
+      if (g.sections && g.sections.length) {
+        const s = el("div", "secs");
+        g.sections.forEach(t => s.append(el("span", "pk", t)));
+        a.append(s);
+      }
+      if (g.rom_sha1) { const f = el("p", "meta"); f.append("ROM SHA-1 "); f.append(el("code", null, g.rom_sha1.slice(0, 8) + "…" + g.rom_sha1.slice(-4))); a.append(f); }
+      a.append(el("span", "go", "Open guide →"));
+      box.append(a);
+    });
+  } catch (e) {
+    box.append(el("p", "muted", "Couldn't load the game list. Try refreshing."));
+  }
+})();
+</script>
+</body>
+</html>
