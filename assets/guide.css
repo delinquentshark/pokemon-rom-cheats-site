@@ -208,11 +208,15 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .cleft{display:flex; flex-direction:column; gap:10px; min-width:0}
 .cright{display:flex; flex-direction:column; gap:10px; min-width:0}
 .cleft .copy, .cleft .seg{align-self:flex-start}
-/* Codes that come in versions (wild / wild + static): the panel's data-scope shows one of them. */
-[data-scope="wild"] .sc-all, [data-scope="all"] .sc-wild{display:none !important}
-.cleft > .sc-wild, .cleft > .sc-all{display:flex; flex-direction:column; gap:10px; min-width:0}
-details.alt .sc-wild, details.alt .sc-all{margin-bottom:8px}
+/* Codes that come in versions (wild / wild + static / wild + static + gifts): the panel's data-scope shows one.
+   .sc-st is text shared by the two versions that cover static encounters. */
+[data-scope="wild"] .sc-all, [data-scope="wild"] .sc-gift, [data-scope="wild"] .sc-st,
+[data-scope="all"] .sc-wild, [data-scope="all"] .sc-gift,
+[data-scope="gift"] .sc-wild, [data-scope="gift"] .sc-all{display:none !important}
+.cleft > .sc-wild, .cleft > .sc-all, .cleft > .sc-gift{display:flex; flex-direction:column; gap:10px; min-width:0}
+details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8px}
 .scope{gap:10px 12px}
+.scope .seg{max-width:100%}   /* on a phone the three labels wrap inside their buttons instead of overflowing */
 .scope-lbl{font-size:13.5px; font-weight:600; color:var(--muted)}
 .scope-note{font-size:14px; color:var(--muted); max-width:78ch}
 .scope-note b{color:var(--ink)}
