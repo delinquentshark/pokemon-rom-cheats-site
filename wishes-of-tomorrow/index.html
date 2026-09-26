@@ -1,20 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wishes of Tomorrow Field Guide</title>
 <meta name="description" content="Action Replay codes (PC items, shiny, perfect IVs, species, nature, gender) and the wild encounter map for the Pokémon ROM hack Wishes of Tomorrow, each tested in mGBA 0.10.5.">
+<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/guide.css?v=2c344a2fc7">
+<link rel="stylesheet" href="../assets/guide.css?v=d50e924d30">
 </head>
 <body>
 <div class="wrap">
-  <header>
+  <nav class="sitebar" aria-label="Site">
     <a class="back" href="../">← All games</a>
+    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"/></svg><span class="tt-thumb" aria-hidden="true"></span></button>
+  </nav>
+  <header>
     <span class="eyebrow">Action Replay · mGBA 0.10.5 · pokeemerald-expansion 1.15.3</span>
     <h1>Wishes of Tomorrow Field Guide</h1>
     <p class="lede">Cheat codes and wild encounter data pulled from the Wishes of Tomorrow ROM itself, each one tested in mGBA's 0.10.5 emulation core.</p>
@@ -726,5 +730,6 @@ VERIFY.forEach(v => {
   vb.appendChild(tr);
 });
 </script>
+<script src="../assets/site.js?v=f72e2749bf" defer></script>
 </body>
 </html>

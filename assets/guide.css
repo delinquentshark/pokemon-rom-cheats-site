@@ -8,14 +8,8 @@
   --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#0F121C; --surface:#161A27; --sunk:#1D2232; --ink:#E5E8F2; --muted:#9BA3B9; --line:#2A3044;
-    --accent:#A994FF; --accent-soft:#272042; --code:#57D2C6; --code-soft:#12302F;
-    --gold:#F2C45A; --gold-soft:#3A2E12; --bad:#FF8A80; --bad-soft:#3D1715; --ok:#5DD39A; --ok-soft:#133224; --bar:#A994FF;
-  }
-}
+/* Pages set data-theme on <html>: "dark" by default, "light" when the visitor picks it (assets/site.js). */
+:root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#0F121C; --surface:#161A27; --sunk:#1D2232; --ink:#E5E8F2; --muted:#9BA3B9; --line:#2A3044;
@@ -216,3 +210,16 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .game .go{margin-top:auto; font-weight:700; font-size:14px; color:var(--accent)}
 .game.soon{opacity:.6; pointer-events:none}
 @media (prefers-reduced-motion:reduce){ .game{transition:none} }
+
+/* ---------- site bar + theme switch (same on every page) ---------- */
+.sitebar{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:32px}
+.sitebar .back{padding:0}
+.theme-toggle{position:relative; flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:space-between; width:64px; height:32px; padding:0 9px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer; transition:border-color .15s ease}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.theme-toggle svg{position:relative; z-index:1; width:14px; height:14px; transition:color .2s ease}
+.theme-toggle .tt-thumb{position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--accent-soft); box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .22s cubic-bezier(.4,0,.2,1)}
+.theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
+.theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
+.theme-anim, .theme-anim *:not(.tt-thumb){transition:background-color .25s ease, color .25s ease, border-color .25s ease, fill .25s ease !important}
+@media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb, .theme-toggle svg{transition:none} .theme-anim, .theme-anim *{transition:none !important} }

@@ -1,27 +1,53 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found</title>
+<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
 <style>
-:root{--bg:#F2F4F9; --ink:#1A2032; --muted:#586179; --accent:#5638C9}
-@media (prefers-color-scheme: dark){ :root{--bg:#0F121C; --ink:#E5E8F2; --muted:#9BA3B9; --accent:#A994FF} }
-body{background:var(--bg); color:var(--ink); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; margin:0; padding:48px 16px}
-main{max-width:560px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
+/* Self-contained on purpose: GitHub serves this page at any missing path, where relative links to assets/ can break.
+   The colours and the theme switch mirror assets/guide.css. */
+:root{--bg:#F2F4F9; --surface:#FFFFFF; --ink:#1A2032; --muted:#586179; --line:#D6DBE7; --accent:#5638C9; --accent-soft:#ECE7FF; color-scheme:light}
+:root[data-theme="dark"]{--bg:#0F121C; --surface:#161A27; --ink:#E5E8F2; --muted:#9BA3B9; --line:#2A3044; --accent:#A994FF; --accent-soft:#272042; color-scheme:dark}
+body{background:var(--bg); color:var(--ink); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; padding:28px 16px 64px}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:40px}
+main{max-width:560px; display:flex; flex-direction:column; gap:12px}
 h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accent); font-weight:600}
+.sitebar{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:32px}
+.theme-toggle{position:relative; flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:space-between; width:64px; height:32px; padding:0 9px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.theme-toggle svg{position:relative; z-index:1; width:14px; height:14px}
+.theme-toggle .tt-thumb{position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--accent-soft); box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .22s cubic-bezier(.4,0,.2,1)}
+.theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
+.theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
 </style>
 </head>
 <body>
-<main>
-  <h1>Page not found</h1>
-  <p>That page doesn't exist, or the guide moved.</p>
-  <p><a id="home" href="/">Back to all games</a></p>
-</main>
+<div class="wrap">
+  <nav class="sitebar" aria-label="Site">
+    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"/></svg><span class="tt-thumb" aria-hidden="true"></span></button>
+  </nav>
+  <main>
+    <h1>Page not found</h1>
+    <p>That page doesn't exist, or the guide moved.</p>
+    <p><a id="home" href="/">Back to all games</a></p>
+  </main>
+</div>
 <script>
   // Project sites live under /<repo>/, so link to that folder rather than the domain root.
   const seg = location.pathname.split("/").filter(Boolean)[0];
   if (location.hostname.endsWith("github.io") && seg) document.getElementById("home").href = "/" + seg + "/";
+  // Same theme switch as assets/site.js.
+  (() => {
+    const KEY = "prc-theme", root = document.documentElement, b = document.querySelector(".theme-toggle");
+    const cur = () => (root.dataset.theme === "light" ? "light" : "dark");
+    const apply = (t, save) => { root.dataset.theme = t; b.setAttribute("aria-checked", t === "dark" ? "true" : "false"); b.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; if (save) { try { localStorage.setItem(KEY, t); } catch (e) {} } };
+    apply(cur(), false);
+    b.addEventListener("click", () => apply(cur() === "dark" ? "light" : "dark", true));
+  })();
 </script>
 </body>
 </html>
