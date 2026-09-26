@@ -18,6 +18,7 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.55; padding-inline:16px; padding-block:28px 64px}
 .wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:24px}
 h1,h2,h3{font-family:var(--f-display); font-weight:600; text-wrap:balance; margin:0; letter-spacing:.01em}
@@ -79,6 +80,23 @@ details.alt[open] summary{margin-bottom:8px}
 .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
 table{border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums}
 .items table{min-width:640px}
+/* Performance rule: never transition colour properties (background, color, border, fill).
+   The theme switch changes every colour at once and must repaint in a single frame.
+   Transitions on transform/opacity are fine. */
+
+/* Long tables (hundreds of rows). Rows are laid out as grids instead of table rows, and the
+   body is split into several <tbody class="chunk"> blocks of ~40 rows. Each chunk has
+   content-visibility:auto, so chunks outside the viewport skip style, layout and paint
+   entirely. That keeps the theme switch, filtering and tab changes to one cheap frame.
+   Set --cols (column widths) on the table; chunks get their estimated height from JS. */
+table.big{display:block}
+table.big thead, table.big tbody{display:block}
+table.big tbody.chunk{content-visibility:auto}
+table.big tr{display:grid; grid-template-columns:var(--cols)}
+table.big th, table.big td{min-width:0; align-content:center}
+table.big tr.coderow td{grid-column:1 / -1}
+table.big tbody tr:last-child td{border-bottom:1px solid var(--line)}
+table.big tbody:last-child tr:last-child td{border-bottom:0}
 thead th{background:var(--sunk); text-align:left; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:9px 12px; font-weight:700; border-bottom:1px solid var(--line)}
 .items thead th{position:sticky; top:0}
 tbody td{padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:middle}
@@ -201,7 +219,7 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 
 /* ---------- landing page ---------- */
 .games{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px}
-.game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit; transition:border-color .15s ease, transform .15s ease}
+.game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit}
 .game:hover{border-color:var(--accent)}
 .game:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .game h2{font-size:22px}
@@ -209,17 +227,15 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .game .secs{display:flex; flex-wrap:wrap; gap:6px}
 .game .go{margin-top:auto; font-weight:700; font-size:14px; color:var(--accent)}
 .game.soon{opacity:.6; pointer-events:none}
-@media (prefers-reduced-motion:reduce){ .game{transition:none} }
 
 /* ---------- site bar + theme switch (same on every page) ---------- */
 .sitebar{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:32px}
 .sitebar .back{padding:0}
-.theme-toggle{position:relative; flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:space-between; width:64px; height:32px; padding:0 9px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer; transition:border-color .15s ease}
+.theme-toggle{position:relative; flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:space-between; width:64px; height:32px; padding:0 9px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
 .theme-toggle:hover{border-color:var(--accent)}
 .theme-toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.theme-toggle svg{position:relative; z-index:1; width:14px; height:14px; transition:color .2s ease}
+.theme-toggle svg{position:relative; z-index:1; width:14px; height:14px}
 .theme-toggle .tt-thumb{position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--accent-soft); box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .22s cubic-bezier(.4,0,.2,1)}
 .theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
 .theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
-.theme-anim, .theme-anim *:not(.tt-thumb){transition:background-color .25s ease, color .25s ease, border-color .25s ease, fill .25s ease !important}
-@media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb, .theme-toggle svg{transition:none} .theme-anim, .theme-anim *{transition:none !important} }
+@media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }

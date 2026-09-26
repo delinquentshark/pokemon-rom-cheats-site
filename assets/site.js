@@ -14,10 +14,9 @@
     if (save) { try { localStorage.setItem(KEY, theme); } catch (e) {} }
   }
   apply(current(), false);
+  // One attribute change, no colour transitions: the whole page repaints in a single frame.
   document.querySelectorAll(".theme-toggle").forEach(b => b.addEventListener("click", () => {
-    root.classList.add("theme-anim");
     apply(current() === "dark" ? "light" : "dark", true);
-    setTimeout(() => root.classList.remove("theme-anim"), 300);
   }));
   // keep other open tabs of the site in step
   window.addEventListener("storage", e => { if (e.key === KEY && (e.newValue === "light" || e.newValue === "dark")) apply(e.newValue, false); });
