@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/guide.css?v=84e25506c6">
+<link rel="stylesheet" href="../assets/guide.css?v=e154ddebcd">
 </head>
 <body>
 <div class="wrap">
@@ -306,6 +306,14 @@ CF6066B3 C97D9FA5
   <!-- ============ SPECIES IDS ============ -->
   <section class="panel" id="species" role="tabpanel" aria-labelledby="tab-species" hidden>
     <div class="block">
+      <h2>Before you pick an odd one</h2>
+      <div class="shots">
+        <figure><img alt="Wild Alolan Vulpix Lv13" src="img/species_vulpix.png" width="240" height="160" loading="lazy"><figcaption><b>Regional forms work.</b> ID 03C1 gives Alolan Vulpix.</figcaption></figure>
+        <figure><img alt="Wild Mega Gyarados Lv13" src="img/species_mega.png" width="240" height="160" loading="lazy"><figcaption><b>Battle-only forms load</b> (ID 0395, Mega Gyarados), but they aren't meant to exist outside battle. Marked with a caution tag; pick the base form to be safe.</figcaption></figure>
+        <figure><img alt="Game error screen: invalid species 1435" src="img/species_crash.png" width="240" height="160" loading="lazy"><figcaption><b>Don't use 059B.</b> ID 1435 is an empty slot; the game stops with an error screen. It's marked in the table.</figcaption></figure>
+      </div>
+    </div>
+    <div class="block">
       <h2>Species IDs for the species code</h2>
       <p class="lede">Every species in the ROM, from its species table. Pokémon with the same name are forms; regional, Mega and other form labels come from each species' own flags.</p>
       <div class="twoways">
@@ -347,14 +355,6 @@ CF6066B3 C97D9FA5
         <div class="empty" id="sempty" hidden>No species match that search.</div>
       </div>
       <p class="muted" style="font-size:13px" id="smore"></p>
-    </div>
-    <div class="block">
-      <h2>Before you pick an odd one</h2>
-      <div class="shots">
-        <figure><img alt="Wild Alolan Vulpix Lv13" src="img/species_vulpix.png" width="240" height="160" loading="lazy"><figcaption><b>Regional forms work.</b> ID 03C1 gives Alolan Vulpix.</figcaption></figure>
-        <figure><img alt="Wild Mega Gyarados Lv13" src="img/species_mega.png" width="240" height="160" loading="lazy"><figcaption><b>Battle-only forms load</b> (ID 0395, Mega Gyarados), but they aren't meant to exist outside battle. Marked with a caution tag; pick the base form to be safe.</figcaption></figure>
-        <figure><img alt="Game error screen: invalid species 1435" src="img/species_crash.png" width="240" height="160" loading="lazy"><figcaption><b>Don't use 059B.</b> ID 1435 is an empty slot; the game stops with an error screen. It's marked in the table.</figcaption></figure>
-      </div>
     </div>
   </section>
 
@@ -404,6 +404,13 @@ CF6066B3 C97D9FA5
       </div>
     </div>
   </section>
+
+  <footer class="site-foot">
+    <p><b>Please read before using any code.</b> Every Action Replay code on this site was worked out by Claude (an AI model), which reverse-engineered the game's <code>.gba</code> ROM file and then ran each code in the target emulator named on the guide. This website was vibe-coded with Claude as well.</p>
+    <p>I maintain this site, and I have not personally tested every code documented here. I've only tried a few, the ones I needed in my own playthroughs.</p>
+    <p><b>Always back up your save file before using any code.</b></p>
+    <p>Every code targets one exact ROM build. Check the ROM SHA-1 at the top of this guide against your file before using it. No ROMs are hosted here.</p>
+  </footer>
 </div>
 
 <script>

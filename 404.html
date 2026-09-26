@@ -23,6 +23,8 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
 .theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
 .theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
+.site-foot{font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:4px}
+.site-foot p{color:var(--muted)} .site-foot b{color:var(--ink)} code{font-family:ui-monospace,Consolas,monospace; font-size:.9em}
 ::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
 </style>
 </head>
@@ -36,6 +38,11 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
     <p>That page doesn't exist, or the guide moved.</p>
     <p><a id="home" href="/">Back to all games</a></p>
   </main>
+  <footer class="site-foot">
+    <p><b>Please read before using any code.</b> Every Action Replay code on this site was worked out by Claude (an AI model), which reverse-engineered the game's <code>.gba</code> ROM file and then ran each code in the target emulator named on the guide. This website was vibe-coded with Claude as well.</p>
+    <p>I maintain this site, and I have not personally tested every code documented here. I've only tried a few, the ones I needed in my own playthroughs.</p>
+    <p><b>Always back up your save file before using any code.</b></p>
+  </footer>
 </div>
 <script>
   // Project sites live under /<repo>/, so link to that folder rather than the domain root.
