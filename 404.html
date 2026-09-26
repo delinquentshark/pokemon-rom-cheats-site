@@ -44,14 +44,13 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
   // Same theme switch as assets/site.js, including the View Transition fade.
   (() => {
     const KEY = "prc-theme", root = document.documentElement, b = document.querySelector(".theme-toggle");
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
     let theme = root.dataset.theme === "light" ? "light" : "dark";
     const paint = t => { theme = t; root.dataset.theme = t; b.setAttribute("aria-checked", t === "dark" ? "true" : "false"); b.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; };
     paint(theme);
     b.addEventListener("click", () => {
       const t = theme === "dark" ? "light" : "dark";
       try { localStorage.setItem(KEY, t); } catch (e) {}
-      if (!document.startViewTransition || still.matches) paint(t); else document.startViewTransition(() => paint(t));
+      if (!document.startViewTransition) paint(t); else document.startViewTransition(() => paint(t));
     });
   })();
 </script>

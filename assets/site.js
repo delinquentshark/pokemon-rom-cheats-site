@@ -4,7 +4,6 @@
 (() => {
   const KEY = "prc-theme";
   const root = document.documentElement;
-  const still = window.matchMedia("(prefers-reduced-motion: reduce)");
   let theme = root.dataset.theme === "light" ? "light" : "dark";
 
   // One attribute change on <html>. Nothing transitions colours, so the page is fully
@@ -21,11 +20,12 @@
   // The fade is a View Transition: the browser snapshots the page, applies the new theme in
   // that one frame, then crossfades the two snapshots on the GPU. No element is restyled or
   // repainted while it fades, so it costs the same as the instant switch. The page ignores
-  // clicks for the 0.25 s it runs. Browsers without View Transitions, and visitors who ask
-  // for reduced motion, get the instant switch.
+  // clicks for the 0.25 s it runs. Browsers without View Transitions get the instant switch.
+  // It also runs when the visitor asks for reduced motion: a crossfade only changes opacity,
+  // which WCAG doesn't count as motion. Things that move (the knob sliding) still stop.
   function switchTo(t) {
     try { localStorage.setItem(KEY, t); } catch (e) {}
-    if (!document.startViewTransition || still.matches) paint(t);
+    if (!document.startViewTransition) paint(t);
     else document.startViewTransition(() => paint(t));
   }
 

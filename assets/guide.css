@@ -243,7 +243,8 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 
 /* Theme fade. site.js runs the switch inside document.startViewTransition(): the old and new
    page are crossfaded as two GPU snapshots, so nothing is restyled or repainted per frame.
-   While it runs (0.25 s) the page is a snapshot, so clicks are ignored; scrolling still works. */
+   While it runs (0.25 s) the page is a snapshot, so clicks are ignored; scrolling still works.
+   It stays on with reduced motion: an opacity crossfade isn't motion (WCAG 2.3.3). */
 ::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
 
 /* Docked switch. On pages whose sticky bar has data-theme-dock (the guides' tab bar), site.js
@@ -255,4 +256,5 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .theme-toggle.dock{position:absolute; right:0; top:calc(8px + (1.55 * 14px + 20px - 32px) / 2); margin:0; opacity:0; visibility:hidden; transform:scale(.85); transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s}
 [data-docked] > .theme-toggle.dock{opacity:1; visibility:visible; transform:none; transition:opacity .16s ease, transform .16s ease, visibility 0s}
 @media (max-width:600px){ .theme-toggle.dock{top:calc(8px + (1.55 * 13px + 18px - 32px) / 2)} }
-@media (prefers-reduced-motion:reduce){ .theme-toggle.dock{transition:none} }
+/* Reduced motion: the docked switch still fades, but doesn't scale. */
+@media (prefers-reduced-motion:reduce){ .theme-toggle.dock, [data-docked] > .theme-toggle.dock{transform:none} }
