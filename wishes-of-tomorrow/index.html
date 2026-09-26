@@ -369,7 +369,7 @@ CF6066B3 C97D9FA5
           <div class="mapbox" id="mapbox">
             <img alt="Region map of Wishes of Tomorrow" src="img/region_map.png" width="240" height="144">
           </div>
-          <p class="maplegend"><span class="mk" aria-hidden="true"></span>One area. <span class="mk" aria-hidden="true">6</span>Several areas share that spot on the Fly map, and the number says how many. The 6 is both National Park areas plus all four Distortion World areas. Click the marker again to step through them, or hover to see their names.</p>
+          <p class="maplegend"><span class="mk" aria-hidden="true"></span>One area. <span class="mk" aria-hidden="true">6</span>Several areas share that spot on the Fly map, and the number says how many. The 6 is both National Park areas plus all four Distortion World areas. Click a marker or a place name to open it, and click it again to close it. On a numbered marker, each click opens the next area, and the click after the last one closes it. Hover a marker to see its areas' names.</p>
           <div class="loclist" id="loclist" role="group" aria-label="Locations"></div>
         </div>
         <div class="detail" id="detail" aria-live="polite"></div>
@@ -573,7 +573,7 @@ const METH = [
   ["super","Super Rod","40·40·15·4·1"]
 ];
 const locLabel = l => l.name + (l.sub ? " · " + l.sub : "");
-let showLeft = false, selected = LOCS.findIndex(l => l.map === "0.77"), term = "";
+let showLeft = false, selected = -1, term = "";  // -1 = no place open
 const mapbox = document.getElementById("mapbox");
 const loclist = document.getElementById("loclist");
 const detail = document.getElementById("detail");
@@ -609,14 +609,16 @@ function drawMarkers(){
     b.style.top = ((16 + 8*y + 4) / 144 * 100) + "%";
     b.textContent = idx.length > 1 ? idx.length : "";
     const areas = idx.map(i => locLabel(LOCS[i]));
-    const label = idx.length > 1 ? `${idx.length} areas here: ${areas.join(", ")}. Click again for the next one.` : areas[0];
+    const label = idx.length > 1 ? `${idx.length} areas here: ${areas.join(", ")}. Each click opens the next one; the click after the last closes it.` : areas[0];
     b.setAttribute("aria-label", label);
     b.title = label;
+    b.dataset.cell = k;
     b.setAttribute("aria-pressed", idx.includes(selected) ? "true" : "false");
     if (nterm){ if (idx.some(i => matches(LOCS[i]))) b.classList.add("hit"); else b.classList.add("dim"); }
     b.addEventListener("click", () => {
+      // closed -> first area; then each click moves to the next; after the last one, close
       const cur = idx.indexOf(selected);
-      select(idx[(cur + 1) % idx.length]);
+      select(cur === -1 ? idx[0] : cur === idx.length - 1 ? -1 : idx[cur + 1]);
     });
     mapbox.appendChild(b);
   });
@@ -627,16 +629,17 @@ function drawList(){
     const b = document.createElement("button");
     b.type = "button"; b.className = "loc";
     b.innerHTML = esc(l.name) + (l.sub ? ` <small>${esc(l.sub)}</small>` : "") + (l.region ? "" : ` <small>(unused)</small>`);
+    b.dataset.i = i;
     b.setAttribute("aria-pressed", i === selected ? "true" : "false");
     if (nterm){ if (matches(l)) b.classList.add("hit"); else b.classList.add("off"); }
-    b.addEventListener("click", () => select(i));
+    b.addEventListener("click", () => select(i === selected ? -1 : i));
     frag.appendChild(b);
   });
   loclist.replaceChildren(frag);
 }
 function drawDetail(){
   const l = LOCS[selected];
-  if (!l){ detail.innerHTML = "<p class='muted'>Pick a location.</p>"; return; }
+  if (!l){ detail.innerHTML = `<div><h2>No place open</h2><p class="meta">Pick a marker on the map or a place name under it, or search above, to see that area's wild encounters.</p></div>`; return; }
   let h = `<div><h2>${esc(locLabel(l))}</h2><p class="meta">Map ${esc(l.map)}${l.via ? ` · entered from ${esc(l.via)}` : ""}${l.region ? "" : " · leftover Hoenn data, not linked to the Munen region"}</p></div>`;
   METH.forEach(([k,label,odds]) => {
     const m = l.methods[k]; if (!m) return;
@@ -705,7 +708,12 @@ function autoSelect(){
   if (places.length){ if (!places.some(r => r.i === selected)) selected = places[0].i; }
   else if (mons.length){ if (!(cur && monsIn(cur) && (cur.region || showLeft))) selected = mons[0].i; }
 }
-function select(i){ selected = i; drawMarkers(); drawList(); drawDetail(); }
+function select(i){
+  const f = document.activeElement;
+  const again = f && f.dataset && (f.dataset.cell != null ? `.marker[data-cell="${f.dataset.cell}"]` : f.dataset.i != null ? `.loc[data-i="${f.dataset.i}"]` : null);
+  selected = i; drawMarkers(); drawList(); drawDetail();
+  if (again){ const n = document.querySelector(again); if (n) n.focus(); }
+}
 function refresh(){ drawMarkers(); drawList(); drawDetail(); drawResults(); }
 document.getElementById("mq").addEventListener("input", e => { term = e.target.value.trim(); nterm = norm(term); autoSelect(); refresh(); });
 document.getElementById("leftovers").addEventListener("change", e => { showLeft = e.target.checked; autoSelect(); refresh(); });
