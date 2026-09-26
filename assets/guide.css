@@ -208,6 +208,14 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .cleft{display:flex; flex-direction:column; gap:10px; min-width:0}
 .cright{display:flex; flex-direction:column; gap:10px; min-width:0}
 .cleft .copy, .cleft .seg{align-self:flex-start}
+/* Codes that come in versions (wild / wild + static): the panel's data-scope shows one of them. */
+[data-scope="wild"] .sc-all, [data-scope="all"] .sc-wild{display:none !important}
+.cleft > .sc-wild, .cleft > .sc-all{display:flex; flex-direction:column; gap:10px; min-width:0}
+details.alt .sc-wild, details.alt .sc-all{margin-bottom:8px}
+.scope{gap:10px 12px}
+.scope-lbl{font-size:13.5px; font-weight:600; color:var(--muted)}
+.scope-note{font-size:14px; color:var(--muted); max-width:78ch}
+.scope-note b{color:var(--ink)}
 .cright p{font-size:14.5px; max-width:70ch}
 @media (max-width:720px){ .cbody{grid-template-columns:minmax(0,1fr); gap:10px} .chead{padding:14px 16px} .cbody{padding:0 16px 16px} }
 @media (prefers-reduced-motion:reduce){ .chev{transition:none} }
