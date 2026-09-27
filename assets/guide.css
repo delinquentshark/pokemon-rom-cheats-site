@@ -260,17 +260,19 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
    It stays on with reduced motion: an opacity crossfade isn't motion (WCAG 2.3.3). */
 ::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
 
-/* Docked switch. On pages whose sticky bar has data-theme-dock (the guides' tab bar), site.js
-   adds a copy of the switch at the bar's right end. It fades in while the top switch is
-   scrolled out of view (site.js sets data-docked). Only opacity and transform animate. */
+/* Guides with a sticky tab bar: the switch lives in .tt-rail, a zero-height sticky strip right after the site bar.
+   It starts in the site bar's spot, stays at the top of the window as the page scrolls (so it slides down the page),
+   and meets the tab bar exactly where the bar keeps room for it (72px on the right); from then on both stay stuck.
+   Plain position:sticky: the browser moves it while scrolling, with no script and no animation on the main thread.
+   The margins cancel the rail's place in .wrap's column: -(gap 24px + site bar 32px) above, +32px below. */
 [data-theme-dock]{padding-right:72px}
 @media (max-width:360px){ [data-theme-dock] .tab{padding-inline:7px} }
-/* top: centred on the first row of tabs (bar padding 8px + half a tab's height - half the switch's 32px). */
-.theme-toggle.dock{position:absolute; right:0; top:calc(8px + (1.55 * 14px + 20px - 32px) / 2); margin:0; opacity:0; visibility:hidden; transform:scale(.85); transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s}
-[data-docked] > .theme-toggle.dock{opacity:1; visibility:visible; transform:none; transition:opacity .16s ease, transform .16s ease, visibility 0s}
-@media (max-width:600px){ .theme-toggle.dock{top:calc(8px + (1.55 * 13px + 18px - 32px) / 2)} }
-/* Reduced motion: the docked switch still fades, but doesn't scale. */
-@media (prefers-reduced-motion:reduce){ .theme-toggle.dock, [data-docked] > .theme-toggle.dock{transform:none} }
+/* top: centred on the bar's first row of tabs (bar padding 8px + half a tab's height - half the switch's 32px). */
+.tt-rail{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 14px + 20px - 32px) / 2); z-index:6;
+  height:0; margin:-56px 0 32px; display:flex; justify-content:flex-end; align-items:flex-start}
+@media (max-width:600px){ .tt-rail{top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 13px + 18px - 32px) / 2)} }
+/* a ring in the page colour keeps the header's text from touching the switch as it passes underneath */
+.tt-rail .theme-toggle{box-shadow:0 0 0 6px var(--bg)}
 /* ---------- moves tab and learnsets ---------- */
 .picker.inline{flex-direction:row; align-items:center; gap:8px}
 .picker.inline select{width:auto}

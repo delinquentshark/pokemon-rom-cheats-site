@@ -29,18 +29,8 @@
     else document.startViewTransition(() => paint(t));
   }
 
-  // Pages with a sticky bar marked data-theme-dock (the game guides' tab bar) get a second
-  // switch docked on its right. It shows only while the top switch is scrolled out of view.
-  const dock = document.querySelector("[data-theme-dock]");
-  const top = document.querySelector(".sitebar .theme-toggle");
-  if (dock && top && "IntersectionObserver" in window) {
-    const copy = top.cloneNode(true);
-    copy.classList.add("dock");
-    dock.appendChild(copy);
-    new IntersectionObserver(entries => {
-      dock.toggleAttribute("data-docked", !entries[entries.length - 1].isIntersecting);
-    }).observe(top);
-  }
+  // On the guides the switch sits in a sticky strip (.tt-rail in guide.css): it follows the top of the window
+  // down the page and settles into the tab bar. That's all CSS, so there's nothing to do here.
 
   paint(theme);
   document.querySelectorAll(".theme-toggle").forEach(b =>
