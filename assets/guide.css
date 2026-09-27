@@ -271,3 +271,52 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
 @media (max-width:600px){ .theme-toggle.dock{top:calc(8px + (1.55 * 13px + 18px - 32px) / 2)} }
 /* Reduced motion: the docked switch still fades, but doesn't scale. */
 @media (prefers-reduced-motion:reduce){ .theme-toggle.dock, [data-docked] > .theme-toggle.dock{transform:none} }
+/* ---------- moves tab and learnsets ---------- */
+.picker.inline{flex-direction:row; align-items:center; gap:8px}
+.picker.inline select{width:auto}
+.mtable td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.mtable td.hex small{display:block; font-weight:400; color:var(--muted); font-size:12px}
+.mtable td.tags small{display:block; color:var(--muted); font-size:12px; margin-top:3px}
+.mtable tr.mhl td{background:var(--accent-soft)}
+.mv-tmnote{font-size:13px}
+.tg{display:inline-block; font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; margin:0 4px 2px 0; white-space:nowrap}
+.tg-damage{background:var(--sunk); color:var(--ink)}
+.tg-status{background:var(--bad-soft); color:var(--bad)}
+.tg-setup{background:var(--ok-soft); color:var(--ok)}
+.tg-other{background:var(--sunk); color:var(--muted)}
+.mv-legend{grid-template-columns:auto 1fr}
+/* type: a coloured dot, the name in the normal text colour (readable in both themes) */
+.ty{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; white-space:nowrap}
+.ty::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--tc, var(--muted)); flex:none}
+.ty1{--tc:#A8A77A} .ty2{--tc:#C22E28} .ty3{--tc:#A98FF3} .ty4{--tc:#A33EA1} .ty5{--tc:#E2BF65} .ty6{--tc:#B6A136}
+.ty7{--tc:#A6B91A} .ty8{--tc:#735797} .ty9{--tc:#B7B7CE} .ty10{--tc:#68A090} .ty11{--tc:#EE8130} .ty12{--tc:#6390F0}
+.ty13{--tc:#7AC74C} .ty14{--tc:#F7D02C} .ty15{--tc:#F95587} .ty16{--tc:#96D9D6} .ty17{--tc:#6F35FC} .ty18{--tc:#705746}
+.ty19{--tc:#D685AD} .ty20{--tc:#40B5A5}
+tr.lsrow td{background:var(--sunk)}
+.lset{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px 22px; padding:4px 0}
+.lgrp h4{margin:0 0 6px; font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+.lgrp h4 .muted{font-weight:400}
+.mvlist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px}
+.mvlist li{display:grid; grid-template-columns:48px 1fr; gap:8px; align-items:baseline; font-size:14px}
+.mvlist .lv{font-family:var(--f-mono); font-size:12px; color:var(--muted); white-space:nowrap}
+.mvl{color:var(--ink); text-decoration:none; border-left:3px solid var(--tc, var(--line)); padding-left:7px; font-weight:500}
+.mvl:hover, .mvl:focus-visible{color:var(--accent); text-decoration:underline}
+.mvl:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+td.acts .copy.lsb{border-style:dashed}
+#mvtip{position:fixed; z-index:60; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px;
+  padding:10px 12px; font-size:13px; line-height:1.45; box-shadow:0 8px 24px rgba(0,0,0,.25); pointer-events:none; display:flex; flex-direction:column; gap:5px}
+#mvtip p{color:var(--muted)}
+#mvtip .tipnums{font-family:var(--f-mono); font-size:12.5px}
+.mtable td.type small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+/* tables whose columns add up to more than .items' 640px: content-visibility clips anything past the table's box,
+   so the table must be at least as wide as its columns */
+#stable, #mtable{min-width:720px}
+/* Phones: the five tabs stay on one row that scrolls sideways, instead of wrapping into three rows.
+   The padding keeps the selected tab's extension (margin-bottom:-9px) inside the scroll box. */
+@media (max-width:600px){
+  .tablist{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; padding-bottom:9px; margin-bottom:-9px}
+  .tablist::-webkit-scrollbar{display:none}
+  .tab{flex:none}
+}
+/* learnsets stay in view (and wrap to one column) inside the sideways-scrolling table on phones */
+tr.lsrow .lset{position:sticky; left:0; max-width:calc(100vw - 72px)}
