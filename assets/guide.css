@@ -274,6 +274,20 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
 /* a ring in the page colour keeps the header's text from touching the switch as it passes underneath */
 .tt-rail .theme-toggle{box-shadow:0 0 0 6px var(--bg)}
 /* ---------- moves tab and learnsets ---------- */
+/* "What ticking and unticking does" under the TM codes */
+.tickwrap{max-width:860px}
+.ticktable td{vertical-align:top; font-size:14px}
+.ticktable td.nm{width:27%}
+.ticktable th{text-align:left}
+/* phones: one block per row, each cell labelled */
+@media (max-width:600px){
+  .ticktable thead{display:none}
+  .ticktable tr{display:block; padding:10px 12px}
+  .ticktable tr + tr{border-top:1px solid var(--line)}
+  .ticktable td, .ticktable td.nm{display:block; width:auto; padding:2px 0; border:0}
+  .ticktable td.nm{padding-bottom:4px}
+  .ticktable td[data-label]::before{content:attr(data-label) ": "; color:var(--muted); font-weight:600}
+}
 .picker.inline{flex-direction:row; align-items:center; gap:8px}
 .picker.inline select{width:auto}
 .mtable td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}

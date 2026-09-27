@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/guide.css?v=e1053b2797">
+<link rel="stylesheet" href="../assets/guide.css?v=3da731ff59">
 </head>
 <body>
 <div class="wrap">
@@ -714,7 +714,7 @@ CBDECB2E AD254E8A</div>
   <section class="panel" id="moves" role="tabpanel" aria-labelledby="tab-moves" hidden>
     <div class="block">
       <h2>TM codes</h2>
-      <p class="lede">Two codes for TMs and HMs. Add each as its own cheat so you can tick them on and off separately. Code 6 changes the move one TM teaches; Code 7 lets any Pokémon learn it.</p>
+      <p class="lede">Two codes for TMs and HMs. Add each as its own cheat so you can tick them on and off separately. Code 6 changes the move one TM teaches; Code 7 lets any Pokémon learn it. Neither one edits your <code>.gba</code> file or your save: mGBA applies them to its own copy of the game in memory, only while they're ticked.</p>
       <div class="clist">
         <article class="ccard" id="card-tm">
           <h3 class="chead-h"><button class="chead" type="button" aria-expanded="true" aria-controls="cbody6"><span class="eyebrow">Code 6</span><span class="ctitle">Change what a TM teaches</span><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h3>
@@ -727,11 +727,14 @@ D501BC39 D9DC1286</div>
             <button class="copy" type="button" data-copy="code-tm">Copy</button>
           </div>
           <div class="cright">
-            <p>The TM you pick teaches the move you pick instead, and the Bag lists it under that move with its type, power, accuracy and PP. The Pokémon still has to be able to learn the new move, unless Code 7 is on too. Pick the move here, or use <b>TM code</b> on any move in the list below.</p>
+            <p>Makes the TM you pick teach the move you pick. Choose both here, or use <b>TM code</b> on any move in the list below.</p>
+            <p><b>Ticked:</b> that TM is the new move everywhere. The Bag lists it with the new move's name, type, power, accuracy and PP, the party menu shows ABLE or NOT ABLE for the new move, and using the TM teaches it. A Pokémon that can't normally learn the new move shows NOT ABLE, unless Code 7 is ticked too.</p>
+            <p><b>Unticked:</b> the TM is its original move again (close and reopen the Bag if it's open). A move you already taught stays on the Pokémon, and the TM you taught it with stays used up.</p>
             <details class="alt"><summary>Raw template and how it works</summary>
             <div class="codebox sm" id="raw-tm">00000000 1837D876
 0000<span class="hl-i">MMMM</span> 00000000</div>
-            <p class="muted"><span class="hl-i">MMMM</span> is the move's 4-digit hex ID from the list below; the first line depends on the TM, so pick the TM above first. Raw codes need Autodetect. The game looks up a TM's move in a table at 0x086FB0EC, 2 bytes per TM and HM item (TM01 is item 582, HM01 is item 682). That one lookup (0x081A2F1C) feeds the Bag, the party menu's ABLE / NOT ABLE and the teaching itself, so the code changes that TM's entry and nothing else. Use IDs 0001–034F (Pound to Malignant Chain). Higher IDs are Z-Moves and Max Moves, which nothing in the game teaches.</p>
+            <p class="muted"><b>What it physically changes.</b> The game looks up each TM's move in a table at 0x086FB0EC, 2 bytes per TM and HM item (TM01 is item 582, HM01 is item 682). The first line of the code points at the chosen TM's 2 bytes and the second line is the move ID to put there. While the code is ticked, mGBA writes that move ID into its copy of the game in memory; when you untick it, mGBA puts the original 2 bytes back. The Bag, the party menu and the teaching all read that one entry (through 0x081A2F1C), which is why they all change together. The Bag's description text is stored separately, so it stays the TM's own. The <code>.gba</code> file on disk is never touched.</p>
+            <p class="muted" style="margin-top:8px"><span class="hl-i">MMMM</span> is the move's 4-digit hex ID from the list below; the first line depends on the TM, so pick the TM above first. Raw codes need Autodetect. Use IDs 0001–034F (Pound to Malignant Chain). Higher IDs are Z-Moves and Max Moves, which nothing in the game teaches.</p>
             </details>
           </div>
           </div>
@@ -745,18 +748,34 @@ BF0AC24E 5D03BE08</div>
             <button class="copy" type="button" data-copy="code-any">Copy</button>
           </div>
           <div class="cright">
-            <p>Any Pokémon (not an Egg) can learn any TM or HM, not just the ones in its own list, and the party menu shows ABLE for everyone. The game's move tutors aren't changed: they use their own check.</p>
+            <p><b>Ticked:</b> any Pokémon except an Egg can learn any TM or HM, not just the ones in its own list, and the party menu shows ABLE for everyone. A move the Pokémon already knows is still refused. The game's move tutors aren't changed: they use their own check.</p>
+            <p><b>Unticked:</b> only the Pokémon that can normally learn a TM or HM can. Moves already taught stay.</p>
             <details class="alt"><summary>Raw form and how it works</summary>
             <div class="codebox sm">00000000 180CDD2C
 0000E004 00000000</div>
-            <p class="muted">Before teaching a TM or HM, the game checks whether the move is in the Pokémon's own teachable list (0x081B9DF0) and stops with "not compatible" if it isn't. The code changes the branch after that check at 0x0819BA58 (<code>bne</code> to <code>b</code>), so the answer is ignored. The checks for an Egg and for a move the Pokémon already knows still work. The move tutors in this ROM pick the Pokémon on a PC-style screen that does its own check, so they're unaffected.</p>
+            <p class="muted"><b>What it physically changes.</b> Before teaching a TM or HM, the game checks whether the move is in the Pokémon's own teachable list (0x081B9DF0) and stops with "not compatible" if it isn't. The code changes the 2 bytes of the branch after that check, at 0x0819BA58 (<code>bne</code> to <code>b</code>), in mGBA's copy of the game in memory, so the answer is ignored. No species' list is edited, and unticking puts the original branch back. The checks for an Egg and for a move the Pokémon already knows still work. The move tutors in this ROM pick the Pokémon on a PC-style screen that does its own check, so they're unaffected.</p>
             </details>
           </div>
           </div>
         </article>
       </div>
-      <p class="warn"><b>TMs are used up.</b> In this ROM a TM disappears once it has taught a move (HMs don't), so pick a TM you're happy to give up. With Code 6 the Bag shows the new move's name, type, power, accuracy and PP, but the description under it is still the TM's own text.</p>
-      <p class="warn"><b>Setup.</b> Type: Action Replay MAX or Autodetect for the encrypted codes; raw codes need Autodetect. Untick a code before you remove it, as with the encounter codes. A move taught with these codes is an ordinary move on the Pokémon and stays after the codes are off.</p>
+      <h3>What ticking and unticking does</h3>
+      <div class="tablewrap tickwrap">
+        <table class="vtable ticktable">
+          <thead><tr><th></th><th>While ticked</th><th>After you untick</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">The TM picked in Code 6</td><td data-label="While ticked">Is the new move everywhere: its name, type, power, accuracy and PP in the Bag, ABLE / NOT ABLE in the party menu, and what it teaches</td><td data-label="After you untick">Is its original move again</td></tr>
+            <tr><td class="nm">That TM's description in the Bag</td><td data-label="While ticked">Still the TM's own text</td><td data-label="After you untick">The TM's own text</td></tr>
+            <tr><td class="nm">Who can learn TMs and HMs</td><td data-label="While ticked">With Code 7: every Pokémon except Eggs. Without it: only the Pokémon that normally can</td><td data-label="After you untick">Only the Pokémon that normally can</td></tr>
+            <tr><td class="nm">A move already taught</td><td data-label="While ticked">Stays</td><td data-label="After you untick">Stays: it's saved on the Pokémon as an ordinary move</td></tr>
+            <tr><td class="nm">The TM you taught with</td><td data-label="While ticked">Used up (HMs aren't)</td><td data-label="After you untick">Still used up</td></tr>
+            <tr><td class="nm">Your <code>.gba</code> file</td><td data-label="While ticked">Never changed: mGBA applies the codes to its own copy of the game in memory</td><td data-label="After you untick">Never changed</td></tr>
+            <tr><td class="nm">Your save</td><td colspan="2" data-label="Ticked or not">The codes never write to it. What the game saves is ordinary: the moves your Pokémon know and the items in your Bag.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="warn"><b>TMs are used up.</b> In this ROM a TM disappears once it has taught a move (HMs don't), so pick a TM you're happy to give up.</p>
+      <p class="warn"><b>Setup.</b> Type: Action Replay MAX or Autodetect for the encrypted codes; raw codes need Autodetect. Untick a code before you remove it: pressing Remove while it's still ticked leaves its change in place until you reload the game or restart mGBA. A move taught with these codes is an ordinary move on the Pokémon and stays after the codes are off.</p>
     </div>
 
     <div class="block">
