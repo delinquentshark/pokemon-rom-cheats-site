@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wishes of Tomorrow Field Guide</title>
-<meta name="description" content="Action Replay codes for the Pokémon ROM hack Wishes of Tomorrow in mGBA: any item, max money, coins and Battle Points, shiny, perfect IVs, species, nature, gender and ability of new Pokémon, a party editor (IVs, EVs, ability, Poké Ball), EXP boosts, fast eggs, no random encounters and TM codes. Every code tested in mGBA 0.10.5.">
+<meta name="description" content="Action Replay codes for the Pokémon ROM hack Wishes of Tomorrow in mGBA: any item, max money, coins and Battle Points, shiny, perfect IVs, species, nature, gender and ability of new Pokémon, catch on the first ball, a party editor (IVs, EVs, ability, nature, shiny, friendship, Poké Ball), EXP boosts, fast eggs, no random encounters and TM codes. Every code tested in mGBA 0.10.5.">
 <script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/guide.css?v=2748697561">
+<link rel="stylesheet" href="../assets/guide.css?v=6ded114474">
 </head>
 <body>
 <!--
@@ -36,13 +36,13 @@
 
   <div class="tabs" data-theme-dock>
     <div class="tablist" role="tablist" aria-label="Guide sections">
-      <button class="tab" role="tab" id="tab-start" aria-controls="start" aria-selected="true" type="button">Start here</button>
-      <button class="tab" role="tab" id="tab-items" aria-controls="items" aria-selected="false" type="button">Items &amp; money</button>
+      <button class="tab" role="tab" id="tab-start" aria-controls="start" aria-selected="true" type="button" aria-label="Start here"><span class="tl">Start here</span><span class="ts" aria-hidden="true">Start</span></button>
+      <button class="tab" role="tab" id="tab-items" aria-controls="items" aria-selected="false" type="button" aria-label="Items &amp; money"><span class="tl">Items &amp; money</span><span class="ts" aria-hidden="true">Items</span></button>
       <button class="tab" role="tab" id="tab-catching" aria-controls="catching" aria-selected="false" type="button">Catching</button>
-      <button class="tab" role="tab" id="tab-pokemon" aria-controls="pokemon" aria-selected="false" type="button">Your Pokémon</button>
-      <button class="tab" role="tab" id="tab-moves" aria-controls="moves" aria-selected="false" type="button">Moves &amp; TMs</button>
+      <button class="tab" role="tab" id="tab-pokemon" aria-controls="pokemon" aria-selected="false" type="button" aria-label="Your Pokémon"><span class="tl">Your Pokémon</span><span class="ts" aria-hidden="true">Pokémon</span></button>
+      <button class="tab" role="tab" id="tab-moves" aria-controls="moves" aria-selected="false" type="button" aria-label="Moves &amp; TMs"><span class="tl">Moves &amp; TMs</span><span class="ts" aria-hidden="true">Moves</span></button>
       <button class="tab" role="tab" id="tab-species" aria-controls="species" aria-selected="false" type="button">Species</button>
-      <button class="tab" role="tab" id="tab-encounters" aria-controls="encounters" aria-selected="false" type="button">Encounter map</button>
+      <button class="tab" role="tab" id="tab-encounters" aria-controls="encounters" aria-selected="false" type="button" aria-label="Encounter map"><span class="tl">Encounter map</span><span class="ts" aria-hidden="true">Map</span></button>
     </div>
   </div>
 
@@ -91,13 +91,14 @@
             <li><a href="#card-nature">Pick the nature</a><span>Adamant, Timid, Modest…</span></li>
             <li><a href="#card-gender">Pick the gender</a><span>female or male</span></li>
             <li><a href="#card-ability">Pick the ability</a><span>including hidden abilities</span></li>
+            <li><a href="#card-catch">Catch on the first ball</a><span>every ball works like a Master Ball</span></li>
             <li><a href="#card-noenc">No random encounters</a><span>like a Repel that never runs out</span></li>
           </ul>
         </div>
         <div class="dgrp">
           <h3><a href="#pokemon">Your Pokémon</a></h3>
           <ul>
-            <li><a href="#card-editor">Edit a party Pokémon</a><span>IVs, EVs, ability, Poké Ball (even a Cherish Ball)</span></li>
+            <li><a href="#card-editor">Edit a party Pokémon</a><span>IVs, EVs, ability, nature, shiny, friendship, Poké Ball</span></li>
             <li><a href="#card-exp">EXP boost</a><span>×2, ×4, ×8 or max</span></li>
             <li><a href="#card-eggs">Eggs hatch fast</a><span>in a few steps</span></li>
           </ul>
@@ -148,7 +149,7 @@
           <p>Every code was then run in a headless build of mGBA 0.10.5, driving the game like a player: walking into encounters, running the game's own event scripts, buying in a Poké Mart, winning battles, opening menus. After each test the result was read from the game's memory, and anything saved was checked by saving with the codes on, unticking everything, resetting and pressing Continue: the Pokémon, items and money had to come back unchanged, with a valid checksum, no Bad Egg, and the game loading straight into the overworld. Every code was also loaded as Autodetect and as Action Replay MAX (and its raw form as Autodetect) to check it writes exactly its patch and that unticking restores the original. The ROM file's SHA-1 was the same after all testing.</p>
           <p>The details for each code, with the tables and screenshots, are in the <b>Under the hood</b> section at the bottom of its tab. Three checks cover every code at once:</p>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Every code at once: all the codes on this site ticked together, then a gift, a battle, money, coins, the party editor, walking, save and reload</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every new code loads as Autodetect and Action Replay MAX (and raw as Autodetect), writes exactly its patch, and unticking restores the ROM; no two codes patch the same address</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The codes the page builds in the browser (codes.js) equal the Python generator for every choice</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Every code at once: all the codes on this site ticked together, then a gift, a battle, money, coins, the party editor, walking, save and reload</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every new code loads as Autodetect and Action Replay MAX (and raw as Autodetect), writes exactly its patch, and unticking restores the ROM; no two codes patch the same address</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The codes the page builds in the browser (codes.js) equal the Python generator, for every choice in the lists and 3,025 party edits</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
         </div>
         <div class="block">
@@ -156,7 +157,7 @@
           <dl class="re">
             <dt>Encrypted</dt><dd>The codes you copy on this page are encrypted Action Replay (PAR v3) codes. mGBA reads them as <b>Autodetect</b> or <b>Action Replay MAX</b>.</dd>
             <dt>Raw</dt><dd>Each code's raw (decrypted) form is in the Under the hood section of its tab, with the addresses it changes. Raw codes need <b>Autodetect</b>. Most are ROM patches: <code>00000000 18aaaaaa</code> + <code>0000vvvv 00000000</code> puts the 16-bit value <code>vvvv</code> at address <code>0x08000000 + aaaaaa × 2</code>.</dd>
-            <dt>In the browser</dt><dd>The page builds each code from your choices in <code>codes.js</code>, a copy of the Python generator used for the tests. A check runs both on every code the page can make (all species, natures, genders, TM and move pairs, items and 3,013 party edits: 71,354 codes, 606,537 lines) and they match exactly.</dd>
+            <dt>In the browser</dt><dd>The page builds each code from your choices in <code>codes.js</code>, a copy of the Python generator used for the tests. A check runs both on every code the page can make from a list (all species, natures, genders, TM and move pairs, and items) and on 3,025 party edits (every slot and field, the edge values, and 3,000 random mixes): 71,367 codes, 634,623 lines, and they match exactly. That check runs in Node.js. The page itself was tested in Chromium at desktop and phone widths, not in other browsers.</dd>
             <dt>Master codes</dt><dd>mGBA doesn't need one. A vanilla Emerald master code hooks an address this hack doesn't use, and mGBA copies that hook into every cheat added after it, so those cheats never run.</dd>
             <dt>Remove while ticked</dt><dd>Unticking a code restores the original instructions. Pressing Remove on a ticked code drops it from the list but leaves its patch in mGBA's memory until the game is reloaded or mGBA restarts.</dd>
           </dl>
@@ -211,8 +212,8 @@ C8A94915 BE21E3EA
 CD276789 9AA84F49
 0AD24176 0ACC68BE</div>
         <div class="row"><button class="copy" type="button" data-copy="code-coins">Copy code</button><span class="lines" data-lines="code-coins"></span></div>
-        <p class="use"><b>How to use:</b> tick it, then get or spend coins once. That saves 9,999 in your game, so you can untick it.</p>
-        <ul class="gtk"><li>Untick it before any coins change hands and your real count comes back.</li></ul>
+        <p class="use"><b>How to use:</b> tick it, then trade coins for a prize at the Game Corner's prize counter once. You get the prize without losing coins, and 9,999 is saved in your game, so you can untick it.</p>
+        <ul class="gtk"><li>While it's ticked, the coin clerk won't sell you coins: the game thinks your Coin Case is full.</li><li>Untick it before any coins change hands and your real count comes back.</li></ul>
       </article>
       <article class="ccard mini" id="card-bp">
         <h3 class="mhead">Max Battle Points</h3>
@@ -322,9 +323,9 @@ CD276789 9AA84F49
           <div class="shots">
             <figure><img alt="Poke Mart with money showing 999999 after buying a Max Repel" src="img/money_mart.png" width="240" height="160" loading="lazy"><figcaption><b>Max money:</b> a Max Repel bought in a Poké Mart. The money still shows ₽999,999 and the Max Repel is in the Bag.</figcaption></figure>
           </div>
-          <p class="muted" style="font-size:14px">Every test runs the game's own code: the PC through the same special the ROM's PC script calls, then the real menus (Item Storage → Withdraw Item → ×999); money and coins through the script commands events use (<code>addmoney</code>, <code>removemoney</code>, <code>checkmoney</code>, <code>addcoins</code>, <code>removecoins</code>, <code>checkcoins</code>) and a real Poké Mart. Anything that changes the save ends with save → untick → reset → Continue.</p>
+          <p class="muted" style="font-size:14px">Every test runs the game's own code: the PC through the same special the ROM's PC script calls, then the real menus (Item Storage → Withdraw Item → ×999); money and coins through the script commands events use (<code>addmoney</code>, <code>removemoney</code>, <code>checkmoney</code>, <code>addcoins</code>, <code>removecoins</code>, <code>checkcoins</code>), a real Poké Mart, and the Game Corner's own coin clerk and prize counter scripts. Anything that changes the save ends with save → untick → reset → Continue.</p>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">PC item, no code: the save&#x27;s own PC slot 1, nothing withdrawn</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item, code (Rare Candy): PC slot 1 = Rare Candy x999, withdraw all 999 through the PC menus</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item, code (Master Ball), raw form: withdraw all 999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item, code (PP Max): withdraw 999, save with the code on, untick, reset, Continue: 999 in the bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, no code: removemoney 100 takes 100 (3,000 -&gt; 2,900)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, no code: checkmoney 10,000,000 says no</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: checkmoney 10,000,000 says yes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: removemoney 100 stores 999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: addmoney 1 stores 999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: special 0xC8 (cost in var 0x8005 = 60,000) says yes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, no code: special 0xC8 (cost 60,000) says no</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: special 0xC9 (take the cost in var 0x8005) takes nothing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: buy a Max Repel (900) in a Poké Mart: 999,999 stored, Max Repel in the bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code ticked, nothing bought or sold, unticked: the real 3,000 is still there</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: removemoney, save, untick, reset, Continue: 999,999 kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, no code: addcoins 50, removecoins 20 -&gt; 30</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: checkcoins shows 9,999 before anything is stored</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: removecoins 20 with 0 coins stores 9,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: addcoins 5 stores 9,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: addcoins, save, untick, reset, Continue: 9,999 kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Battle Points, code: Battle Points become 9,999 and stay after unticking</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Battle Points, code: save, untick, reset, Continue: 9,999 kept</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">PC item, no code: the save&#x27;s own PC slot 1, nothing withdrawn</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item, code (Rare Candy): PC slot 1 = Rare Candy x999, withdraw all 999 through the PC menus</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item, code (Master Ball), raw form: withdraw all 999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item, code (PP Max): withdraw 999, save with the code on, untick, reset, Continue: 999 in the bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, no code: removemoney 100 takes 100 (3,000 -&gt; 2,900)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, no code: checkmoney 10,000,000 says no</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: checkmoney 10,000,000 says yes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: removemoney 100 stores 999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: addmoney 1 stores 999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: special 0xC8 (cost in var 0x8005 = 60,000) says yes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, no code: special 0xC8 (cost 60,000) says no</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: special 0xC9 (take the cost in var 0x8005) takes nothing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: buy a Max Repel (900) in a Poké Mart: 999,999 stored, Max Repel in the bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code ticked, nothing bought or sold, unticked: the real 3,000 is still there</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Money, code: removemoney, save, untick, reset, Continue: 999,999 kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, no code: addcoins 50, removecoins 20 -&gt; 30</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: checkcoins shows 9,999 before anything is stored</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: removecoins 20 with 0 coins stores 9,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: addcoins 5 stores 9,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, code: addcoins, save, untick, reset, Continue: 9,999 kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, the Game Corner&#x27;s own scripts: no code: the clerk sells 50 coins for 1,000</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, the Game Corner&#x27;s own scripts: code: the clerk says the Coin Case is full; no coins or money change</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, the Game Corner&#x27;s own scripts: no code, 0 coins: the prize counter says not enough coins</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, the Game Corner&#x27;s own scripts: no code, 6,000 coins: TM55 for 6,000, 0 coins left</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, the Game Corner&#x27;s own scripts: code, 0 coins: TM55 given and 9,999 coins stored</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins, the Game Corner&#x27;s own scripts: code: TM55, save, untick, reset, Continue: 9,999 coins and TM55 kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Battle Points, code: Battle Points become 9,999 and stay after unticking</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Battle Points, code: save, untick, reset, Continue: 9,999 kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Battle Points set to 100 while the code is ticked: 9,999 again two frames later</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">PC item code: after withdrawing all 999 Rare Candies, PC slot 1 is Rare Candy x999 again while the code is ticked</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Coins: 50 real coins; ticked, the game shows 9,999; unticked before any coins change hands, 50 again</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
         </div>
       </div>
@@ -514,6 +515,20 @@ F04033EF 7702B0F4</div>
           <div class="cright">
             <p>Pokémon you catch, receive or hatch get their species' <span id="ab-name">hidden</span> ability: wild ones, one-off battles, gifts and Eggs.</p>
             <ul class="gtk"><li>A species without a second or hidden ability gets its first one.</li><li>Trainers' Pokémon and in-game trades aren't changed, and a gift whose event sets its own ability keeps it.</li><li>To change a Pokémon you already have, use <a href="#card-editor">Edit a party Pokémon</a>.</li></ul>
+          </div>
+        </div>
+      </article>
+      <article class="ccard" id="card-catch">
+        <h3 class="chead-h"><button class="chead" type="button" aria-expanded="true" aria-controls="cb-catch"><span class="ctitle">Catch on the first ball</span><span class="csub">every ball works like a Master Ball</span><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h3>
+        <div class="cbody" id="cb-catch">
+          <div class="cleft">
+            <div class="codebox sm" id="code-catch">23DE0575 8C358088
+42A3F330 D65EE38A</div>
+            <div class="row"><button class="copy" type="button" data-copy="code-catch">Copy code</button><span class="lines" data-lines="code-catch"></span></div>
+          </div>
+          <div class="cright">
+            <p>Any Poké Ball you throw at a wild or one-off Pokémon catches it on the first try, even at full HP, like a Master Ball. The Pokémon is stored in the ball you threw, so a Premier Ball catch stays in a Premier Ball.</p>
+            <ul class="gtk"><li>The ball is used up as usual.</li><li>Trainers' Pokémon still can't be caught: the game blocks the ball as usual.</li></ul>
           </div>
         </div>
       </article>
@@ -716,7 +731,7 @@ CF251D68 25BDFBC9</div>
 000009FF 00000000
 00000000 18FFFF80
 000000<span class="hl-i">NN</span> 00000000</div>
-            <p class="muted"><span class="hl-i">NN</span>: <code>00</code> first, <code>01</code> second, <code>02</code> hidden ability. The creation routine (CreateBoxMon, 0x081B6650) stores "ability number = personality &amp; 1" at 0x081B6936, only for species with a second ability. The first nine patches rewrite 0x081B6924–0x081B6934 so that, for a Pokémon made with the player as its original trainer (wild, one-off, gifts and Eggs all are), the ability number is read from one byte in the ROM's empty space at 0x09FFFF00 (the last patch), through a pointer put in place of an unused literal at 0x081B69A4 (0x1BEF, a line number only the invalid-species error path uses). Pokémon made for trainers or with a preset trainer (trades, the Battle Frontier) still get personality &amp; 1. The "has a second ability" check is dropped: a species without one reads its first ability either way.</p>
+            <p class="muted"><span class="hl-i">NN</span>: <code>00</code> first, <code>01</code> second, <code>02</code> hidden ability. The creation routine (CreateBoxMon, 0x081B6650) stores "ability number = personality &amp; 1" at 0x081B6936, only for species with a second ability. The first nine patches rewrite 0x081B6924–0x081B6934 so that, for a Pokémon made with the player as its original trainer (wild, one-off, gifts and Eggs all are), the ability number is read from one byte in the ROM's empty space at 0x09FFFF00 (the last patch), through a pointer put in place of an unused literal at 0x081B69A4 (0x1BEF, a line number only the invalid-species error path uses). Pokémon made for trainers or with a preset trainer (in-game trades, for example) still get personality &amp; 1, and in-game trades then set their own ability. The "has a second ability" check is dropped: a species without one reads its first ability either way.</p>
           </div>
           <div class="how">
             <h4>No random encounters</h4>
@@ -727,8 +742,14 @@ CF251D68 25BDFBC9</div>
             <p class="muted">WildEncounterCheck (0x0823BB04) decides whether a step in grass, a cave or water (or a Rock Smash) starts a battle. The code makes it <code>movs r0, #0</code> / <code>bx lr</code>: it always says no. Fishing, Sweet Scent and scripted battles don't go through it.</p>
           </div>
           <div class="how">
+            <h4>Catch on the first ball</h4>
+            <div class="codebox sm">00000000 18056890
+0000E01B 00000000</div>
+            <p class="muted">The ball-throw battle command (Cmd_handleballthrow, 0x080ACD12) first sends a ball thrown at a trainer's Pokémon to its own script (0x080ACD92), which blocks it. For any other Pokémon it works out the catch odds in r6, and at 0x080AD11E does <code>cmp r6, #0xFE</code> / <code>bhi</code>: above 254, straight to the "caught" branch (0x080AD15A), as for a Master Ball; otherwise it rolls the shakes. The code turns that <code>bhi</code> at 0x080AD120 into a plain <code>b</code>, so every throw takes the caught branch. The catch then goes on exactly as a Master Ball catch does, with the ball that was thrown.</p>
+          </div>
+          <div class="how">
             <h4>Which Pokémon each version covers</h4>
-            <p class="muted"><b>Wild only</b>: random encounters from an area's encounter table. <b>Wild + one-off</b> adds every Pokémon an event script sends into a wild battle, through the <code>setwildbattle</code> script command that all 18 static encounters in the ROM use. <b>Wild, one-off + gifts</b> also adds every Pokémon an event gives you, through the <code>givemon</code> command that all 32 gifts in the ROM use. Eggs, trainers' Pokémon and roaming Pokémon are made by other routines and aren't changed by any version. Always shiny also covers gifts and Eggs, and Pick the ability covers everything with the player as original trainer.</p>
+            <p class="muted"><b>Wild only</b>: random encounters from an area's encounter table. <b>Wild + one-off</b> adds every Pokémon an event script sends into a wild battle, through the <code>setwildbattle</code> script command that all 18 static encounters in the ROM use. <b>Wild, one-off + gifts</b> also adds every Pokémon an event gives you, through the <code>givemon</code> command that all 32 gifts in the ROM use. Eggs and trainers' Pokémon are made by other routines and aren't changed by any version (roaming Pokémon weren't tested). Always shiny also covers gifts and Eggs, and Pick the ability covers everything with the player as original trainer.</p>
           </div>
           <div class="how">
             <h4>Found along the way</h4>
@@ -834,13 +855,33 @@ CF251D68 25BDFBC9</div>
         </div>
 
         <div class="block">
-          <h3>Ability and no random encounters, tested</h3>
+          <h3>Ability, no random encounters and other checks, tested</h3>
           <div class="shots">
             <figure><img alt="Summary of an Electrode with the ability Aftermath" src="img/ability_summary.png" width="240" height="160" loading="lazy"><figcaption><b>Pick the ability (Hidden):</b> a one-off Electrode comes with Aftermath, its hidden ability.</figcaption></figure>
           </div>
-          <p class="muted" style="font-size:14px">The ability tests make each kind of Pokémon through the game's own code: a one-off battle from a <code>setwildbattle</code> script (three random seeds), a wild encounter by walking, a gift through <code>givemon</code>, an Egg through <code>giveegg</code>, and Pokémon made for a trainer or with a preset trainer by calling the creation routine directly. The ability was then read through the game's own GetMonAbility and compared with the species' three abilities in the ROM. The no-encounter tests walk 300 steps on an encounter tile from three seeds; without the code each seed met a Pokémon.</p>
+          <p class="muted" style="font-size:14px">The ability tests make each kind of Pokémon through the game's own code: a one-off battle from a <code>setwildbattle</code> script (three random seeds), a wild encounter by walking, a gift through <code>givemon</code>, an Egg through <code>giveegg</code>, and Pokémon made for a trainer or with a preset trainer by calling the creation routine directly. The ability was then read through the game's own GetMonAbility and compared with the species' three abilities in the ROM. The no-encounter tests walk 300 steps on an encounter tile from three seeds; without the code each seed met a Pokémon. The in-game trade tests call the special the trade scripts run and compare the ability with the trade's own entry in the ROM. The other checks start a real trainer battle with every catching code ticked and compare the trainer's Pokémon byte for byte with a run without codes, turn on the hack's randomizer flags, and lead with an Adamant Abra that has Synchronize.</p>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">First ability: one-off battles (3 seeds), a wild encounter, a gift and an Egg get it <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">First ability: Pokémon made for a trainer or with a preset or random trainer keep their own <small class="muted">(4 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Second ability: one-off battles (3 seeds), a wild encounter, a gift and an Egg get it <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Second ability: Pokémon made for a trainer or with a preset or random trainer keep their own <small class="muted">(4 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability: one-off battles (3 seeds), a wild encounter, a gift and an Egg get it <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability: Pokémon made for a trainer or with a preset or random trainer keep their own <small class="muted">(4 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability on a species without one (Metapod) -&gt; its first ability</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">no code: gift keeps personality &amp; 1</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability gift, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, no code, seed 111: a battle within 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code, seed 111: no battle in 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, no code, seed 222: a battle within 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code, seed 222: no battle in 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, no code, seed 333: a battle within 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code, seed 333: no battle in 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code: Sweet Scent still finds a Pokemon</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code: a one-off (scripted) battle still starts</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">First ability: one-off battles (3 seeds), a wild encounter, a gift and an Egg get it <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">First ability: Pokémon made for a trainer or with a preset or random trainer keep their own <small class="muted">(4 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Second ability: one-off battles (3 seeds), a wild encounter, a gift and an Egg get it <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Second ability: Pokémon made for a trainer or with a preset or random trainer keep their own <small class="muted">(4 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability: one-off battles (3 seeds), a wild encounter, a gift and an Egg get it <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability: Pokémon made for a trainer or with a preset or random trainer keep their own <small class="muted">(4 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability on a species without one (Metapod) -&gt; its first ability</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">no code: gift keeps personality &amp; 1</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Hidden ability gift, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The four in-game trades, with no ability code and with each of the three: each keeps the ability the trade sets (read from the trade table) <small class="muted">(16 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">gift event that sets ability slot 0 (Electrode), second ability code: keeps the event&#x27;s</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">gift event that sets ability slot 0 (Electrode), hidden ability code: keeps the event&#x27;s</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">gift event that sets ability slot 1 (Electrode), first ability code: keeps the event&#x27;s</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">gift event that sets ability slot 1 (Electrode), hidden ability code: keeps the event&#x27;s</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, no code, seed 111: a battle within 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code, seed 111: no battle in 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, no code, seed 222: a battle within 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code, seed 222: no battle in 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, no code, seed 333: a battle within 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code, seed 333: no battle in 300 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code: Sweet Scent still finds a Pokémon</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, code: a one-off (scripted) battle still starts</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Bug Catcher Rick&#x27;s trainer battle, seed 1111: his Pokémon are byte-for-byte the same with the shiny, IV, species, nature, gender, ability and catch codes ticked as with none</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Bug Catcher Rick&#x27;s trainer battle, seed 2222: his Pokémon are byte-for-byte the same with the shiny, IV, species, nature, gender, ability and catch codes ticked as with none</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Randomizer flags 0x4A0 and 0x4A3 set, no codes, three seeds: species not from the map&#x27;s table (randomized)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Randomizer flags 0x4A0 and 0x4A3 set, species code (Bagon), three seeds: always Bagon</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Randomizer flags 0x4A0 and 0x4A3 set, all five catching codes, three seeds: always Bagon</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Synchronize: an Adamant Abra with Synchronize leads, 30 random encounters: Adamant no more often than chance (Synchronize would make it about half)</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Surfing, Rock Smash and fishing, tested</h3>
+          <p class="muted" style="font-size:14px">The test save stands in a cave whose only wild Pokémon appear on the ground, so for these the game's map location was pointed at a route that has water, Rock Smash and fishing Pokémon for one call, and the game's own routines were called the way the field code calls them: the step routine with an ocean-water tile under the player (surfing), the Rock Smash special the field-move script runs, and the fishing routine that runs once a Pokémon bites, with each rod. Each code was tried alone and all together, in its Wild only and its Wild, one-off + gifts version, and the Pokémon that appeared was read from the game's memory.</p>
+          <div class="tablewrap" style="max-width:860px">
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Surfing: no codes, two seeds: a normal Pokémon from the route&#x27;s table <small class="muted">(2 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Surfing: Always shiny, Perfect IVs, species (Bagon), nature (Adamant), gender (female) and hidden ability, each alone and all together (Wild only and Wild, one-off + gifts versions) <small class="muted">(8 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Rock Smash: no codes, two seeds: a normal Pokémon from the route&#x27;s table <small class="muted">(2 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Rock Smash: Always shiny, Perfect IVs, species (Bagon), nature (Adamant), gender (female) and hidden ability, each alone and all together (Wild only and Wild, one-off + gifts versions) <small class="muted">(8 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Old Rod: no codes, two seeds: a normal Pokémon from the route&#x27;s table <small class="muted">(2 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Old Rod: Always shiny, Perfect IVs, species (Bagon), nature (Adamant), gender (female) and hidden ability, each alone and all together (Wild only and Wild, one-off + gifts versions) <small class="muted">(8 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Good Rod: no codes, two seeds: a normal Pokémon from the route&#x27;s table <small class="muted">(2 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Good Rod: Always shiny, Perfect IVs, species (Bagon), nature (Adamant), gender (female) and hidden ability, each alone and all together (Wild only and Wild, one-off + gifts versions) <small class="muted">(8 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Super Rod: no codes, two seeds: a normal Pokémon from the route&#x27;s table <small class="muted">(2 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Super Rod: Always shiny, Perfect IVs, species (Bagon), nature (Adamant), gender (female) and hidden ability, each alone and all together (Wild only and Wild, one-off + gifts versions) <small class="muted">(8 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, Surfing, three seeds: no Pokémon in 400 tries <small class="muted">(3 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, Rock Smash, three seeds: no Pokémon in 400 tries <small class="muted">(3 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, Old Rod, three seeds: a Pokémon still bites <small class="muted">(3 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, Good Rod, three seeds: a Pokémon still bites <small class="muted">(3 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No random encounters, Super Rod, three seeds: a Pokémon still bites <small class="muted">(3 runs)</small></td><td><span class="pass">PASS</span></td></tr></tbody></table>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Catch on the first ball, tested</h3>
+          <div class="shots">
+            <figure><img alt="Battle message: Gotcha! Regirock was caught! Regirock's HP bar is full." src="img/catch_gotcha.png" width="240" height="160" loading="lazy"><figcaption><b>One Poké Ball</b> at a full-HP Lv40 Regirock (catch rate 3). Without the code, the same throw failed in all three test seeds.</figcaption></figure>
+            <figure><img alt="Battle message: The Trainer blocked your Poké Ball!" src="img/catch_trainer.png" width="240" height="160" loading="lazy"><figcaption><b>Trainer battle:</b> a Master Ball thrown at Bug Catcher Rick's Wurmple, with the code ticked, is still blocked.</figcaption></figure>
+          </div>
+          <p class="muted" style="font-size:14px">Each throw goes through the real battle menu: a one-off battle started from a <code>setwildbattle</code> script, or a random encounter by walking, then the ball thrown from the battle screen's last-used-ball shortcut (R). The trainer test starts a real trainer battle with the ROM's own arguments for one of its trainers and throws the ball from the Bag. The tests then read the party, the ball the Pokémon is stored in and how many balls are left.</p>
+          <div class="tablewrap" style="max-width:860px">
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Catch on the first ball, no code: Poké Ball at a full-HP Regirock Lv40 (catch rate 3), seed 1111</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Poké Ball at a full-HP Regirock Lv40, seed 1111</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, no code: Poké Ball at a full-HP Regirock Lv40 (catch rate 3), seed 2222</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Poké Ball at a full-HP Regirock Lv40, seed 2222</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, no code: Poké Ball at a full-HP Regirock Lv40 (catch rate 3), seed 3333</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Poké Ball at a full-HP Regirock Lv40, seed 3333</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Premier Ball at a full-HP Suicune Lv50</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Quick Ball at a full-HP Suicune Lv50</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Beast Ball (x0.1 on a non-Ultra Beast) at a full-HP Suicune Lv50</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Cherish Ball at a full-HP Suicune Lv50</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Poké Ball at a Lv5 Kecleon, caught, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Poké Ball at a random wild encounter in Munen Tunnel, seed 6666</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: Poké Ball at a random wild encounter in Munen Tunnel, seed 7777</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball, code: a Master Ball thrown at a trainer&#x27;s Pokémon is still blocked</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
         </div>
       </div>
@@ -852,15 +893,25 @@ CF251D68 25BDFBC9</div>
     <div class="row cctl"><button class="copy" type="button" data-cards="collapse">Collapse all</button><button class="copy" type="button" data-cards="expand">Expand all</button></div>
     <div class="clist">
       <article class="ccard" id="card-editor">
-        <h3 class="chead-h"><button class="chead" type="button" aria-expanded="true" aria-controls="cb-editor"><span class="ctitle">Edit a party Pokémon</span><span class="csub">IVs, EVs, ability and Poké Ball</span><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h3>
+        <h3 class="chead-h"><button class="chead" type="button" aria-expanded="true" aria-controls="cb-editor"><span class="ctitle">Edit a party Pokémon</span><span class="csub">IVs, EVs, ability, nature, shiny, friendship, Poké Ball</span><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h3>
         <div class="cbody wide" id="cb-editor">
           <div class="cleft edform">
-            <div class="field"><span class="flabel" id="ed-slot-lbl">Party slot</span>
-              <div class="seg" role="group" aria-labelledby="ed-slot-lbl" id="ed-slot">
-                <button type="button" data-v="0" aria-pressed="true">1</button><button type="button" data-v="1" aria-pressed="false">2</button><button type="button" data-v="2" aria-pressed="false">3</button><button type="button" data-v="3" aria-pressed="false">4</button><button type="button" data-v="4" aria-pressed="false">5</button><button type="button" data-v="5" aria-pressed="false">6</button>
+            <div class="field slotpick"><span class="flabel" id="ed-slot-lbl">1. Which party slot?</span>
+              <div class="party" role="group" aria-labelledby="ed-slot-lbl" aria-describedby="ed-slot-note" id="ed-slot">
+                <button type="button" class="pslot lead" data-v="0" aria-pressed="true" aria-label="Slot 1, your lead"><span class="pn">1</span><span class="pw">Lead</span><span class="pm" aria-hidden="true"></span></button>
+                <button type="button" class="pslot" data-v="1" aria-pressed="false" aria-label="Slot 2"><span class="pn">2</span><span class="pm" aria-hidden="true"></span></button>
+                <button type="button" class="pslot" data-v="2" aria-pressed="false" aria-label="Slot 3"><span class="pn">3</span><span class="pm" aria-hidden="true"></span></button>
+                <button type="button" class="pslot" data-v="3" aria-pressed="false" aria-label="Slot 4"><span class="pn">4</span><span class="pm" aria-hidden="true"></span></button>
+                <button type="button" class="pslot" data-v="4" aria-pressed="false" aria-label="Slot 5"><span class="pn">5</span><span class="pm" aria-hidden="true"></span></button>
+                <button type="button" class="pslot" data-v="5" aria-pressed="false" aria-label="Slot 6"><span class="pn">6</span><span class="pm" aria-hidden="true"></span></button>
               </div>
-              <span class="fnote">1 is the Pokémon at the top of your party.</span>
+              <span class="fnote" id="ed-slot-note">Laid out like the game's POKéMON screen: slot 1 is the big box on the left (your lead, the one sent out first), and slots 2 to 6 are the rows on the right, top to bottom.</span>
             </div>
+            <div class="field col">
+              <label class="picker"><span class="flabel">2. Which Pokémon is in that slot?</span><input id="ed-species" class="search" type="search" list="sp-options" placeholder="Type its species, e.g. Electrode" autocomplete="off" aria-describedby="ed-species-msg"></label>
+              <p class="pickmsg" id="ed-species-msg">The code only changes that slot if this species is in it.</p>
+            </div>
+            <p class="flabel">3. What to change</p>
             <fieldset class="edset">
               <legend><label><input type="checkbox" id="ed-iv-on" checked> Set IVs</label><span class="fnote">0–31 each</span></legend>
               <div class="edgrid" id="ed-iv"></div>
@@ -874,144 +925,30 @@ CF251D68 25BDFBC9</div>
             </fieldset>
             <div class="field2">
               <label class="picker"><span>Ability</span><select id="ed-ability" class="search"><option value="">Don't change</option><option value="0">First ability</option><option value="1">Second ability</option><option value="2">Hidden ability</option></select></label>
+              <label class="picker"><span>Nature (for stats)</span><select id="ed-nature" class="search"><option value="">Don't change</option></select></label>
+              <label class="picker"><span>Shiny</span><select id="ed-shiny" class="search"><option value="">Don't change</option><option value="1">Make it shiny</option><option value="0">Make it not shiny</option></select></label>
               <label class="picker"><span>Poké Ball</span><select id="ed-ball" class="search"><option value="">Don't change</option><option value="0">Strange Ball</option><option value="1">Poké Ball</option><option value="2">Great Ball</option><option value="3">Ultra Ball</option><option value="4">Master Ball</option><option value="5">Premier Ball</option><option value="6">Heal Ball</option><option value="7">Net Ball</option><option value="8">Nest Ball</option><option value="9">Dive Ball</option><option value="10">Dusk Ball</option><option value="11">Timer Ball</option><option value="12">Quick Ball</option><option value="13">Repeat Ball</option><option value="14">Luxury Ball</option><option value="15">Level Ball</option><option value="16">Lure Ball</option><option value="17">Moon Ball</option><option value="18">Friend Ball</option><option value="19">Love Ball</option><option value="20">Fast Ball</option><option value="21">Heavy Ball</option><option value="22">Dream Ball</option><option value="23">Safari Ball</option><option value="24">Sport Ball</option><option value="25">Park Ball</option><option value="26">Beast Ball</option><option value="27">Cherish Ball</option></select></label>
+            </div>
+            <div class="field frrow">
+              <label class="chk"><input type="checkbox" id="ed-fr-on"> Set friendship</label>
+              <input type="number" id="ed-fr" class="num" min="0" max="255" value="255" inputmode="numeric" aria-label="Friendship, 0 to 255" disabled>
+              <span class="fnote">0–255; 255 is the most</span>
             </div>
           </div>
           <div class="cright">
-            <p>Changes one Pokémon you already have, for good: its IVs, EVs, ability and the Poké Ball it was caught in (Cherish Ball and Strange Ball included).</p>
-            <div class="codebox sm" id="code-editor">4DC62B2B 04FCA203
-5EA6204A 578728BC
-67663085 3CFA0692
-49180397 20F2C92B
-CC7FEAA3 9525EA63
-9E231A26 796EF53C
-F78F3C9C 7B4F1E7D
-56307399 25DF4466
-8F82428B 83FC80F2
-ABF14757 E1B36318
-86C36783 356E93BB
-FFDCCBFE 568D0C97
-DF1A6C5E 8CD62451
-1E3A4788 2FBCED43
-5AA0DB2A 7E1FD99D
-906D7251 31E49065
-3E877A18 CC816D42
-902D754C 80AFE55F
-7EF910C1 9FBEF169
-ED3C15C0 DBCFAF5E
-0CB0446D 5E83EC8B
-0B519E51 3FC76B8F
-F32A0926 28D5C6DC
-7CCD68F8 8E306DB9
-2C3D780E 3E8D8D9E
-50D18760 6F6450B8
-45EAAB45 B94EA483
-A641DC85 B5AD8444
-B99B46AC CF649409
-906D7251 31E49065
-4B85A906 BDFAC0BA
-72898F14 3F2CD864
-94B8E2DD 4B96412E
-57FEF2DE 4950A395
-CD694BA6 4CB58AF9
-0B519E51 3FC76B8F
-275F0E97 D3848126
-8214884B F271C977
-020ED36C 51AC3197
-50D18760 6F6450B8
-AD49A313 3000F503
-C48ADDBC 5F33DC5B
-2A88A536 6180BFE2
-FD5694DB 1206D30C
-3B32BF03 99B824EF
-BBAFBCF2 AAB132DE
-2A2C0367 D233F16F
-04A5C185 05310011
-E5AE8938 6767EE89
-EB92F6FE EE86F409
-CB5205EF 4EF5E371
-906D7251 31E49065
-083DA4E3 13E6515A
-74B94384 9FB44C7F
-E32A6D6E FB0B809E
-5BAF1E80 9764D2F8
-705B8A24 23A8481B
-0B519E51 3FC76B8F
-3F78E54E 443EBD6F
-C48498FD 2E030FC6
-9109E6DB 5B2378CE
-E9E5CBD1 919DD858
-56ABD807 92BFD418
-E3BDF9B8 A3B1EBF9
-34657373 CF481C62
-906D7251 31E49065
-2A566E62 31AF60CF
-C3F2A400 C821B79C
-2DDAC24E 5A043B7F
-0B519E51 3FC76B8F
-5D7FF535 1F565B2F
-11BEA703 C4C04884
-F0C2FB66 44C64B15
-F7F32C06 2640E525
-7FF1B749 E081ECE4
-1E3A9C01 D6034965
-E8131B66 CCFB39CB
-A05F2156 B6AB532A
-8677E25F 1E2592CD
-D88CC4D1 F5561239
-9AED6AEE 7C7223CB
-4B2B8CEF 72458C84
-9E9EC1BD 84CFA6C5
-4B2B8CEF 72458C84
-ED7D4235 2752E608
-F35F627E B5F1D052
-9C70DE6D 039996B9
-0EB2E05F 49E28441
-D1C0FA21 691A2CEF
-34B63835 57A63EC5
-DEFBE0A6 A193D40B
-AE7CE911 F3AEEA07
-50FA0F63 0342CC4C
-2E4E728B 3BB84DB1
-300FA8E6 9C73AF5C
-AE7CE911 F3AEEA07
-49B5685A A0D6FBB0
-4AD1EE19 FC5F14D6
-871B65C8 BB6DF38E
-AE7CE911 F3AEEA07
-567CBE53 816DE967
-C161BD68 A54E3E95
-A3357930 40729B5D
-2B5B4D14 8192E928
-DB660D56 24D10B99
-96BB8929 9B4E5B77
-1CE7F420 609C5D4E
-FE46A702 6BF2A515
-7189F09F E1DE2AB5
-081F5457 5E8095C0
-8AA401D9 CA770B18
-DE8476D2 18C1AA2F
-A41E7FF2 D80DFF8D
-FFCDFB95 213D7008
-AA2D9AD3 BABFD5C1
-56222BC7 1D0F00EA
-5D7F2929 0A97FA90
-4B6332E7 BB8523AF
-F9AE736A C6A7B873
-B0207280 FC58B83B
-86790700 EFC051AB
-6677DE16 32816BDD</div>
-            <div class="row"><button class="copy" type="button" data-copy="code-editor">Copy code</button><span class="lines" data-lines="code-editor"></span></div>
+            <p>Changes one Pokémon you already have, for good. Pick the slot and the Pokémon in it, then what to change.</p>
+            <div class="edsum" id="ed-sum"></div>
+            <div class="codebox sm blocked" id="code-editor" data-blocked="1">Type the Pokémon in the slot first (step 2).</div>
+            <div class="row"><button class="copy" type="button" data-copy="code-editor" disabled>Copy code</button><span class="lines" data-lines="code-editor"></span></div>
             <ol class="use">
-              <li>Pick the slot and what to change, then copy the code and add it.</li>
-              <li>In the game, open the menu (Start) and pick <b>POKéMON</b>. The change is made as the party screen opens.</li>
+              <li>Copy the code and add it in mGBA.</li>
+              <li>In the game, open the menu (Start) and pick <b>POKéMON</b>. The change is made as the party screen opens: check it on the Pokémon's summary.</li>
               <li>Untick the code, then remove it.</li>
             </ol>
             <ul class="gtk">
-              <li>Untick it right after: while it's ticked, it changes whichever Pokémon is in that slot every time you open POKéMON.</li>
+              <li>While it's ticked, it runs every time you open POKéMON, but it only changes the slot while the species you typed is in it. If the party was reordered, the Pokémon evolved or the slot is empty, nothing changes.</li>
               <li>The change stays after you untick. To change the Pokémon again, make a new code.</li>
-              <li>Tick only one party-edit code at a time. Eggs and empty slots are left alone.</li>
-              <li>Stats update straight away. A species without a hidden or second ability gets its first one.</li>
+              <li>Tick only one party-edit code at a time. Eggs are left alone.</li>
             </ul>
           </div>
         </div>
@@ -1057,7 +994,7 @@ BC51E511 49D43A23
           </div>
           <div class="cright">
             <p id="exp-eff">Your Pokémon get twice the EXP from every battle while this is ticked.</p>
-            <ul class="gtk"><li>Tick only one EXP code at a time.</li><li>The Exp. Charm's bonus doesn't add on top while an EXP code is ticked.</li><li>EXP already gained stays after you untick.</li></ul>
+            <ul class="gtk"><li>In this game every Pokémon in your party gets EXP from a win, not only the one that battled; each one's share gets the boost.</li><li>Tick only one EXP code at a time.</li><li>The Exp. Charm's ×1.5 doesn't add on top while an EXP code is ticked.</li><li>EXP already gained stays after you untick.</li></ul>
           </div>
         </div>
       </article>
@@ -1091,12 +1028,16 @@ CDE8AE47 E0DF7372</div>
           <h3>How each code works</h3>
           <div class="how">
             <h4>Edit a party Pokémon</h4>
-            <p class="muted">The ROM has a large empty area at the end (0xFF from 0x09C74F08). The code writes a small routine there, at 0x09FF8000, followed by a table: the party slot, then (field, value) pairs, then 0. Its last two lines point the Start menu's POKéMON entry (the pointer at 0x08CF56B4, normally StartMenuPokemonCallback at 0x08210935) at the routine. So each time POKéMON is picked, the routine runs first: it skips an empty slot or an Egg, writes each field with the game's own SetMonData (which re-encrypts the Pokémon's data and fixes its checksum, so it stays valid), calls CalculateMonStats, then jumps to the real callback and the party screen opens as usual. Unticking restores the pointer, so the routine is never reached again.</p>
+            <p class="muted">The ROM has a large empty area at the end (0xFF from 0x09C74F08). The code writes a small routine there, at 0x09FF8000, followed by a table: the species the code was made for (two bytes), the party slot, then (field, value) pairs, then 0. Its last two lines point the Start menu's POKéMON entry (the pointer at 0x08CF56B4, normally StartMenuPokemonCallback at 0x08210935) at the routine. So each time POKéMON is picked, the routine runs first: it reads the slot's species with the game's GetMonData and stops unless it's the one in the table (an empty slot reads as 0, so it never matches), skips an Egg, writes each field with the game's own SetMonData (which re-encrypts the Pokémon's data and fixes its checksum, so it stays valid), calls CalculateMonStats, then jumps to the real callback and the party screen opens as usual. Unticking restores the pointer, so the routine is never reached again.</p>
             <dl class="re">
               <dt>0x30–0x35</dt><dd>SetMonData fields for the IVs: HP, Attack, Defense, Speed, Sp. Atk, Sp. Def (the game's own order).</dd>
               <dt>0x21–0x26</dt><dd>EVs, same order.</dd>
               <dt>0x37</dt><dd>Ability number: 0 first, 1 second, 2 hidden.</dd>
+              <dt>0x0C</dt><dd>The nature used for stats: this build's Mint field. The game stores it as a 5-bit modifier XORed with the personality's nature (bits 3–7 of byte 0x12), so the personality, and with it the gender and the nature the summary shows, stay as they were.</dd>
+              <dt>0x0B</dt><dd>Shiny: 1 or 0. It flips a shiny bit (bit 14 of the u16 at 0x1E) instead of changing the personality or trainer ID.</dd>
+              <dt>0x27</dt><dd>Friendship, 0–255.</dd>
               <dt>0x2F</dt><dd>Poké Ball: 0 Strange Ball, 1 Poké Ball … 27 Cherish Ball (the ball's item number).</dd>
+              <dt>0x12</dt><dd>Species, read with GetMonData for the check.</dd>
               <dt>How found</dt><dd>These field numbers differ from vanilla Emerald's in this build, so each was found by writing it in the emulator and reading back which bits of the Pokémon changed.</dd>
             </dl>
             <details class="alt"><summary>The routine (Thumb assembly, asm/party_editor.s)</summary><pre class="codebox sm asm">@ Party editor (code &quot;Edit a party Pokemon&quot;). Assembled at 0x09FF8000, in the ROM&#x27;s free space (0xFF fill from
@@ -1104,11 +1045,13 @@ CDE8AE47 E0DF7372</div>
 @ here. Each time the player picks POKeMON it applies the table to one party slot with the game&#x27;s own SetMonData
 @ (which re-encrypts the Pokemon and fixes its checksum), recalculates its stats, then jumps to the real
 @ StartMenuPokemonCallback (0x08210935), so the party menu opens as usual.
-@ table: slot (0-5), then (field, value) byte pairs, then 0. Empty slots and Eggs are skipped.
+@ table: species (u16, the Pokemon the code was made for), slot (0-5), then (field, value) byte pairs, then 0.
+@ Safeguard: nothing happens unless the Pokemon in that slot is that species, so a code left ticked can&#x27;t change a
+@ different Pokemon after the party is reordered. Empty slots (species 0) and Eggs are skipped too.
 editor:
     push {r4, r5, lr}
     adr r5, table
-    ldrb r0, [r5]              @ slot 0-5
+    ldrb r0, [r5, #2]          @ slot 0-5
     movs r1, #100
     muls r0, r1
     ldr r4, =gPlayerParty
@@ -1117,15 +1060,16 @@ editor:
     movs r1, #0x12             @ MON_DATA_SPECIES
     ldr r3, =GetMonData
     bl via
-    cmp r0, #0
-    beq done                   @ empty slot
+    ldrh r1, [r5]              @ the species the code was made for
+    cmp r0, r1
+    bne done                   @ a different Pokemon, or an empty slot: leave it alone
     movs r0, r4
     movs r1, #0x36             @ MON_DATA_IS_EGG
     ldr r3, =GetMonData
     bl via
     cmp r0, #0
     bne done                   @ leave Eggs alone
-    adds r5, #1
+    adds r5, #3
 loop:
     ldrb r1, [r5]              @ field; 0 ends the table
     cmp r1, #0
@@ -1151,18 +1095,18 @@ via:
     .ltorg
     .balign 4
 table:</pre></details>
-            <details class="alt"><summary>Raw form (slot 1, IVs all 31)</summary><div class="codebox sm">00000000 18FFC000
+            <details class="alt"><summary>Raw form (slot 1, Bulbasaur, IVs all 31)</summary><div class="codebox sm">00000000 18FFC000
 0000B530 00000000
 00000000 18FFC001
-0000A519 00000000
+0000A51A 00000000
 00000000 18FFC002
-00007828 00000000
+000078A8 00000000
 00000000 18FFC003
 00002164 00000000
 00000000 18FFC004
 00004348 00000000
 00000000 18FFC005
-00004C12 00000000
+00004C13 00000000
 00000000 18FFC006
 00001824 00000000
 00000000 18FFC007
@@ -1170,104 +1114,110 @@ table:</pre></details>
 00000000 18FFC008
 00002112 00000000
 00000000 18FFC009
-00004B11 00000000
+00004B12 00000000
 00000000 18FFC00A
 0000F000 00000000
 00000000 18FFC00B
-0000F81D 00000000
+0000F81E 00000000
 00000000 18FFC00C
-00002800 00000000
+00008829 00000000
 00000000 18FFC00D
-0000D015 00000000
+00004288 00000000
 00000000 18FFC00E
-00000020 00000000
+0000D115 00000000
 00000000 18FFC00F
-00002136 00000000
+00000020 00000000
 00000000 18FFC010
-00004B0D 00000000
+00002136 00000000
 00000000 18FFC011
-0000F000 00000000
+00004B0E 00000000
 00000000 18FFC012
-0000F816 00000000
+0000F000 00000000
 00000000 18FFC013
-00002800 00000000
+0000F816 00000000
 00000000 18FFC014
-0000D10E 00000000
+00002800 00000000
 00000000 18FFC015
-00003501 00000000
+0000D10E 00000000
 00000000 18FFC016
-00007829 00000000
+00003503 00000000
 00000000 18FFC017
-00002900 00000000
+00007829 00000000
 00000000 18FFC018
-0000D006 00000000
+00002900 00000000
 00000000 18FFC019
-00000020 00000000
+0000D006 00000000
 00000000 18FFC01A
-00001C6A 00000000
-00000000 18FFC01B
-00004B09 00000000
-00000000 18FFC01C
-0000F000 00000000
-00000000 18FFC01D
-0000F80B 00000000
-00000000 18FFC01E
-00003502 00000000
-00000000 18FFC01F
-0000E7F5 00000000
-00000000 18FFC020
 00000020 00000000
-00000000 18FFC021
-00004B07 00000000
-00000000 18FFC022
+00000000 18FFC01B
+00001C6A 00000000
+00000000 18FFC01C
+00004B09 00000000
+00000000 18FFC01D
 0000F000 00000000
+00000000 18FFC01E
+0000F80B 00000000
+00000000 18FFC01F
+00003502 00000000
+00000000 18FFC020
+0000E7F5 00000000
+00000000 18FFC021
+00000020 00000000
+00000000 18FFC022
+00004B07 00000000
 00000000 18FFC023
-0000F805 00000000
+0000F000 00000000
 00000000 18FFC024
-0000BC30 00000000
+0000F805 00000000
 00000000 18FFC025
-0000BC08 00000000
+0000BC30 00000000
 00000000 18FFC026
-0000469E 00000000
+0000BC08 00000000
 00000000 18FFC027
-00004B05 00000000
+0000469E 00000000
 00000000 18FFC028
-00004718 00000000
+00004B05 00000000
 00000000 18FFC029
 00004718 00000000
 00000000 18FFC02A
-00001EB8 00000000
+00004718 00000000
 00000000 18FFC02B
-00000203 00000000
+00000000 00000000
 00000000 18FFC02C
-0000511D 00000000
+00001EB8 00000000
 00000000 18FFC02D
-0000081B 00000000
+00000203 00000000
 00000000 18FFC02E
-0000648D 00000000
+0000511D 00000000
 00000000 18FFC02F
 0000081B 00000000
 00000000 18FFC030
-00007915 00000000
+0000648D 00000000
 00000000 18FFC031
 0000081B 00000000
 00000000 18FFC032
-00000935 00000000
+00007915 00000000
 00000000 18FFC033
-00000821 00000000
+0000081B 00000000
 00000000 18FFC034
-00003000 00000000
+00000935 00000000
 00000000 18FFC035
-0000311F 00000000
+00000821 00000000
 00000000 18FFC036
-0000321F 00000000
+00000001 00000000
 00000000 18FFC037
-0000331F 00000000
+00003000 00000000
 00000000 18FFC038
-0000341F 00000000
+0000311F 00000000
 00000000 18FFC039
-0000351F 00000000
+0000321F 00000000
 00000000 18FFC03A
+0000331F 00000000
+00000000 18FFC03B
+0000341F 00000000
+00000000 18FFC03C
+0000351F 00000000
+00000000 18FFC03D
 0000001F 00000000
 00000000 1867AB5A
 00008001 00000000
@@ -1354,12 +1304,14 @@ table:</pre></details>
           <div class="shots">
             <figure><img alt="Summary: Electrode with Aftermath, in a Cherish Ball" src="img/editor_info.png" width="240" height="160" loading="lazy"><figcaption><b>Party editor</b> on slot 2, an Electrode: hidden ability (Aftermath) and a Cherish Ball.</figcaption></figure>
             <figure><img alt="Skills page: HP 167, Attack 70, Defense 81, Sp. Atk 100, Sp. Def 110, Speed 202" src="img/editor_stats.png" width="240" height="160" loading="lazy"><figcaption><b>Same edit:</b> IVs 31 and EVs 252 HP / 4 Def / 252 Speed. The stats are exactly what the game's formula gives.</figcaption></figure>
+            <figure><img alt="Summary info page: a shiny Electrode (white and blue), trainer memo says Gentle nature" src="img/editor_shiny.png" width="240" height="160" loading="lazy"><figcaption><b>Shiny and nature:</b> the edited Electrode is shiny. Its summary still says Gentle, the nature it was born with…</figcaption></figure>
+            <figure><img alt="Skills page: Attack 77 in red, Sp. Atk 90 in blue" src="img/editor_nature.png" width="240" height="160" loading="lazy"><figcaption>…but its stats follow Adamant, the nature picked: Attack raised (red), Sp. Atk lowered (blue), as after a Mint.</figcaption></figure>
             <figure><img alt="Battle message: Bulbasaur gained 28168 Exp. Points" src="img/exp_gain.png" width="240" height="160" loading="lazy"><figcaption><b>EXP ×8:</b> 28,168 EXP for a win that gives 3,521 without the code.</figcaption></figure>
             <figure><img alt="Bulbasaur hatched from the Egg" src="img/egg_hatch.png" width="240" height="160" loading="lazy"><figcaption><b>Eggs, At once:</b> a Bulbasaur Egg with 20 cycles hatched within 3 steps.</figcaption></figure>
           </div>
-          <p class="muted" style="font-size:14px">The party editor runs through the real Start menu (Start → POKéMON), and each edited Pokémon's IVs, EVs, ability, ball and stats were read back and compared with the game's stat formula. The EXP tests win a real battle (a Lv1 Bulbasaur against a Lv30 Kecleon) and read the EXP the game gives. The egg tests give an Egg with <code>giveegg</code> and walk. Each ends with save → untick → reset → Continue.</p>
+          <p class="muted" style="font-size:14px">The party editor runs through the real Start menu (Start → POKéMON). Each edited Pokémon was read back: every field it set, its stats against the game's stat formula (with the nature it uses for stats), and every field it must not touch, from the personality and moves to the ribbons and where it was met. The safeguard tests give it the wrong species, a reordered party, an empty slot and an Egg of the right species, and check that nothing changes. The EXP tests win a real battle (a Lv1 Bulbasaur against a Lv30 Kecleon) and read the EXP the game gives, also with a second Pokémon in the party, with it holding an Exp. Share, and with the Exp. Charm. The egg tests give an Egg with <code>giveegg</code> and walk. Each ends with save → untick → reset → Continue.</p>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Party editor, slot 2 (Electrode Lv50 gift): IVs 31, EVs 252/0/4/252/0/0, hidden ability, Cherish Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 1 (Bulbasaur Lv1): IVs only</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: IVs 0 Speed (Trick Room), others 31</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: EVs cleared</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: second ability, Premier Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, empty slot 6: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, an Egg in slot 2 is left alone</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2 edited, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 1: every Poké Ball from 0 (Strange Ball) to 27 (Cherish Ball) <small class="muted">(28 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, no code: one win (Kecleon Lv30 beaten by a Lv1 Bulbasaur)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x4</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, max: 457,151 per win; level 100 after 3 wins, no EXP at level 100</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x8, save, untick, reset, Continue: EXP and level kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, no egg code: 40 steps, still an Egg (20 egg cycles, 128 steps each)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, fast: hatches within 30 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, fast: not yet after 10 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, at once: hatches within 3 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, at once, save, untick, reset, Continue: the hatched Pokemon is kept</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Party editor, slot 2 (Electrode Lv50 gift): IVs 31, EVs 252/0/4/252/0/0, hidden ability, Cherish Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 1 (Bulbasaur Lv1): IVs only</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: IVs 0 Speed (Trick Room), others 31</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: EVs cleared</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: second ability, Premier Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2 (Metapod, one ability): hidden ability picked -&gt; the game uses its first (Shed Skin)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2 (Electrode): hidden ability picked -&gt; the game uses Aftermath</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, safeguard: code made for Ivysaur, slot 1 holds Bulbasaur: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, safeguard: code made for Electrode in slot 1 (party reordered: Electrode is in slot 2): nothing changes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, safeguard: empty slot 6: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, safeguard: a Bulbasaur Egg in slot 2, code made for Bulbasaur: left alone</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: shiny on</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: shiny off (Electrode made shiny by the Shiny code first)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: shiny on when already shiny: stays shiny</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: friendship 0</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: friendship 255</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: all fields, menu opened twice: the second time changes nothing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: all fields, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 0 (Hardy)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 1 (Lonely)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 2 (Brave)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 3 (Adamant)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 4 (Naughty)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 5 (Bold)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 6 (Docile)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 7 (Relaxed)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 8 (Impish)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 9 (Lax)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 10 (Timid)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 11 (Hasty)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 12 (Serious)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 13 (Jolly)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 14 (Naive)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 15 (Modest)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 16 (Mild)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 17 (Quiet)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 18 (Bashful)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 19 (Rash)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 20 (Calm)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 21 (Gentle)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 22 (Sassy)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 23 (Careful)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 2: nature 24 (Quirky)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Party editor, slot 1: every Poké Ball from 0 (Strange Ball) to 27 (Cherish Ball) <small class="muted">(28 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, no code: one win (Kecleon Lv30 beaten by a Lv1 Bulbasaur)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x4</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, max: 457,151 per win; level 100 after 3 wins, no EXP at level 100</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, x8, save, untick, reset, Continue: EXP and level kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, one Pokémon, Exp. Charm in the Bag, no code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, one Pokémon, Exp. Charm in the Bag, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, one Pokémon, Exp. Charm in the Bag, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, two Pokémon, only the lead battles, no code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, two Pokémon, only the lead battles, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, two Pokémon, only the lead battles, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, two Pokémon, the second (Electrode Lv20) holds an Exp. Share, no code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, two Pokémon, the second (Electrode Lv20) holds an Exp. Share, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">EXP, two Pokémon, the second (Electrode Lv20) holds an Exp. Share, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, no egg code: 40 steps, still an Egg (20 egg cycles, 128 steps each)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, fast: hatches within 30 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, fast: not yet after 10 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, at once: hatches within 3 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Eggs, at once, save, untick, reset, Continue: the hatched Pokémon is kept</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
         </div>
       </div>
@@ -1381,7 +1333,7 @@ D501BC39 D9DC1286</div>
           </div>
           <div class="cright">
             <p>Makes the TM you pick teach the move you pick. Choose both here, or press <b>TM code</b> on any move in the list below. While it's ticked, the Bag, the party menu and the teaching all use the new move.</p>
-            <ul class="gtk"><li>TMs are used up when they teach a move in this game (HMs aren't), so pick a TM you can spare.</li><li>A Pokémon that can't normally learn the new move shows NOT ABLE, unless <a href="#card-any">Any Pokémon can learn any TM</a> is ticked too.</li><li>If the Bag is open when you tick or untick, close and reopen it.</li></ul>
+            <ul class="gtk"><li>TMs are used up when they teach a move in this game (HMs aren't), so pick a TM you can spare.</li><li>A Pokémon that can't normally learn the new move shows NOT ABLE, unless <a href="#card-any">Any Pokémon can learn any TM</a> is ticked too.</li><li>Tick or untick it with the Bag closed.</li></ul>
           </div>
         </div>
       </article>
@@ -1471,7 +1423,7 @@ BF0AC24E 5D03BE08</div>
           </div>
           <p class="muted" style="font-size:14px">The TM tests give a TM with the game's own <code>additem</code> script command and then go through the Bag and party menu exactly like a player: Use, pick the Pokémon, every message. The battle tests teach a move with both TM codes, start a battle against a Lv30 Kecleon and use it once, then read both Pokémon's stat stages and status from the game's battle data. The learnset tests level Pokémon up with the save's Infinite Candy.</p>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Runs</th><th>Result</th></tr></thead><tbody><tr><td class="nm">No codes: TM compatibility as in the learnsets (Toxic yes, Focus Punch no)</td><td class="num">2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">TM code on TM01, TM59 and HM01: edge IDs, compatible and not, ticked then unticked</td><td class="num">10</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn: alone, a Pokémon with four moves forgets one, an Egg and a known move are refused</td><td class="num">4</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Both TM codes with all five catching codes on</td><td class="num">1</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Taught, saved, codes off, reset, Continue</td><td class="num">1</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The game's move tutor: teaches what's on the list, and the TM codes don't change it</td><td class="num">2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Moves used in battle: stat stages and status match the tags (4 seeds each)</td><td class="num">60</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Level-up and evolution moves learned in the game match the learnsets</td><td class="num">2</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Runs</th><th>Result</th></tr></thead><tbody><tr><td class="nm">No codes: TM compatibility as in the learnsets (Toxic yes, Focus Punch no)</td><td class="num">2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">TM code on TM01, TM59 and HM01: edge IDs, compatible and not, ticked then unticked</td><td class="num">12</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn: alone, a Pokémon with four moves forgets one, an Egg and a known move are refused</td><td class="num">4</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Both TM codes with all five catching codes on</td><td class="num">1</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Taught, saved, codes off, reset, Continue</td><td class="num">1</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The game's move tutor: teaches what's on the list, and the TM codes don't change it</td><td class="num">2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Moves used in battle: stat stages and status match the tags (4 seeds each)</td><td class="num">60</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Level-up and evolution moves learned in the game match the learnsets</td><td class="num">2</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
           <dl class="re">
             <dt><span class="pass">PASS</span>TM code</dt><dd>TM01, TM59 and HM01 changed to other moves, including ID 1, IDs 255 and 256, and the last one, 847: each taught exactly the chosen move with its full PP. Changed to a move the Pokémon can't learn, the party menu shows NOT ABLE and nothing is taught. Ticked and then unticked, the TM teaches its own move again.</dd>
@@ -1679,8 +1631,8 @@ BF0AC24E 5D03BE08</div>
   </footer>
 </div>
 
-<script src="../assets/guide.js?v=7778bb025f"></script>
-<script src="codes.js?v=35133000f0"></script>
+<script src="../assets/guide.js?v=41c5593332"></script>
+<script src="codes.js?v=887b0d9896"></script>
 <script>
 "use strict";
 /* Wishes of Tomorrow page script. Shared behaviour (tabs, copy, cards, long lists, PAR v3) is in assets/guide.js;
@@ -1702,12 +1654,13 @@ function setScope(s, save){
   document.querySelectorAll(".panel[data-scope]").forEach(p => { p.dataset.scope = scope; });
   scopeSegs.forEach(sg => sg.set(scope));
   if (save) store.set(SCOPE_KEY, scope);
-  updateIV(); updateSpecies(); updateNature(); updateGender(); refreshOpenCodeRows();
+  updateIV(); if (speciesOK) updateSpecies(); updateNature(); updateGender(); refreshOpenCodeRows();
 }
 
 /* ---------- fixed codes ---------- */
 showCode("code-money", CODES.MONEY); showCode("code-coins", CODES.COINS); showCode("code-bp", CODES.BP);
 showCode("code-shiny", CODES.SHINY); showCode("code-noenc", CODES.NO_ENCOUNTERS); showCode("code-any", CODES.ANY_TM);
+showCode("code-catch", CODES.ALWAYS_CATCH);
 
 /* ---------- catching ---------- */
 function updateIV(){ showCode("code-iv", CODES.iv(scope)); }
@@ -1716,7 +1669,7 @@ const SPECIES = [[1,"Bulbasaur","",1,"","",[65,0,34]],[2,"Ivysaur","",2,"","",[6
 const ABILITIES = ["-------","Stench","Drizzle","Speed Boost","Battle Armor","Sturdy","Damp","Limber","Sand Veil","Static","Volt Absorb","Water Absorb","Oblivious","Cloud Nine","Compound Eyes","Insomnia","Color Change","Immunity","Flash Fire","Shield Dust","Own Tempo","Suction Cups","Intimidate","Shadow Tag","Rough Skin","Wonder Guard","Levitate","Effect Spore","Synchronize","Clear Body","Natural Cure","Lightning Rod","Serene Grace","Swift Swim","Chlorophyll","Illuminate","Trace","Huge Power","Poison Point","Inner Focus","Magma Armor","Water Veil","Magnet Pull","Soundproof","Rain Dish","Sand Stream","Pressure","Thick Fat","Early Bird","Flame Body","Run Away","Keen Eye","Hyper Cutter","Pickup","Truant","Hustle","Cute Charm","Plus","Minus","Forecast","Sticky Hold","Shed Skin","Guts","Marvel Scale","Liquid Ooze","Overgrow","Blaze","Torrent","Swarm","Rock Head","Drought","Arena Trap","Vital Spirit","White Smoke","Pure Power","Shell Armor","Air Lock","Tangled Feet","Motor Drive","Rivalry","Steadfast","Snow Cloak","Gluttony","Anger Point","Unburden","Heatproof","Simple","Dry Skin","Download","Iron Fist","Poison Heal","Adaptability","Skill Link","Hydration","Solar Power","Quick Feet","Normalize","Sniper","Magic Guard","No Guard","Stall","Technician","Leaf Guard","Klutz","Mold Breaker","Super Luck","Aftermath","Anticipation","Forewarn","Unaware","Tinted Lens","Filter","Slow Start","Scrappy","Storm Drain","Ice Body","Solid Rock","Snow Warning","Honey Gather","Frisk","Reckless","Multitype","Flower Gift","Bad Dreams","Pickpocket","Sheer Force","Contrary","Unnerve","Defiant","Defeatist","Cursed Body","Healer","Friend Guard","Weak Armor","Heavy Metal","Light Metal","Multiscale","Toxic Boost","Flare Boost","Harvest","Telepathy","Moody","Overcoat","Poison Touch","Regenerator","Big Pecks","Sand Rush","Wonder Skin","Analytic","Illusion","Imposter","Infiltrator","Mummy","Moxie","Justified","Rattled","Magic Bounce","Sap Sipper","Prankster","Sand Force","Iron Barbs","Zen Mode","Victory Star","Turboblaze","Teravolt","Aroma Veil","Flower Veil","Cheek Pouch","Protean","Fur Coat","Magician","Bulletproof","Competitive","Strong Jaw","Refrigerate","Sweet Veil","Stance Change","Gale Wings","Mega Launcher","Grass Pelt","Symbiosis","Tough Claws","Pixilate","Gooey","Aerilate","Parental Bond","Dark Aura","Fairy Aura","Aura Break","Primordial Sea","Desolate Land","Delta Stream","Stamina","Wimp Out","Emergency Exit","Water Compaction","Merciless","Shields Down","Stakeout","Water Bubble","Steelworker","Berserk","Slush Rush","Long Reach","Liquid Voice","Triage","Galvanize","Surge Surfer","Schooling","Disguise","Battle Bond","Power Construct","Corrosion","Comatose","Queenly Majesty","Innards Out","Dancer","Battery","Fluffy","Dazzling","Soul-Heart","Tangling Hair","Receiver","Power Of Alchemy","Beast Boost","RKS System","Electric Surge","Psychic Surge","Misty Surge","Grassy Surge","Full Metal Body","Shadow Shield","Prism Armor","Neuroforce","Intrepid Sword","Dauntless Shield","Libero","Ball Fetch","Cotton Down","Propeller Tail","Mirror Armor","Gulp Missile","Stalwart","Steam Engine","Punk Rock","Sand Spit","Ice Scales","Ripen","Ice Face","Power Spot","Mimicry","Screen Cleaner","Steely Spirit","Perish Body","Wandering Spirit","Gorilla Tactics","Neutralizing Gas","Pastel Veil","Hunger Switch","Quick Draw","Unseen Fist","Curious Medicine","Transistor","Dragon’s Maw","Chilling Neigh","Grim Neigh","As One","As One","Lingering Aroma","Seed Sower","Thermal Exchange","Anger Shell","Purifying Salt","Well-Baked Body","Wind Rider","Guard Dog","Rocky Payload","Wind Power","Zero to Hero","Commander","Electromorphosis","Protosynthesis","Quark Drive","Good as Gold","Vessel of Ruin","Sword of Ruin","Tablets of Ruin","Beads of Ruin","Orichalcum Pulse","Hadron Engine","Opportunist","Cud Chew","Sharpness","Supreme Overlord","Costar","Toxic Debris","Armor Tail","Earth Eater","Mycelium Might","Hospitality","Mind’s Eye","Embody Aspect","Embody Aspect","Embody Aspect","Embody Aspect","Toxic Chain","Supersweet Syrup","Tera Shift","Tera Shell","Teraform Zero","Poison Puppeteer"];      // ability names by ID, from the ROM
 const SP_BY_ID = new Map(SPECIES.map(r => [r[0], r]));
 const spLabel = r => r[1] + (r[2] ? ` (${r[2]})` : "") + " · " + hex4(r[0]);
-let spPick = 0x173;
+let spPick = 0x173, speciesOK = true;     // speciesOK: the box holds a species (else the code box says why not)
 const spInput = document.getElementById("sp-pick"), spMsg = document.getElementById("sp-pick-msg");
 let spLabels = null;
 function fillSpeciesOptions(){
@@ -1725,13 +1678,38 @@ function fillSpeciesOptions(){
   SPECIES.forEach(r => { if (r[5] === "x") return; const l = spLabel(r); spLabels.set(l.toLowerCase(), r[0]); const o = document.createElement("option"); o.value = l; frag.append(o); });
   document.getElementById("sp-options").append(frag);
 }
-function pickSpecies(){
+// What was typed in a species box: a label from the list, a hex ID, or an exact name. A name several forms share
+// ("Garchomp" is also Mega Garchomp) means the base form, which every shared name has exactly one of.
+const spResolved = new Map();      // typed text -> result, so a keystroke elsewhere in the editor costs nothing here
+function resolveSpecies(v){
+  let hit = spResolved.get(v);
+  if (!hit) { if (spResolved.size > 200) spResolved.clear(); hit = resolveSpecies1(v); spResolved.set(v, hit); }
+  return hit;
+}
+function resolveSpecies1(v){
   fillSpeciesOptions();
-  const v = spInput.value.trim(), low = v.toLowerCase();
+  v = v.trim(); const low = v.toLowerCase();
+  if (!v) return {};
   let id = spLabels.get(low);
   if (id === undefined && /^(0x)?[0-9a-f]{1,4}$/i.test(v)) { const n = parseInt(v.replace(/^0x/i, ""), 16); if (SP_BY_ID.has(n) && SP_BY_ID.get(n)[5] !== "x") id = n; }
-  if (id === undefined) { const hits = SPECIES.filter(r => r[5] !== "x" && r[1].toLowerCase() === low); if (hits.length === 1) id = hits[0][0]; }
-  if (id === undefined) { spMsg.textContent = v ? "Pick a species from the list." : "Type a name to search."; return; }
+  if (id === undefined) {
+    const hits = SPECIES.filter(r => r[5] !== "x" && r[1].toLowerCase() === low), base = hits.filter(r => !r[2] && !r[5]);
+    if (hits.length === 1) id = hits[0][0]; else if (base.length === 1) id = base[0][0];
+  }
+  return id === undefined ? {msg: "No species matches that. Pick one from the list."} : {id};
+}
+// Other forms that share a species' name and can be in a party (Vulpix: Alolan; not battle-only Megas), for "if yours
+// is one of those, pick it" hints.
+const formsOf = new Map();
+const otherForms = r => { if (!formsOf.has(r[0])) formsOf.set(r[0], [...new Set(SPECIES.filter(x => x[1] === r[1] && x[0] !== r[0] && !x[5]).map(x => x[2] || "regular"))]); return formsOf.get(r[0]); };
+function pickSpecies(){
+  const {id, msg} = resolveSpecies(spInput.value);
+  speciesOK = id !== undefined;
+  if (id === undefined) {
+    spMsg.textContent = msg || "Type a name to search.";
+    G.blockCode("code-species", msg ? "No species picked: " + msg : "Type a species name above to get its code.");
+    return;
+  }
   spPick = id; updateSpecies();
 }
 function updateSpecies(){
@@ -1770,36 +1748,90 @@ function statInputs(id, max, value){
   box.innerHTML = STAT6.map(([label, i]) => `<label><span>${label}</span><input type="number" min="0" max="${max}" value="${value}" inputmode="numeric" data-i="${i}"></label>`).join("");
   return [...box.querySelectorAll("input")];
 }
+const $ = id => document.getElementById(id);
 const ivIn = statInputs("ed-iv", 31, 31), evIn = statInputs("ed-ev", 252, 0);
-const ivOn = document.getElementById("ed-iv-on"), evOn = document.getElementById("ed-ev-on");
-const edAbility = document.getElementById("ed-ability"), edBall = document.getElementById("ed-ball");
-const slotSeg = G.seg(document.getElementById("ed-slot"), updateEditor);
+const ivOn = $("ed-iv-on"), evOn = $("ed-ev-on"), frOn = $("ed-fr-on"), frIn = $("ed-fr");
+const edAbility = $("ed-ability"), edBall = $("ed-ball"), edNature = $("ed-nature"), edShiny = $("ed-shiny"), edSp = $("ed-species");
+const STATS = {Atk: "Atk", Def: "Def", Spe: "Spe", SpA: "SpA", SpD: "SpD"};   // short names: the select is narrow
+NAT.forEach(x => { const o = document.createElement("option"); o.value = x.n; o.textContent = x.name + (x.up === x.down ? " (no change)" : ` (+${STATS[x.up]} −${STATS[x.down]})`); edNature.append(o); });
+const slotSeg = G.seg($("ed-slot"), updateEditor);
+const slotBtns = [...$("ed-slot").querySelectorAll(".pslot")];
 const readStats = ins => { const v = [0, 0, 0, 0, 0, 0]; ins.forEach(el => { v[+el.dataset.i] = el.value === "" ? NaN : +el.value; }); return v; };
 function setStats(ins, vals){ ins.forEach(el => { el.value = vals[+el.dataset.i]; }); }
+const spName = r => r[1] + (r[2] ? ` (${r[2]})` : "");
+const statList = v => STAT6.map(([l, i]) => `${l} ${v[i]}`).join(", ");
+const SLOTW = ["1 (your lead)", "2", "3", "4", "5", "6"];
+edSp.addEventListener("focus", fillSpeciesOptions, {once: true});
+
+// The plain-English summary: what the code will change on that Pokémon, and what it leaves alone.
+function editorSummary(slot, r, o){
+  const nm = esc(spName(r)), does = [], keep = ["species and form", "level and EXP", "moves", "held item", "nickname",
+    "gender", "Original Trainer and ID No.", "where it was met", "ribbons"];
+  if (o.ivs) does.push(o.ivs.every(v => v === o.ivs[0]) ? `All six IVs become <b>${o.ivs[0]}</b>.` : `IVs become <b>${statList(o.ivs)}</b>.`);
+  else keep.push("IVs");
+  if (o.evs) {
+    const set = STAT6.filter(([, i]) => o.evs[i]).map(([l, i]) => `${o.evs[i]} ${l}`);
+    does.push(set.length ? `EVs become <b>${set.join(", ")}</b>${set.length < 6 ? ", and 0 in the rest" : ""} (${o.evs.reduce((a, b) => a + b, 0)} in total).` : "All EVs become <b>0</b>.");
+  } else keep.push("EVs");
+  if (o.ability !== undefined) {
+    const ab = r[6], kind = ["first", "second", "hidden"][o.ability];
+    does.push(ab[o.ability] ? `Its ability becomes <b>${esc(ABILITIES[ab[o.ability]])}</b>, its ${kind} ability.`
+                            : `${nm} has no ${kind} ability, so it gets its first: <b>${esc(ABILITIES[ab[0]])}</b>.`);
+  } else keep.push("ability");
+  if (o.nature !== undefined) {
+    const x = NAT[o.nature];
+    does.push(`Its stats follow <b>${x.name}</b>` + (x.up === x.down ? " (no stat raised or lowered)" : ` (+${STATN[x.up]}, −${STATN[x.down]})`) +
+              `, the way ${/^[AEIOU]/.test(x.name) ? "an" : "a"} ${x.name} Mint works. Its summary screen still shows the nature it was born with.`);
+  } else keep.push("nature");
+  if (o.shiny !== undefined) does.push(o.shiny ? "It becomes <b>shiny</b>." : "It becomes <b>not shiny</b>.");
+  else keep.push("whether it's shiny");
+  if (o.friendship !== undefined) does.push(`Its friendship becomes <b>${o.friendship}</b>${o.friendship === 255 ? " (the most)" : o.friendship === 0 ? " (the least)" : ""}.`);
+  else keep.push("friendship");
+  if (o.ball !== undefined) does.push(`It shows as caught in a <b>${esc(CODES.BALLS[o.ball])}</b>.`);
+  else keep.push("Poké Ball");
+  if (o.ivs || o.evs || o.nature !== undefined) does.push("Its stats are worked out again straight away.");
+  const forms = otherForms(r);
+  return `<h4>What this code will do</h4>
+    <p>Each time you pick <b>POKéMON</b> in the Start menu, if the Pokémon in slot ${SLOTW[slot]} is <b>${nm}</b> (and not an Egg):</p>
+    <ul>${does.map(d => `<li>${d}</li>`).join("")}</ul>
+    <p><b>Stays the same:</b> its ${keep.join(", ")}.</p>
+    <p class="muted">If that slot holds any other Pokémon, an Egg or nothing, the code changes nothing and the party screen opens as usual.` +
+    (forms.length ? ` Other forms of ${esc(r[1])} (${esc(forms.join(", "))}) have their own IDs and count as different Pokémon here: if yours is one of them, pick it in step 2.` : "") + "</p>";
+}
+
 function updateEditor(){
-  ivIn.forEach(el => { el.disabled = !ivOn.checked; }); evIn.forEach(el => { el.disabled = !evOn.checked; });
-  const ivs = readStats(ivIn), evs = readStats(evIn), total = evs.reduce((a, b) => a + (b || 0), 0);
-  const sum = document.getElementById("ev-sum");
+  ivIn.forEach(el => { el.disabled = !ivOn.checked; }); evIn.forEach(el => { el.disabled = !evOn.checked; }); frIn.disabled = !frOn.checked;
+  const slot = +slotSeg.value, ivs = readStats(ivIn), evs = readStats(evIn), total = evs.reduce((a, b) => a + (b || 0), 0);
+  const sum = $("ev-sum"), msg = $("ed-species-msg"), out = $("ed-sum");
   sum.textContent = `Total ${total} / 510`; sum.classList.toggle("bad", evOn.checked && total > 510);
-  const box = document.getElementById("code-editor"), btn = document.querySelector('[data-copy="code-editor"]');
+  const {id, msg: spErr} = resolveSpecies(edSp.value), r = id === undefined ? null : SP_BY_ID.get(id);
+  slotBtns.forEach((b, i) => { b.querySelector(".pm").textContent = i === slot ? (r ? spName(r) : "?") : ""; });
+  msg.textContent = r ? `${spName(r)}, ID ${hex4(r[0])}. The code only changes slot ${slot + 1} while this species is in it.`
+                      : spErr || "The code only changes that slot if this species is in it.";
+  msg.classList.toggle("bad", !!spErr);
   const bad = (ins, max) => ins.some(el => !Number.isInteger(+el.value) || el.value === "" || +el.value < 0 || +el.value > max);
   let problem = "";
-  if (ivOn.checked && bad(ivIn, 31)) problem = "Each IV must be a whole number from 0 to 31.";
+  if (!r) problem = spErr ? "Pick the species in step 2 from the list." : "Type the Pokémon in the slot first (step 2).";
+  else if (r[5] === "x") problem = "That ID is an empty entry in the species table.";
+  else if (ivOn.checked && bad(ivIn, 31)) problem = "Each IV must be a whole number from 0 to 31.";
   else if (evOn.checked && bad(evIn, 252)) problem = "Each EV must be a whole number from 0 to 252.";
   else if (evOn.checked && total > 510) problem = `The EVs add up to ${total}, but the game allows 510 in total. Lower some of them.`;
-  else if (!ivOn.checked && !evOn.checked && edAbility.value === "" && edBall.value === "") problem = "Pick at least one thing to change.";
-  btn.disabled = !!problem;
-  if (problem) { box.textContent = problem; box.dataset.blocked = "1"; box.classList.add("blocked"); document.querySelector('[data-lines="code-editor"]').textContent = ""; return; }
-  delete box.dataset.blocked; box.classList.remove("blocked");
+  else if (frOn.checked && bad([frIn], 255)) problem = "Friendship must be a whole number from 0 to 255.";
+  else if (!ivOn.checked && !evOn.checked && !frOn.checked && [edAbility, edBall, edNature, edShiny].every(el => el.value === "")) problem = "Pick at least one thing to change (step 3).";
+  if (problem) { G.blockCode("code-editor", problem); out.hidden = true; return; }
   const opts = {};
   if (ivOn.checked) opts.ivs = ivs;
   if (evOn.checked) opts.evs = evs;
   if (edAbility.value !== "") opts.ability = +edAbility.value;
   if (edBall.value !== "") opts.ball = +edBall.value;
-  showCode("code-editor", CODES.partyEdit(+slotSeg.value, opts));
+  if (edNature.value !== "") opts.nature = +edNature.value;
+  if (edShiny.value !== "") opts.shiny = edShiny.value === "1";
+  if (frOn.checked) opts.friendship = +frIn.value;
+  out.innerHTML = editorSummary(slot, r, opts); out.hidden = false;
+  showCode("code-editor", CODES.partyEdit(slot, r[0], opts));
 }
-[...ivIn, ...evIn].forEach(el => el.addEventListener("input", updateEditor));
-[ivOn, evOn, edAbility, edBall].forEach(el => el.addEventListener("change", updateEditor));
+[...ivIn, ...evIn, frIn, edSp].forEach(el => el.addEventListener("input", updateEditor));
+[ivOn, evOn, frOn, edAbility, edBall, edNature, edShiny, edSp].forEach(el => el.addEventListener("change", updateEditor));
 document.querySelectorAll("[data-ivp]").forEach(b => b.addEventListener("click", () => { ivOn.checked = true; setStats(ivIn, b.dataset.ivp.split(",").map(Number)); updateEditor(); }));
 document.querySelectorAll("[data-evp]").forEach(b => b.addEventListener("click", () => { evOn.checked = true; setStats(evIn, b.dataset.evp.split(",").map(Number)); updateEditor(); }));
 

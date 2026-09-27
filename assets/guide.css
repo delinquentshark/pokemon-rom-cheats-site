@@ -235,8 +235,10 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
 .site-foot b{color:var(--ink)}
 
 /* ---------- landing page ---------- */
-.games{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px}
+.games{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px, 100%),1fr)); gap:16px}
 .game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit}
+/* the home page's section chips wrap on narrow phones instead of pushing the card past the screen */
+.game .pk{white-space:normal}
 .game:hover{border-color:var(--accent)}
 .game:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .game h2{font-size:22px}
@@ -337,6 +339,15 @@ td.acts .copy.lsb{border-style:dashed}
   .tablist::-webkit-scrollbar{display:none}
   .tab{flex:none}
 }
+/* Tabs have a long and a short label (<span class="tl">Items &amp; money</span><span class="ts">Items</span>, with the
+   long one as the button's aria-label). Where the row stops wrapping, the short ones keep it on one screen down to about
+   740px wide; below that it scrolls sideways, with a fade on the edge that has more tabs past it. */
+.tab .ts{display:none}
+@media (max-width:1060px){ .tab .tl{display:none} .tab .ts{display:inline} }
+/* When the row still scrolls sideways, the edge with more tabs past it fades out (guide.js sets the classes). */
+.tablist.more-r{-webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent)}
+.tablist.more-l{-webkit-mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent)}
+.tablist.more-l.more-r{-webkit-mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent)}
 /* learnsets stay in view (and wrap to one column) inside the sideways-scrolling table on phones */
 tr.lsrow .lset{position:sticky; left:0; max-width:calc(100vw - 72px)}
 
@@ -415,6 +426,36 @@ ol.use li::marker{color:var(--muted); font-family:var(--f-mono)}
 .evsum{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin-left:auto}
 .evsum.bad{color:var(--bad); font-weight:700}
 .field2{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px}
+.field.col{flex-direction:column; align-items:stretch; gap:6px}
+.field.col .picker{gap:4px}
+.pickmsg.bad{color:var(--bad)}
+p.flabel{margin:4px 0 -4px}
+.frrow label.chk{display:flex; gap:6px; align-items:center; font-weight:600; font-size:14px; cursor:pointer}
+input.num{font:inherit; font-family:var(--f-mono); font-size:14px; width:84px; padding:6px 8px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+input.num:disabled{opacity:.45}
+input.num:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+/* party slot picker, laid out like the game's POKeMON screen: slot 1 big on the left, 2-6 stacked on the right */
+.slotpick{flex-direction:column; align-items:stretch; gap:6px}
+.party{display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); grid-template-rows:repeat(5, minmax(30px, auto)); gap:5px;
+  max-width:380px; padding:7px; border-radius:12px; background:var(--sunk)}
+.pslot{font:inherit; display:flex; align-items:center; gap:8px; min-width:0; text-align:left; border:1px solid var(--line); border-radius:8px;
+  background:var(--surface); color:var(--ink); padding:4px 10px; cursor:pointer}
+.pslot.lead{grid-row:1 / span 5; flex-direction:column; justify-content:center; align-items:flex-start; gap:2px; border-radius:12px; padding:10px 12px}
+.pslot .pn{font:600 16px/1 var(--f-display); color:var(--muted)}
+.pslot.lead .pn{font-size:22px}
+.pslot .pw{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.pslot .pm{font-size:12.5px; font-weight:600; color:var(--accent); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pslot.lead .pm{white-space:normal}
+.pslot:hover{border-color:var(--accent)}
+.pslot[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft); box-shadow:inset 0 0 0 1px var(--accent)}
+.pslot[aria-pressed="true"] .pn, .pslot[aria-pressed="true"] .pw{color:var(--accent)}
+.pslot:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+/* the editor's plain-English summary */
+.edsum{background:var(--sunk); border-radius:8px; padding:12px 14px; font-size:14px; display:flex; flex-direction:column; gap:6px}
+.edsum h4{margin:0; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.edsum ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:2px}
+.edsum ul li::marker{color:var(--accent)}
+.edsum .muted{font-size:13.5px}
 /* long lists: a scroll box with a sticky header, rows added in batches as it scrolls (guide.js LazyTable) */
 .lazybox{max-height:min(680px, calc(100vh - 150px)); min-height:160px; overflow:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
 .lazybox:focus-visible{outline:2px solid var(--accent); outline-offset:2px}

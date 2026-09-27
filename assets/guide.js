@@ -9,6 +9,7 @@
      G.tabs()       tabs from .tablist, #hash links to a tab or to any element inside one (e.g. #card-shiny)
      G.copyText()   copy to the clipboard, with a select-the-text fallback; [data-copy="<id>"] buttons wire themselves
      G.showCode()   fill a code box and its line count
+     G.blockCode()  put a message in a code box instead of a code, and turn its Copy button off
      G.seg()        segmented buttons (.seg with data-v on each button)
      G.cards()      collapsible code cards (.ccard > .chead), collapsed ones remembered per viewer
      G.LazyTable    long lists in a scroll box, rendered in batches as the box scrolls
@@ -65,11 +66,21 @@
   // A code box shows one line per line of the code; its [data-lines="<id>"] label says how many.
   function showCode(id, lines) {
     const box = document.getElementById(id);
+    if (box.dataset.blocked) { delete box.dataset.blocked; box.classList.remove("blocked"); copyButtons(id, true); }
     box.textContent = lines.join("\n");
     document.querySelectorAll(`[data-lines="${id}"]`).forEach(el => {
       el.textContent = lines.length === 1 ? "1 line" : `${lines.length} lines · paste all as one code`;
     });
   }
+  // When the choices don't make a code (nothing picked, a number out of range), the box says why and Copy is off,
+  // so an old code is never left on screen to be copied by mistake.
+  function blockCode(id, message) {
+    const box = document.getElementById(id);
+    box.textContent = message; box.dataset.blocked = "1"; box.classList.add("blocked");
+    copyButtons(id, false);
+    document.querySelectorAll(`[data-lines="${id}"]`).forEach(el => { el.textContent = ""; });
+  }
+  const copyButtons = (id, on) => document.querySelectorAll(`[data-copy="${id}"]`).forEach(b => { b.disabled = !on; });
   function wireCopy(scope) {
     (scope || document).querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", () => {
       const box = document.getElementById(b.dataset.copy);
@@ -140,7 +151,25 @@
       el.scrollIntoView({block: "start"});
       if (el.classList.contains("ccard")) { el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1600); }
     }
-    btns.forEach((b, i) => b.addEventListener("click", () => show(ids[i], true)));
+    // Clicking a tab while scrolled down the page lands at the top of the new tab (just under the sticky bar), not
+    // somewhere in its middle. Near the top of the page nothing moves. Every panel starts where the current one does, so
+    // this measures and scrolls before the switch, while the layout is still clean: no extra layout pass.
+    const bar = list.closest(".tabs") || list;
+    function toTop() {
+      const cur = document.getElementById(current || ids[0]);
+      const top = cur.getBoundingClientRect().top - bar.getBoundingClientRect().bottom;
+      if (top < 0) scrollBy({top: top - 12, behavior: "auto"});
+    }
+    btns.forEach((b, i) => b.addEventListener("click", () => { toTop(); show(ids[i], true); }));
+    // When the row of tabs is wider than the screen it scrolls sideways; a fade on the edge that has more tabs past
+    // it shows that (guide.css .tablist.more-l / .more-r). Watched with IntersectionObserver: no scroll listener.
+    if (typeof IntersectionObserver !== "undefined" && btns.length > 1) {
+      const first = btns[0], last = btns[btns.length - 1];
+      const edges = new IntersectionObserver(es => es.forEach(e => {
+        list.classList.toggle(e.target === first ? "more-l" : "more-r", e.intersectionRatio < 0.95);
+      }), {root: list, rootMargin: "40px 0px", threshold: [0.95]});   // only sideways clipping counts (the selected tab hangs below the row)
+      edges.observe(first); edges.observe(last);
+    }
     // in-page links (<a href="#card-money">) go through go(), so a second click on the same link still works
     document.addEventListener("click", e => {
       const a = e.target.closest && e.target.closest('a[href^="#"]');
@@ -179,7 +208,7 @@
         e.preventDefault();
         const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
         const smooth = Math.abs(dy) >= 50 && !matchMedia("(prefers-reduced-motion: reduce)").matches;
-        scrollBy({top: Math.min(room, pageLeft, dy), behavior: smooth ? "smooth" : "instant"});
+        scrollBy({top: Math.min(room, pageLeft, dy), behavior: smooth ? "smooth" : "auto"});
       }, {passive: false});
     }
     set(items) {
@@ -211,5 +240,5 @@
     get rendered() { return this.n; }
   }
 
-  root.G = {par, store, esc, hex4, flash, copyText, showCode, wireCopy, seg, cards, tabs, LazyTable};
+  root.G = {par, store, esc, hex4, flash, copyText, showCode, blockCode, wireCopy, seg, cards, tabs, LazyTable};
 })(typeof globalThis !== "undefined" ? globalThis : this);
