@@ -7,8 +7,26 @@
       "engine": "pokeemerald-expansion 1.15.3",
       "emulator": "mGBA 0.10.5",
       "rom_sha1": "b26eca106827ece4506fee585a78d34bf5314f47",
-      "sections": ["PC items", "Shiny", "Perfect IVs", "Pick species", "Pick nature", "Pick gender", "TM codes", "Species IDs", "Learnsets", "Moves", "Encounter map"],
-      "updated": "2026-09-26"
+      "sections": [
+        "Any item ×999",
+        "Max money, coins & BP",
+        "Shiny",
+        "Perfect IVs",
+        "Species",
+        "Nature",
+        "Gender",
+        "Ability",
+        "No random encounters",
+        "Party editor: IVs, EVs, ability, Poké Ball",
+        "EXP boost",
+        "Fast eggs",
+        "TM codes",
+        "Species & learnsets",
+        "Moves",
+        "Encounter map"
+      ],
+      "updated": "2026-09-27",
+      "rom_crc32": "5fff1cc3"
     }
   ]
 }

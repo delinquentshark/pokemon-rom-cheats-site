@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="assets/guide.css?v=3da731ff59">
+<link rel="stylesheet" href="assets/guide.css?v=2748697561">
 </head>
 <body>
 <div class="wrap">
@@ -31,7 +31,7 @@
     <p><b>Please read before using any code.</b> Every Action Replay code on this site was worked out by Claude (an AI model), which reverse-engineered the game's <code>.gba</code> ROM file and then ran each code in the target emulator named on the guide. This website was vibe-coded with Claude as well.</p>
     <p>I maintain this site, and I have not personally tested every code documented here. I've only tried a few, the ones I needed in my own playthroughs.</p>
     <p><b>Always back up your save file before using any code.</b></p>
-    <p>Every code targets one exact ROM build. Check the SHA-1 on the guide against your file before using it.</p>
+    <p>Every code targets one exact ROM build. Check the ROM shown on the guide (its Start here tab) against your file before using it.</p>
     <p>No ROMs are hosted here.</p>
   </footer>
 </div>
@@ -57,7 +57,9 @@
         g.sections.forEach(t => s.append(el("span", "pk", t)));
         a.append(s);
       }
-      if (g.rom_sha1) { const f = el("p", "meta"); f.append("ROM SHA-1 "); f.append(el("code", null, g.rom_sha1.slice(0, 8) + "…" + g.rom_sha1.slice(-4))); a.append(f); }
+      // CRC32 is what mGBA shows (File → ROM info), so it's the easiest check for a visitor; SHA-1 as a fallback
+      if (g.rom_crc32) { const f = el("p", "meta"); f.append("ROM CRC32 "); f.append(el("code", null, g.rom_crc32)); a.append(f); }
+      else if (g.rom_sha1) { const f = el("p", "meta"); f.append("ROM SHA-1 "); f.append(el("code", null, g.rom_sha1.slice(0, 8) + "…" + g.rom_sha1.slice(-4))); a.append(f); }
       a.append(el("span", "go", "Open guide →"));
       box.append(a);
     });
