@@ -1,4 +1,10 @@
-/* Shared styles for every game guide on the site. */
+/* The site's one stylesheet, used by every page (layouts/BaseLayout.astro imports it; the build bundles it into a
+   single hashed file). It's split into partials only to keep it readable: they are concatenated in this order, which
+   is the order of the rules in the cascade, so keep it. The styles are global on purpose (no per-component scoped
+   styles): a new game's page gets every one of them by using the shared components.
+
+   Performance rule: never transition colour properties (background, color, border, fill). The theme switch changes
+   every colour at once and must repaint in a single frame. Transitions on transform/opacity are fine. *//* Shared styles for every page on the site: tokens (colours for both themes, fonts) and base elements. */
 :root{
   --bg:#F2F4F9; --surface:#FFFFFF; --sunk:#E9ECF4; --ink:#1A2032; --muted:#586179; --line:#D6DBE7;
   --accent:#5638C9; --accent-soft:#ECE7FF; --code:#0C7C7C; --code-soft:#E1F4F2;
@@ -8,7 +14,7 @@
   --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
-/* Pages set data-theme on <html>: "dark" by default, "light" when the visitor picks it (assets/site.js). */
+/* Pages set data-theme on <html>: "dark" by default, "light" when the visitor picks it (client/core/theme.ts). */
 :root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{
   color-scheme:dark;
@@ -38,7 +44,7 @@ header{display:flex; flex-direction:column; gap:10px}
 .fact{max-width:100%}
 section.panel{display:flex; flex-direction:column; gap:22px}
 .block{display:flex; flex-direction:column; gap:12px}
-
+/* colour tokens for both themes, fonts, base elements, header, facts */
 /* tabs */
 .tabs{position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); padding-block:8px; border-bottom:1px solid var(--line)}
 .tablist{display:flex; gap:6px; flex-wrap:wrap}
@@ -46,7 +52,7 @@ section.panel{display:flex; flex-direction:column; gap:22px}
 @media (max-width:600px){ .tab{font-size:13px; padding:8px 9px} }
 .tab[aria-selected="true"]{color:var(--ink); background:var(--surface); border-color:var(--line); border-bottom-color:var(--surface); margin-bottom:-9px; padding-bottom:17px}
 .tab:focus-visible, .search:focus-visible, .chip:focus-visible, .copy:focus-visible, .seg button:focus-visible, .marker:focus-visible, .loc:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-
+/* the sticky tab bar */
 /* code cards */
 .tpl{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:24px}
 @media (max-width:760px){ .tpl{grid-template-columns:1fr} }
@@ -66,7 +72,7 @@ section.panel{display:flex; flex-direction:column; gap:22px}
 details.alt{font-size:14px}
 details.alt summary{cursor:pointer; color:var(--muted); font-weight:600}
 details.alt[open] summary{margin-bottom:8px}
-
+/* code boxes, raw templates, highlight marks, rows, "Raw forms" */
 /* controls */
 .controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
 .search{flex:1 1 260px; min-width:0; font:inherit; font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
@@ -113,7 +119,7 @@ td.name small{display:block; font-weight:400; color:var(--muted); font-size:12.5
 td.ar{font-family:var(--f-mono); font-size:12.5px; white-space:nowrap}
 td.ar span{display:block}
 .empty{padding:28px; text-align:center; color:var(--muted)}
-
+/* search boxes, chips, segmented buttons, Copy; tables and long tables */
 /* evidence */
 .shots{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:16px}
 figure{margin:0; display:flex; flex-direction:column; gap:6px}
@@ -145,6 +151,7 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .ccard .copy{align-self:flex-start}
 .pk.warn{background:var(--gold-soft); color:var(--gold); margin-top:4px; display:inline-block}
 .pk.bad{background:var(--bad-soft); color:var(--bad); margin-top:4px; display:inline-block}
+/* screenshots, definition lists, PASS badges, list actions, card base */
 /* encounter map */
 .encgrid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:20px; align-items:start}
 @media (max-width:860px){ .encgrid{grid-template-columns:1fr} }
@@ -182,6 +189,7 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .results button{font:inherit; text-align:left; background:none; border:0; padding:4px 0; color:var(--ink); cursor:pointer; border-bottom:1px dashed var(--line)}
 .results button b{color:var(--accent)}
 .toggle{font-size:13.5px; color:var(--muted); display:flex; gap:8px; align-items:center}
+/* the encounter map, its places and results */
 .vtable td, .vtable th{padding:6px 10px}
 .vtable td.num{font-family:var(--f-mono); text-align:right}
 .picker{display:flex; flex-direction:column; gap:4px; font-size:12.5px; font-weight:600; color:var(--muted)}
@@ -197,6 +205,7 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .mx td small{color:var(--muted); font-family:var(--f-mono)}
 .vtable td.nm{font-weight:600}
 .block > h3{margin-top:8px}
+/* result tables, pickers, nature table, the combination matrix */
 .clist{display:flex; flex-direction:column; gap:12px}
 .clist .ccard{display:block; padding:0}
 .cctl{gap:8px}
@@ -211,6 +220,7 @@ tr.coderow .codebox{background:var(--surface); display:inline-block}
 .cleft{display:flex; flex-direction:column; gap:10px; min-width:0}
 .cright{display:flex; flex-direction:column; gap:10px; min-width:0}
 .cleft .copy, .cleft .seg{align-self:flex-start}
+/* collapsible code cards: header, chevron, two-column body */
 /* Codes that come in versions (wild / wild + static / wild + static + gifts): the panel's data-scope shows one.
    .sc-st is text shared by the two versions that cover static encounters. */
 [data-scope="wild"] .sc-all, [data-scope="wild"] .sc-gift, [data-scope="wild"] .sc-st,
@@ -226,7 +236,7 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
 .cright p{font-size:14.5px; max-width:70ch}
 @media (max-width:720px){ .cbody{grid-template-columns:minmax(0,1fr); gap:10px} .chead{padding:14px 16px} .cbody{padding:0 16px 16px} }
 @media (prefers-reduced-motion:reduce){ .chev{transition:none} }
-
+/* codes that come in versions (Wild only / + one-off / + gifts) */
 /* ---------- site chrome (shared by every page) ---------- */
 .back{align-self:flex-start; font-size:13.5px; font-weight:600; text-decoration:none; color:var(--muted); padding:4px 0}
 .back:hover{color:var(--accent)}
@@ -259,7 +269,7 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
 .theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
 
-/* Theme fade. site.js runs the switch inside document.startViewTransition(): the old and new
+/* Theme fade. client/core/theme.ts runs the switch inside document.startViewTransition(): the old and new
    page are crossfaded as two GPU snapshots, so nothing is restyled or repainted per frame.
    While it runs (0.25 s) the page is a snapshot, so clicks are ignored; scrolling still works.
    It stays on with reduced motion: an opacity crossfade isn't motion (WCAG 2.3.3). */
@@ -278,6 +288,7 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift{margin-bottom:8p
 @media (max-width:600px){ .tt-rail{top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 13px + 18px - 32px) / 2)} }
 /* a ring in the page colour keeps the header's text from touching the switch as it passes underneath */
 .tt-rail .theme-toggle{box-shadow:0 0 0 6px var(--bg)}
+/* site bar, footer, home page game cards, theme switch and its rail */
 /* ---------- moves tab and learnsets ---------- */
 /* "What ticking and unticking does" under the TM codes */
 .tickwrap{max-width:860px}
@@ -332,6 +343,7 @@ td.acts .copy.lsb{border-style:dashed}
 /* tables whose columns add up to more than .items' 640px: content-visibility clips anything past the table's box,
    so the table must be at least as wide as its columns */
 #stable, #mtable{min-width:720px}
+/* moves tab, TM table, type dots, learnsets, move tooltip */
 /* Phones and tablets: the tabs stay on one row that scrolls sideways, instead of wrapping into more rows.
    The padding keeps the selected tab's extension (margin-bottom:-9px) inside the scroll box. */
 @media (max-width:1060px){
@@ -344,13 +356,13 @@ td.acts .copy.lsb{border-style:dashed}
    740px wide; below that it scrolls sideways, with a fade on the edge that has more tabs past it. */
 .tab .ts{display:none}
 @media (max-width:1060px){ .tab .tl{display:none} .tab .ts{display:inline} }
-/* When the row still scrolls sideways, the edge with more tabs past it fades out (guide.js sets the classes). */
+/* When the row still scrolls sideways, the edge with more tabs past it fades out (client/core/tabs.ts sets the classes). */
 .tablist.more-r{-webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent)}
 .tablist.more-l{-webkit-mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent)}
 .tablist.more-l.more-r{-webkit-mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent)}
 /* learnsets stay in view (and wrap to one column) inside the sideways-scrolling table on phones */
 tr.lsrow .lset{position:sticky; left:0; max-width:calc(100vw - 72px)}
-
+/* phones and tablets: one scrolling row of tabs, short labels, edge fades */
 /* ---------- guide layout (Start here, plain-language cards, long lists, Under the hood) ---------- */
 /* Deep links (#card-money) and scrollIntoView land below the sticky tab bar */
 [role="tabpanel"] [id]{scroll-margin-top:76px}
@@ -406,6 +418,7 @@ ol.use li::marker{color:var(--muted); font-family:var(--f-mono)}
 .note .pk{margin-top:0}
 .pickmsg{font-size:12.5px; color:var(--muted); margin-top:-4px}
 .picker input{flex:none; width:100%; font-size:14px; padding:8px 10px}
+/* Start here, Good to know, mini cards, scope bar, pickers */
 /* party editor form */
 .cbody.wide{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
 @media (max-width:720px){ .cbody.wide{grid-template-columns:minmax(0,1fr)} }
@@ -456,13 +469,15 @@ input.num:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 .edsum ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:2px}
 .edsum ul li::marker{color:var(--accent)}
 .edsum .muted{font-size:13.5px}
-/* long lists: a scroll box with a sticky header, rows added in batches as it scrolls (guide.js LazyTable) */
+/* the party editor form and slot picker */
+/* long lists: a scroll box with a sticky header, rows added in batches as it scrolls (client/core/lazy-table.ts) */
 .lazybox{max-height:min(680px, calc(100vh - 150px)); min-height:160px; overflow:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
 .lazybox:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .lazybox table.big thead{position:sticky; top:0; z-index:2}
 .lazybox table.big{min-width:640px}
 .lazyend{height:1px}
 td.name small.abil{color:var(--ink); opacity:.8}
+/* long-list scroll boxes */
 /* Under the hood: one collapsed section at the bottom of every tab */
 details.uth{border:1px solid var(--line); border-radius:10px; background:var(--surface)}
 details.uth > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; padding:14px 18px}
@@ -479,3 +494,4 @@ details.uth > summary:focus-visible{outline:2px solid var(--accent); outline-off
 .how .codebox{align-self:flex-start; max-width:100%}
 pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .uth-body .facts{margin-top:0}
+/* the collapsed "Under the hood" section at the bottom of every tab */

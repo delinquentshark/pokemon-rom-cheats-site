@@ -1,21 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pokémon ROM Hack Field Guides</title>
 <meta name="description" content="Action Replay codes and wild encounter data for Pokémon ROM hacks, pulled from each ROM and tested in an emulator.">
-<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="assets/guide.css?v=6ded114474">
-</head>
+<link rel="stylesheet" href="assets/site.Cz_3L3im.css"></head>
 <body>
+
 <div class="wrap">
   <nav class="sitebar" aria-label="Site">
-    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"/></svg><span class="tt-thumb" aria-hidden="true"></span></button>
+    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"></path></svg><span class="tt-thumb" aria-hidden="true"></span></button>
   </nav>
   <header>
     <span class="eyebrow">Action Replay codes · encounter data</span>
@@ -31,43 +30,13 @@
     <p><b>Please read before using any code.</b> Every Action Replay code on this site was worked out by Claude (an AI model), which reverse-engineered the game's <code>.gba</code> ROM file and then ran each code in the target emulator named on the guide. This website was vibe-coded with Claude as well.</p>
     <p>I maintain this site, and I have not personally tested every code documented here. I've only tried a few, the ones I needed in my own playthroughs.</p>
     <p><b>Always back up your save file before using any code.</b></p>
+    
     <p>Every code targets one exact ROM build. Check the ROM shown on the guide (its Start here tab) against your file before using it.</p>
     <p>No ROMs are hosted here.</p>
+  
   </footer>
 </div>
 
-<script>
-(async () => {
-  const box = document.getElementById("games");
-  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-  try {
-    const res = await fetch("games.json", { cache: "no-cache" });
-    if (!res.ok) throw new Error(res.status);
-    const { games } = await res.json();
-    games.forEach(g => {
-      const a = el("a", "game"); a.href = g.slug + "/";
-      a.append(el("span", "eyebrow", [g.platform, g.engine].filter(Boolean).join(" · ")));
-      a.append(el("h2", null, g.title));
-      const meta = [];
-      if (g.emulator) meta.push("Tested in " + g.emulator);
-      if (g.updated) meta.push("Updated " + new Date(g.updated + "T00:00:00").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }));
-      a.append(el("p", "meta", meta.join(" · ")));
-      if (g.sections && g.sections.length) {
-        const s = el("div", "secs");
-        g.sections.forEach(t => s.append(el("span", "pk", t)));
-        a.append(s);
-      }
-      // CRC32 is what mGBA shows (File → ROM info), so it's the easiest check for a visitor; SHA-1 as a fallback
-      if (g.rom_crc32) { const f = el("p", "meta"); f.append("ROM CRC32 "); f.append(el("code", null, g.rom_crc32)); a.append(f); }
-      else if (g.rom_sha1) { const f = el("p", "meta"); f.append("ROM SHA-1 "); f.append(el("code", null, g.rom_sha1.slice(0, 8) + "…" + g.rom_sha1.slice(-4))); a.append(f); }
-      a.append(el("span", "go", "Open guide →"));
-      box.append(a);
-    });
-  } catch (e) {
-    box.append(el("p", "muted", "Couldn't load the game list. Try refreshing."));
-  }
-})();
-</script>
-<script src="assets/site.js?v=5efc71bce4" defer></script>
-</body>
+<script type="module">async function e(e,t){let n=(e,t,n)=>{let r=document.createElement(e);return t&&(r.className=t),n!=null&&(r.textContent=n),r};try{let r=await fetch(t,{cache:`no-cache`});if(!r.ok)throw Error(String(r.status));let{games:i}=await r.json();i.forEach(t=>{let r=n(`a`,`game`);r.href=t.slug+`/`,r.append(n(`span`,`eyebrow`,[t.platform,t.engine].filter(Boolean).join(` · `))),r.append(n(`h2`,null,t.title));let i=[];if(t.emulator&&i.push(`Tested in `+t.emulator),t.updated&&i.push(`Updated `+new Date(t.updated+`T00:00:00`).toLocaleDateString(void 0,{year:`numeric`,month:`short`,day:`numeric`})),r.append(n(`p`,`meta`,i.join(` · `))),t.sections&&t.sections.length){let e=n(`div`,`secs`);t.sections.forEach(t=>e.append(n(`span`,`pk`,t))),r.append(e)}if(t.rom_crc32){let e=n(`p`,`meta`);e.append(`ROM CRC32 `),e.append(n(`code`,null,t.rom_crc32)),r.append(e)}else if(t.rom_sha1){let e=n(`p`,`meta`);e.append(`ROM SHA-1 `),e.append(n(`code`,null,t.rom_sha1.slice(0,8)+`…`+t.rom_sha1.slice(-4))),r.append(e)}r.append(n(`span`,`go`,`Open guide →`)),e.append(r)})}catch{e.append(n(`p`,`muted`,`Couldn't load the game list. Try refreshing.`))}}e(document.getElementById(`games`),`games.json`);</script>
+<script type="module">function e(){let e=document.documentElement,t=e.dataset.theme===`light`?`light`:`dark`;function n(n){t=n,e.dataset.theme=n,document.querySelectorAll(`.theme-toggle`).forEach(e=>{e.setAttribute(`aria-checked`,n===`dark`?`true`:`false`),e.title=n===`dark`?`Switch to light mode`:`Switch to dark mode`})}function r(e){try{localStorage.setItem(`prc-theme`,e)}catch{}document.startViewTransition?document.startViewTransition(()=>n(e)):n(e)}n(t),document.querySelectorAll(`.theme-toggle`).forEach(e=>e.addEventListener(`click`,()=>r(t===`dark`?`light`:`dark`))),window.addEventListener(`storage`,e=>{e.key===`prc-theme`&&(e.newValue===`light`||e.newValue===`dark`)&&n(e.newValue)})}e();</script></body>
 </html>

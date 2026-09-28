@@ -1,13 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found</title>
-<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
-<style>
-/* Self-contained on purpose: GitHub serves this page at any missing path, where relative links to assets/ can break.
-   The colours and the theme switch mirror assets/guide.css. */
+<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script><style>
 :root{--bg:#F2F4F9; --surface:#FFFFFF; --ink:#1A2032; --muted:#586179; --line:#D6DBE7; --accent:#5638C9; --accent-soft:#ECE7FF; color-scheme:light}
 :root[data-theme="dark"]{--bg:#0F121C; --surface:#161A27; --ink:#E5E8F2; --muted:#9BA3B9; --line:#2A3044; --accent:#A994FF; --accent-soft:#272042; color-scheme:dark}
 body{background:var(--bg); color:var(--ink); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; padding:28px 16px 64px}
@@ -31,7 +28,7 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
 <body>
 <div class="wrap">
   <nav class="sitebar" aria-label="Site">
-    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"/></svg><span class="tt-thumb" aria-hidden="true"></span></button>
+    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"></path></svg><span class="tt-thumb" aria-hidden="true"></span></button>
   </nav>
   <main>
     <h1>Page not found</h1>
@@ -42,13 +39,14 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
     <p><b>Please read before using any code.</b> Every Action Replay code on this site was worked out by Claude (an AI model), which reverse-engineered the game's <code>.gba</code> ROM file and then ran each code in the target emulator named on the guide. This website was vibe-coded with Claude as well.</p>
     <p>I maintain this site, and I have not personally tested every code documented here. I've only tried a few, the ones I needed in my own playthroughs.</p>
     <p><b>Always back up your save file before using any code.</b></p>
+    
   </footer>
 </div>
 <script>
   // Project sites live under /<repo>/, so link to that folder rather than the domain root.
   const seg = location.pathname.split("/").filter(Boolean)[0];
   if (location.hostname.endsWith("github.io") && seg) document.getElementById("home").href = "/" + seg + "/";
-  // Same theme switch as assets/site.js, including the View Transition fade.
+  // Same theme switch as client/core/theme.ts, including the View Transition fade.
   (() => {
     const KEY = "prc-theme", root = document.documentElement, b = document.querySelector(".theme-toggle");
     let theme = root.dataset.theme === "light" ? "light" : "dark";
@@ -60,6 +58,5 @@ h1{font-size:26px; margin:0} p{margin:0; color:var(--muted)} a{color:var(--accen
       if (!document.startViewTransition) paint(t); else document.startViewTransition(() => paint(t));
     });
   })();
-</script>
-</body>
+</script></body>
 </html>
