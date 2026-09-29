@@ -343,6 +343,14 @@ td.acts .copy.lsb{border-style:dashed}
 /* tables whose columns add up to more than .items' 640px: content-visibility clips anything past the table's box,
    so the table must be at least as wide as its columns */
 #stable, #mtable{min-width:720px}
+/* ---------- abilities tab (client/widgets/abilities.ts) and ability links ---------- */
+.atable td.hex small{display:block; font-weight:400; color:var(--muted); font-size:12px}
+.atable td.name{font-weight:600}
+.atable td.desc{color:var(--muted); font-size:14px}
+.atable td.spc small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+.atable tr.mhl td{background:var(--accent-soft)}
+.asp, .abl{color:inherit; text-decoration:underline dotted; text-underline-offset:3px}
+.asp:hover, .asp:focus-visible, .abl:hover, .abl:focus-visible{color:var(--accent); text-decoration-style:solid}
 /* moves tab, TM table, type dots, learnsets, move tooltip */
 /* Phones and tablets: the tabs stay on one row that scrolls sideways, instead of wrapping into more rows.
    The padding keeps the selected tab's extension (margin-bottom:-9px) inside the scroll box. */
@@ -353,7 +361,7 @@ td.acts .copy.lsb{border-style:dashed}
 }
 /* Tabs have a long and a short label (<span class="tl">Items &amp; money</span><span class="ts">Items</span>, with the
    long one as the button's aria-label). Where the row stops wrapping, the short ones keep it on one screen down to about
-   740px wide; below that it scrolls sideways, with a fade on the edge that has more tabs past it. */
+   770px wide (eight tabs); below that it scrolls sideways, with a fade on the edge that has more tabs past it. */
 .tab .ts{display:none}
 @media (max-width:1060px){ .tab .tl{display:none} .tab .ts{display:inline} }
 /* When the row still scrolls sideways, the edge with more tabs past it fades out (client/core/tabs.ts sets the classes). */
