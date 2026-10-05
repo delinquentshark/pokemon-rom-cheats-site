@@ -29,6 +29,29 @@
       ],
       "updated": "2026-09-27",
       "rom_crc32": "5fff1cc3"
+    },
+    {
+      "slug": "origin-heartgold",
+      "title": "Origin HeartGold",
+      "platform": "NDS",
+      "engine": "Japanese HeartGold (v4.0 Special Edition, English)",
+      "emulator": "melonDS 1.1",
+      "rom_sha1": "7234f7b34933e0dc8902d1d079e4747490241a2d",
+      "sections": [
+        "Any item ×999",
+        "Max money, coins & BP",
+        "Shiny",
+        "Perfect IVs",
+        "Species",
+        "Nature",
+        "Gender",
+        "Ability",
+        "Starter or wild",
+        "No random encounters",
+        "Catch on the first ball"
+      ],
+      "updated": "2026-10-04",
+      "rom_crc32": "8cde8229"
     }
   ]
 }
