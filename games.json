@@ -48,9 +48,11 @@
         "Ability",
         "Starter or wild",
         "No random encounters",
-        "Catch on the first ball"
+        "Catch on the first ball",
+        "Species & learnsets",
+        "Encounter map"
       ],
-      "updated": "2026-10-04",
+      "updated": "2026-10-05",
       "rom_crc32": "8cde8229"
     }
   ]

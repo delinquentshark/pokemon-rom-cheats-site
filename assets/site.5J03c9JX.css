@@ -1,0 +1,519 @@
+/* The site's one stylesheet, used by every page (layouts/BaseLayout.astro imports it; the build bundles it into a
+   single hashed file). It's split into partials only to keep it readable: they are concatenated in this order, which
+   is the order of the rules in the cascade, so keep it. The styles are global on purpose (no per-component scoped
+   styles): a new game's page gets every one of them by using the shared components.
+
+   Performance rule: never transition colour properties (background, color, border, fill). The theme switch changes
+   every colour at once and must repaint in a single frame. Transitions on transform/opacity are fine. *//* Shared styles for every page on the site: tokens (colours for both themes, fonts) and base elements. */
+:root{
+  --bg:#F2F4F9; --surface:#FFFFFF; --sunk:#E9ECF4; --ink:#1A2032; --muted:#586179; --line:#D6DBE7;
+  --accent:#5638C9; --accent-soft:#ECE7FF; --code:#0C7C7C; --code-soft:#E1F4F2;
+  --gold:#9A6A00; --gold-soft:#FFF3D1; --bad:#B3261E; --bad-soft:#FBE3E3; --ok:#1F7A4A; --ok-soft:#E3F4EA;
+  --bar:#5638C9;
+  --f-display:"Pixelify Sans", "Courier New", monospace;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+/* Pages set data-theme on <html>: "dark" by default, "light" when the visitor picks it (client/core/theme.ts). */
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F121C; --surface:#161A27; --sunk:#1D2232; --ink:#E5E8F2; --muted:#9BA3B9; --line:#2A3044;
+  --accent:#A994FF; --accent-soft:#272042; --code:#57D2C6; --code-soft:#12302F;
+  --gold:#F2C45A; --gold-soft:#3A2E12; --bad:#FF8A80; --bad-soft:#3D1715; --ok:#5DD39A; --ok-soft:#133224; --bar:#A994FF;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.55; padding-inline:16px; padding-block:28px 64px}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:24px}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; text-wrap:balance; margin:0; letter-spacing:.01em}
+h1{font-size:clamp(26px,4.4vw,38px); line-height:1.1}
+h2{font-size:21px}
+h3{font-size:17px}
+p{margin:0}
+code{font-family:var(--f-mono); font-size:.9em}
+a{color:var(--accent)}
+.eyebrow{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:600}
+.lede{color:var(--muted); max-width:68ch}
+.muted{color:var(--muted)}
+header{display:flex; flex-direction:column; gap:10px}
+.facts{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
+.fact{font-family:var(--f-mono); font-size:12.5px; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:4px 9px; color:var(--muted)}
+.fact b{color:var(--ink); font-weight:600; overflow-wrap:anywhere}
+.fact{max-width:100%}
+section.panel{display:flex; flex-direction:column; gap:22px}
+.block{display:flex; flex-direction:column; gap:12px}
+/* colour tokens for both themes, fonts, base elements, header, facts */
+/* tabs */
+.tabs{position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); padding-block:8px; border-bottom:1px solid var(--line)}
+.tablist{display:flex; gap:6px; flex-wrap:wrap}
+.tab{font:inherit; font-weight:700; font-size:14px; padding:9px 14px; border-radius:8px 8px 0 0; border:1px solid transparent; background:transparent; color:var(--muted); cursor:pointer}
+@media (max-width:600px){ .tab{font-size:13px; padding:8px 9px} }
+.tab[aria-selected="true"]{color:var(--ink); background:var(--surface); border-color:var(--line); border-bottom-color:var(--surface); margin-bottom:-9px; padding-bottom:17px}
+.tab:focus-visible, .search:focus-visible, .chip:focus-visible, .copy:focus-visible, .seg button:focus-visible, .marker:focus-visible, .loc:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+/* the sticky tab bar */
+/* code cards */
+.tpl{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:24px}
+@media (max-width:760px){ .tpl{grid-template-columns:1fr} }
+.codebox{font-family:var(--f-mono); font-size:clamp(17px,2.6vw,22px); background:var(--sunk); border-radius:8px; padding:16px 18px; line-height:1.7; overflow-x:auto; white-space:pre}
+.codebox.sm{font-size:15px; padding:10px 14px; max-height:calc(8 * 1.7em + 20px); overflow:auto}
+/* on the code cards the box shows the first five lines and scrolls; Copy copies every line */
+.cleft > .codebox.sm, .cright > .codebox.sm, .ccard.mini > .codebox.sm{max-height:calc(5 * 1.7em + 20px)}
+.hl-i{background:var(--accent-soft); color:var(--accent); border-radius:4px; padding:0 3px; font-weight:600}
+.hl-q{background:var(--code-soft); color:var(--code); border-radius:4px; padding:0 3px; font-weight:600}
+.legend{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; font-size:14px; align-items:baseline}
+.legend code{font-size:13px}
+.steps{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.steps li::marker{color:var(--muted); font-family:var(--f-mono)}
+.warn{font-size:13.5px; color:var(--muted); border-top:1px dashed var(--line); padding-top:10px}
+.warn b{color:var(--ink)}
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+details.alt{font-size:14px}
+details.alt summary{cursor:pointer; color:var(--muted); font-weight:600}
+details.alt[open] summary{margin-bottom:8px}
+/* code boxes, raw templates, highlight marks, rows, "Raw forms" */
+/* controls */
+.controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.search{flex:1 1 260px; min-width:0; font:inherit; font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:var(--surface)}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.seg button{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border:0; background:var(--surface); color:var(--muted); cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--sunk); color:var(--ink)}
+.count{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
+.copy{font:inherit; font-size:12px; font-weight:600; padding:5px 10px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; white-space:nowrap}
+.copy.done{color:var(--ok); border-color:var(--ok)}
+
+/* tables */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums}
+.items table{min-width:640px}
+/* Performance rule: never transition colour properties (background, color, border, fill).
+   The theme switch changes every colour at once and must repaint in a single frame.
+   Transitions on transform/opacity are fine. */
+
+/* Long tables (hundreds of rows). Rows are laid out as grids instead of table rows, and the
+   body is split into several <tbody class="chunk"> blocks of ~40 rows. Each chunk has
+   content-visibility:auto, so chunks outside the viewport skip style, layout and paint
+   entirely. That keeps the theme switch, filtering and tab changes to one cheap frame.
+   Set --cols (column widths) on the table; chunks get their estimated height from JS. */
+table.big{display:block}
+table.big thead, table.big tbody{display:block}
+table.big tbody.chunk{content-visibility:auto}
+table.big tr{display:grid; grid-template-columns:var(--cols)}
+table.big th, table.big td{min-width:0; align-content:center}
+table.big tr.coderow td{grid-column:1 / -1}
+table.big tbody tr:last-child td{border-bottom:1px solid var(--line)}
+table.big tbody:last-child tr:last-child td{border-bottom:0}
+thead th{background:var(--sunk); text-align:left; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:9px 12px; font-weight:700; border-bottom:1px solid var(--line)}
+.items thead th{position:sticky; top:0}
+tbody td{padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td.hex{font-family:var(--f-mono); font-weight:600; color:var(--accent); font-size:15px; white-space:nowrap}
+td.dec{font-family:var(--f-mono); color:var(--muted); font-size:12.5px}
+td.name{font-weight:600}
+td.name small{display:block; font-weight:400; color:var(--muted); font-size:12.5px}
+.pk{font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; background:var(--sunk); color:var(--muted); white-space:nowrap}
+td.ar{font-family:var(--f-mono); font-size:12.5px; white-space:nowrap}
+td.ar span{display:block}
+.empty{padding:28px; text-align:center; color:var(--muted)}
+/* search boxes, chips, segmented buttons, Copy; tables and long tables */
+/* evidence */
+.shots{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:16px}
+figure{margin:0; display:flex; flex-direction:column; gap:6px}
+figure img{width:100%; image-rendering:pixelated; border-radius:8px; border:1px solid var(--line); display:block; background:#000}
+figcaption{font-size:12.5px; color:var(--muted)}
+figcaption b{color:var(--ink)}
+dl.re{display:grid; grid-template-columns:auto 1fr; gap:8px 16px; margin:0; font-size:14px}
+dl.re dt{font-family:var(--f-mono); font-size:13px; color:var(--accent); white-space:nowrap}
+dl.re dd{margin:0}
+dl.re dd small{color:var(--muted)}
+@media (max-width:560px){ dl.re{grid-template-columns:1fr} dl.re dt{white-space:normal} dl.re dd{margin-bottom:6px} }
+.pass{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.04em; padding:1px 7px; border-radius:999px; background:var(--ok-soft); color:var(--ok); margin-right:6px}
+.proof{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:760px){ .proof{grid-template-columns:1fr} }
+
+.twoways{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.way{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:8px}
+.way p{font-size:14px}
+.way .copy{align-self:flex-start; margin-top:8px}
+td.acts{white-space:nowrap}
+td.acts .copy{margin-right:6px}
+td.acts .copy.full{border-color:var(--accent); color:var(--accent)}
+td.acts .copy.done{border-color:var(--ok); color:var(--ok)}
+tr.coderow td{background:var(--sunk)}
+tr.coderow .codebox{background:var(--surface); display:inline-block}
+/* a long code opened under its row (ItemList long): stays in view when the list is scrolled sideways (phones) */
+tr.longcode .codebox{position:sticky; left:12px}
+.cards3{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; align-items:start}
+.ccard{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0}
+.ccard p{font-size:14px}
+.ccard .copy{align-self:flex-start}
+.pk.warn{background:var(--gold-soft); color:var(--gold); margin-top:4px; display:inline-block}
+.pk.bad{background:var(--bad-soft); color:var(--bad); margin-top:4px; display:inline-block}
+/* screenshots, definition lists, PASS badges, list actions, card base */
+/* encounter map */
+.encgrid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:20px; align-items:start}
+@media (max-width:860px){ .encgrid{grid-template-columns:1fr} }
+.mapbox{position:relative; width:100%; aspect-ratio:var(--map-ar, 240/144); border-radius:10px; overflow:hidden; border:1px solid var(--line); background:#1f6fc3}
+.mapbox img{position:absolute; inset:0; width:100%; height:100%; image-rendering:pixelated}
+.marker{position:absolute; transform:translate(-50%,-50%); width:var(--mk,clamp(16px,3.2vw,24px)); height:var(--mk,clamp(16px,3.2vw,24px)); border-radius:50%; border:2px solid #fff; background:#5638C9; color:#fff; font:700 11px/1 var(--f-body); display:grid; place-items:center; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.45); padding:0}
+.marker[aria-pressed="true"]{background:#F2C45A; color:#1A2032; border-color:#1A2032}
+.marker.dim{opacity:.35}
+.marker.hit{background:#E0457B}
+.marker.hit[aria-pressed="true"]{background:#F2C45A; color:#1A2032; border-color:#E0457B}
+.mapscroll{overflow-x:auto; border-radius:10px}
+.mapbox.wide{min-width:var(--map-min); --mk:clamp(14px,1.7vw,20px)}
+.maplegend.wide{margin:10px 0 16px}
+.loclist{display:flex; flex-wrap:wrap; gap:6px}
+.maplegend{font-size:13px; color:var(--muted); line-height:1.6; margin:0}
+.maplegend .mk{display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:18px; height:18px; border-radius:50%; border:2px solid #fff; background:#5638C9; color:#fff; font:700 10px/1 var(--f-body); vertical-align:middle; margin:-2px 5px 0 0; box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.maplegend .mk:not(:first-child){margin-left:6px}
+.loc{font:inherit; font-size:13px; font-weight:600; padding:6px 10px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; text-align:left}
+.loc small{font-weight:500; color:var(--muted)}
+.loc[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+.loc.hit{border-color:#E0457B}
+.loc.off{opacity:.45}
+.detail{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px; display:flex; flex-direction:column; gap:16px}
+.detail .meta{font-size:13px; color:var(--muted)}
+.meth{display:flex; flex-direction:column; gap:8px}
+.meth h3{display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
+.meth h3 span{font-family:var(--f-body); font-size:12.5px; font-weight:600; color:var(--muted)}
+.meth table td{padding:6px 10px}
+.meth td.lv{font-family:var(--f-mono); font-size:13px; white-space:nowrap; color:var(--muted)}
+.meth td.pc{width:42%}
+.barcell{display:flex; align-items:center; gap:8px}
+.bar{height:8px; border-radius:4px; background:var(--bar); min-width:2px}
+.barcell b{font-family:var(--f-mono); font-size:13px; min-width:3.5ch; text-align:right}
+.meth tr.hit td{background:var(--gold-soft)}
+.meth details summary{cursor:pointer; font-size:13px; color:var(--muted); font-weight:600}
+.slots{font-family:var(--f-mono); font-size:12.5px; color:var(--muted); display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:2px 16px; margin-top:6px}
+.results{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.results button{font:inherit; text-align:left; background:none; border:0; padding:4px 0; color:var(--ink); cursor:pointer; border-bottom:1px dashed var(--line)}
+.results button b{color:var(--accent)}
+.encnotes{margin:0; padding-left:18px; font-size:14px; display:flex; flex-direction:column; gap:4px}
+.encnotes li.hit{background:var(--gold-soft)}
+.toggle{font-size:13.5px; color:var(--muted); display:flex; gap:8px; align-items:center}
+/* the encounter map, its places and results */
+.vtable td, .vtable th{padding:6px 10px}
+.vtable td.num{font-family:var(--f-mono); text-align:right}
+.picker{display:flex; flex-direction:column; gap:4px; font-size:12.5px; font-weight:600; color:var(--muted)}
+.picker select{flex:none; width:100%; font-size:14px; padding:8px 10px}
+.picker select:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.natfx{font-weight:600; color:var(--ink)}
+.nattable td, .nattable th{padding:4px 8px; font-size:13px}
+.nattable td:first-child{font-family:var(--f-mono); color:var(--accent); font-weight:600}
+.nattable td.neu{color:var(--muted)}
+.ccard .tablewrap{max-height:260px; overflow:auto}
+.mx td{text-align:center; white-space:nowrap}
+.mx td:first-child{text-align:left; font-weight:600; white-space:normal}
+.mx td small{color:var(--muted); font-family:var(--f-mono)}
+.vtable td.nm{font-weight:600}
+.block > h3{margin-top:8px}
+/* result tables, pickers, nature table, the combination matrix */
+.clist{display:flex; flex-direction:column; gap:12px}
+.clist .ccard{display:block; padding:0}
+.cctl{gap:8px}
+.chead-h{margin:0; font-size:inherit; font-weight:inherit}
+.chead{width:100%; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:16px 20px; margin:0; background:none; border:0; border-radius:10px; color:inherit; font:inherit; text-align:left; cursor:pointer}
+.chead:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.ctitle{font-family:var(--f-display); font-weight:600; font-size:17px; color:var(--ink); letter-spacing:.01em}
+.chead:hover .ctitle{color:var(--accent)}
+.chev{margin-left:auto; align-self:center; flex:none; color:var(--muted); transition:transform .15s ease}
+.chead[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.cbody{display:grid; grid-template-columns:300px minmax(0,1fr); gap:12px 28px; padding:0 20px 18px}
+.cleft{display:flex; flex-direction:column; gap:10px; min-width:0}
+.cright{display:flex; flex-direction:column; gap:10px; min-width:0}
+.cleft .copy, .cleft .seg{align-self:flex-start}
+/* collapsible code cards: header, chevron, two-column body */
+/* Codes that come in versions (wild / wild + static / wild + static + gifts): the panel's data-scope shows one.
+   .sc-st is text shared by the two versions that cover static encounters. */
+[data-scope="wild"] .sc-all, [data-scope="wild"] .sc-gift, [data-scope="wild"] .sc-st,
+[data-scope="all"] .sc-wild, [data-scope="all"] .sc-gift,
+[data-scope="gift"] .sc-wild, [data-scope="gift"] .sc-all{display:none !important}
+/* games whose versions are wild / wild + starter (Origin HeartGold) */
+[data-scope="wild"] .sc-starter, [data-scope="starter"] .sc-wild{display:none !important}
+.cleft > .sc-wild, .cleft > .sc-all, .cleft > .sc-gift, .cleft > .sc-starter{display:flex; flex-direction:column; gap:10px; min-width:0}
+details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift, details.alt .sc-starter{margin-bottom:8px}
+.scope{gap:10px 12px}
+.scope .seg{max-width:100%}   /* on a phone the three labels wrap inside their buttons instead of overflowing */
+.scope-lbl{font-size:13.5px; font-weight:600; color:var(--muted)}
+.scope-note{font-size:14px; color:var(--muted); max-width:78ch}
+.scope-note b{color:var(--ink)}
+.cright p{font-size:14.5px; max-width:70ch}
+@media (max-width:720px){ .cbody{grid-template-columns:minmax(0,1fr); gap:10px} .chead{padding:14px 16px} .cbody{padding:0 16px 16px} }
+@media (prefers-reduced-motion:reduce){ .chev{transition:none} }
+/* codes that come in versions (Wild only / + one-off / + gifts) */
+/* ---------- site chrome (shared by every page) ---------- */
+.back{align-self:flex-start; font-size:13.5px; font-weight:600; text-decoration:none; color:var(--muted); padding:4px 0}
+.back:hover{color:var(--accent)}
+.back:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+.site-foot{font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:4px}
+.site-foot b{color:var(--ink)}
+
+/* ---------- landing page ---------- */
+.games{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px, 100%),1fr)); gap:16px}
+.game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit}
+/* the home page's section chips wrap on narrow phones instead of pushing the card past the screen */
+.game .pk{white-space:normal}
+.game:hover{border-color:var(--accent)}
+.game:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.game h2{font-size:22px}
+.game .meta{font-size:13px; color:var(--muted)}
+.game .secs{display:flex; flex-wrap:wrap; gap:6px}
+.game .go{margin-top:auto; font-weight:700; font-size:14px; color:var(--accent)}
+.game.soon{opacity:.6; pointer-events:none}
+
+/* ---------- site bar + theme switch (same on every page) ---------- */
+.sitebar{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:32px}
+.sitebar .back{padding:0}
+.theme-toggle{position:relative; flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:space-between; width:64px; height:32px; padding:0 9px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.theme-toggle svg{position:relative; z-index:1; width:14px; height:14px}
+.theme-toggle .tt-thumb{position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--accent-soft); box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .22s cubic-bezier(.4,0,.2,1)}
+.theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
+.theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
+
+/* Theme fade. client/core/theme.ts runs the switch inside document.startViewTransition(): the old and new
+   page are crossfaded as two GPU snapshots, so nothing is restyled or repainted per frame.
+   While it runs (0.25 s) the page is a snapshot, so clicks are ignored; scrolling still works.
+   It stays on with reduced motion: an opacity crossfade isn't motion (WCAG 2.3.3). */
+::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
+
+/* Guides with a sticky tab bar: the switch lives in .tt-rail, a zero-height sticky strip right after the site bar.
+   It starts in the site bar's spot, stays at the top of the window as the page scrolls (so it slides down the page),
+   and meets the tab bar exactly where the bar keeps room for it (72px on the right); from then on both stay stuck.
+   Plain position:sticky: the browser moves it while scrolling, with no script and no animation on the main thread.
+   The margins cancel the rail's place in .wrap's column: -(gap 24px + site bar 32px) above, +32px below. */
+[data-theme-dock]{padding-right:72px}
+@media (max-width:360px){ [data-theme-dock] .tab{padding-inline:7px} }
+/* top: centred on the bar's first row of tabs (bar padding 8px + half a tab's height - half the switch's 32px). */
+.tt-rail{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 14px + 20px - 32px) / 2); z-index:6;
+  height:0; margin:-56px 0 32px; display:flex; justify-content:flex-end; align-items:flex-start}
+@media (max-width:600px){ .tt-rail{top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 13px + 18px - 32px) / 2)} }
+/* a ring in the page colour keeps the header's text from touching the switch as it passes underneath */
+.tt-rail .theme-toggle{box-shadow:0 0 0 6px var(--bg)}
+/* site bar, footer, home page game cards, theme switch and its rail */
+/* ---------- moves tab and learnsets ---------- */
+/* "What ticking and unticking does" under the TM codes */
+.tickwrap{max-width:860px}
+.ticktable td{vertical-align:top; font-size:14px}
+.ticktable td.nm{width:27%}
+.ticktable th{text-align:left}
+/* phones: one block per row, each cell labelled */
+@media (max-width:600px){
+  .ticktable thead{display:none}
+  .ticktable tr{display:block; padding:10px 12px}
+  .ticktable tr + tr{border-top:1px solid var(--line)}
+  .ticktable td, .ticktable td.nm{display:block; width:auto; padding:2px 0; border:0}
+  .ticktable td.nm{padding-bottom:4px}
+  .ticktable td[data-label]::before{content:attr(data-label) ": "; color:var(--muted); font-weight:600}
+}
+.picker.inline{flex-direction:row; align-items:center; gap:8px}
+.picker.inline select{width:auto}
+.mtable td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.mtable td.hex small{display:block; font-weight:400; color:var(--muted); font-size:12px}
+.mtable td.tags small{display:block; color:var(--muted); font-size:12px; margin-top:3px}
+.mtable tr.mhl td{background:var(--accent-soft)}
+.mv-tmnote{font-size:13px}
+.tg{display:inline-block; font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; margin:0 4px 2px 0; white-space:nowrap}
+.tg-damage{background:var(--sunk); color:var(--ink)}
+.tg-status{background:var(--bad-soft); color:var(--bad)}
+.tg-setup{background:var(--ok-soft); color:var(--ok)}
+.tg-other{background:var(--sunk); color:var(--muted)}
+.mv-legend{grid-template-columns:auto 1fr}
+/* type: a coloured dot, the name in the normal text colour (readable in both themes) */
+.ty{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; white-space:nowrap}
+.ty::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--tc, var(--muted)); flex:none}
+.ty1{--tc:#A8A77A} .ty2{--tc:#C22E28} .ty3{--tc:#A98FF3} .ty4{--tc:#A33EA1} .ty5{--tc:#E2BF65} .ty6{--tc:#B6A136}
+.ty7{--tc:#A6B91A} .ty8{--tc:#735797} .ty9{--tc:#B7B7CE} .ty10{--tc:#68A090} .ty11{--tc:#EE8130} .ty12{--tc:#6390F0}
+.ty13{--tc:#7AC74C} .ty14{--tc:#F7D02C} .ty15{--tc:#F95587} .ty16{--tc:#96D9D6} .ty17{--tc:#6F35FC} .ty18{--tc:#705746}
+.ty19{--tc:#D685AD} .ty20{--tc:#40B5A5}
+tr.lsrow td{background:var(--sunk)}
+.lset{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px 22px; padding:4px 0}
+.lgrp h4{margin:0 0 6px; font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+.lgrp h4 .muted{font-weight:400}
+.mvlist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px}
+.mvlist li{display:grid; grid-template-columns:48px 1fr; gap:8px; align-items:baseline; font-size:14px}
+.mvlist .lv{font-family:var(--f-mono); font-size:12px; color:var(--muted); white-space:nowrap}
+.mvl{color:var(--ink); text-decoration:none; border-left:3px solid var(--tc, var(--line)); padding-left:7px; font-weight:500}
+.mvl:hover, .mvl:focus-visible{color:var(--accent); text-decoration:underline}
+.mvl:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+span.mvl{cursor:default}
+span.mvl:hover{color:var(--ink); text-decoration:underline dotted}
+.lnote{margin:10px 0 0; font-size:13px}
+td.acts .copy.lsb{border-style:dashed}
+#mvtip{position:fixed; z-index:60; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px;
+  padding:10px 12px; font-size:13px; line-height:1.45; box-shadow:0 8px 24px rgba(0,0,0,.25); pointer-events:none; display:flex; flex-direction:column; gap:5px}
+#mvtip p{color:var(--muted)}
+#mvtip .tipnums{font-family:var(--f-mono); font-size:12.5px}
+.mtable td.type small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+/* tables whose columns add up to more than .items' 640px: content-visibility clips anything past the table's box,
+   so the table must be at least as wide as its columns */
+#stable, #mtable{min-width:720px}
+/* ---------- abilities tab (client/widgets/abilities.ts) and ability links ---------- */
+.atable td.hex small{display:block; font-weight:400; color:var(--muted); font-size:12px}
+.atable td.name{font-weight:600}
+.atable td.desc{color:var(--muted); font-size:14px}
+.atable td.spc small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+.atable tr.mhl td{background:var(--accent-soft)}
+.asp, .abl{color:inherit; text-decoration:underline dotted; text-underline-offset:3px}
+.asp:hover, .asp:focus-visible, .abl:hover, .abl:focus-visible{color:var(--accent); text-decoration-style:solid}
+/* moves tab, TM table, type dots, learnsets, move tooltip */
+/* Phones and tablets: the tabs stay on one row that scrolls sideways, instead of wrapping into more rows.
+   The padding keeps the selected tab's extension (margin-bottom:-9px) inside the scroll box. */
+@media (max-width:1060px){
+  .tablist{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; padding-bottom:9px; margin-bottom:-9px}
+  .tablist::-webkit-scrollbar{display:none}
+  .tab{flex:none}
+}
+/* Tabs have a long and a short label (<span class="tl">Items &amp; money</span><span class="ts">Items</span>, with the
+   long one as the button's aria-label). Where the row stops wrapping, the short ones keep it on one screen down to about
+   770px wide (eight tabs); below that it scrolls sideways, with a fade on the edge that has more tabs past it. */
+.tab .ts{display:none}
+@media (max-width:1060px){ .tab .tl{display:none} .tab .ts{display:inline} }
+/* When the row still scrolls sideways, the edge with more tabs past it fades out (client/core/tabs.ts sets the classes). */
+.tablist.more-r{-webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent)}
+.tablist.more-l{-webkit-mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent)}
+.tablist.more-l.more-r{-webkit-mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent)}
+/* learnsets stay in view (and wrap to one column) inside the sideways-scrolling table on phones */
+tr.lsrow .lset{position:sticky; left:0; max-width:calc(100vw - 72px)}
+/* phones and tablets: one scrolling row of tabs, short labels, edge fades */
+/* ---------- guide layout (Start here, plain-language cards, long lists, Under the hood) ---------- */
+/* Deep links (#card-money) and scrollIntoView land below the sticky tab bar */
+[role="tabpanel"] [id]{scroll-margin-top:76px}
+/* Start here */
+.how3{margin:0; padding:0; list-style:none; counter-reset:step; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+.how3 li{counter-increment:step; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px 16px; font-size:14.5px}
+.how3 li::before{content:counter(step); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font:600 15px/1 var(--f-display); margin-bottom:8px}
+.how3 li b:first-child{display:block; font-size:15px; margin-bottom:2px}
+/* four steps (melonDS guides): two by two */
+.how3.four{grid-template-columns:repeat(2, minmax(0,1fr))}
+@media (max-width:760px){ .how3, .how3.four{grid-template-columns:1fr} }
+code.crc{font-size:1em; font-weight:600; color:var(--accent)}
+.start2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:900px){ .start2{grid-template-columns:minmax(0,1fr)} }
+.start2 .dir{grid-template-columns:repeat(auto-fill, minmax(240px, 1fr))}
+.dir{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:14px}
+.dgrp{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px}
+.dgrp h3{font-size:16px; margin-bottom:8px}
+.dgrp h3 a{color:inherit; text-decoration:none}
+.dgrp h3 a:hover{color:var(--accent)}
+.dgrp ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px}
+.dgrp li{font-size:14px; display:flex; flex-wrap:wrap; gap:0 8px; align-items:baseline}
+.dgrp li a{font-weight:600; text-decoration:none}
+.dgrp li a:hover{text-decoration:underline}
+.dgrp li span{color:var(--muted); font-size:13px}
+/* "Good to know" lists and "How to use" lines on the cards */
+ul.gtk{margin:0; padding:0 0 0 18px; font-size:14px; color:var(--muted); display:flex; flex-direction:column; gap:3px}
+ul.gtk::before{content:"Good to know"; display:block; margin-left:-18px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+ul.gtk li::marker{color:var(--line)}
+ul.gtk.big{font-size:14.5px; color:var(--ink); gap:6px; max-width:90ch}
+ul.gtk.big::before{content:none}
+ul.gtk.big li::marker{color:var(--accent)}
+.use{font-size:14px}
+ol.use{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:3px}
+ol.use li::marker{color:var(--muted); font-family:var(--f-mono)}
+.lines{font-size:12.5px; color:var(--muted)}
+.cleft .row, .cright .row, .ccard.mini .row{gap:10px}
+.cleft .row .copy, .cright .row .copy{align-self:auto}
+.codebox.blocked{white-space:normal; font-family:var(--f-body); font-size:14px; color:var(--bad); background:var(--bad-soft)}
+.copy:disabled{opacity:.45; cursor:not-allowed}
+/* card headers: title + a short summary that stays visible when the card is collapsed */
+.csub{font-size:13.5px; color:var(--muted); font-weight:500}
+.ccard.flash{outline:2px solid var(--accent); outline-offset:2px}
+/* small cards in a grid (money, coins, BP) */
+.cgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:14px; align-items:start}
+.ccard.mini{gap:9px}
+.ccard.mini .mhead{font-size:17px}
+/* a card-styled block holding a list (Any item ×999) */
+.ccard.wide{padding:18px 20px}
+.ccard.wide > p{max-width:80ch}
+/* the version picker above the catching codes and the species list */
+.scopebar{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 16px}
+.scopebar .scope-note{flex-basis:100%; margin:0}
+.note{font-size:13.5px; color:var(--muted)}
+.note .pk{margin-top:0}
+.pickmsg{font-size:12.5px; color:var(--muted); margin-top:-4px}
+.picker input{flex:none; width:100%; font-size:14px; padding:8px 10px}
+/* Start here, Good to know, mini cards, scope bar, pickers */
+/* party editor form */
+.cbody.wide{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+@media (max-width:720px){ .cbody.wide{grid-template-columns:minmax(0,1fr)} }
+.edform{gap:12px}
+.field{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px}
+.flabel{font-size:12.5px; font-weight:600; color:var(--muted)}
+.fnote{font-size:12.5px; color:var(--muted); font-weight:400}
+.edset{border:1px solid var(--line); border-radius:8px; padding:8px 12px 12px; margin:0; min-width:0; display:flex; flex-direction:column; gap:8px}
+.edset legend{padding:0 4px; display:flex; gap:10px; align-items:baseline; font-weight:600; font-size:14px}
+.edset legend label{display:flex; gap:6px; align-items:center; cursor:pointer}
+.edgrid{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:6px}
+@media (max-width:520px){ .edgrid{grid-template-columns:repeat(3, minmax(0,1fr))} }
+.edgrid label{display:flex; flex-direction:column; gap:2px; font-size:12px; font-weight:600; color:var(--muted); min-width:0}
+.edgrid input{font:inherit; font-family:var(--f-mono); font-size:14px; width:100%; padding:6px 6px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.edgrid input:disabled{opacity:.45}
+.edgrid input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.presets{gap:6px}
+.evsum{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin-left:auto}
+.evsum.bad{color:var(--bad); font-weight:700}
+.field2{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px}
+.field.col{flex-direction:column; align-items:stretch; gap:6px}
+.field.col .picker{gap:4px}
+.pickmsg.bad{color:var(--bad)}
+p.flabel{margin:4px 0 -4px}
+.frrow label.chk{display:flex; gap:6px; align-items:center; font-weight:600; font-size:14px; cursor:pointer}
+input.num{font:inherit; font-family:var(--f-mono); font-size:14px; width:84px; padding:6px 8px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+input.num:disabled{opacity:.45}
+input.num:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+/* party slot picker, laid out like the game's POKeMON screen: slot 1 big on the left, 2-6 stacked on the right */
+.slotpick{flex-direction:column; align-items:stretch; gap:6px}
+.party{display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); grid-template-rows:repeat(5, minmax(30px, auto)); gap:5px;
+  max-width:380px; padding:7px; border-radius:12px; background:var(--sunk)}
+.pslot{font:inherit; display:flex; align-items:center; gap:8px; min-width:0; text-align:left; border:1px solid var(--line); border-radius:8px;
+  background:var(--surface); color:var(--ink); padding:4px 10px; cursor:pointer}
+.pslot.lead{grid-row:1 / span 5; flex-direction:column; justify-content:center; align-items:flex-start; gap:2px; border-radius:12px; padding:10px 12px}
+.pslot .pn{font:600 16px/1 var(--f-display); color:var(--muted)}
+.pslot.lead .pn{font-size:22px}
+.pslot .pw{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.pslot .pm{font-size:12.5px; font-weight:600; color:var(--accent); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pslot.lead .pm{white-space:normal}
+.pslot:hover{border-color:var(--accent)}
+.pslot[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft); box-shadow:inset 0 0 0 1px var(--accent)}
+.pslot[aria-pressed="true"] .pn, .pslot[aria-pressed="true"] .pw{color:var(--accent)}
+.pslot:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+/* the editor's plain-English summary */
+.edsum{background:var(--sunk); border-radius:8px; padding:12px 14px; font-size:14px; display:flex; flex-direction:column; gap:6px}
+.edsum h4{margin:0; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.edsum ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:2px}
+.edsum ul li::marker{color:var(--accent)}
+.edsum .muted{font-size:13.5px}
+/* the party editor form and slot picker */
+/* long lists: a scroll box with a sticky header, rows added in batches as it scrolls (client/core/lazy-table.ts) */
+.lazybox{max-height:min(680px, calc(100vh - 150px)); min-height:160px; overflow:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+.lazybox:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.lazybox table.big thead{position:sticky; top:0; z-index:2}
+.lazybox table.big{min-width:640px}
+.lazyend{height:1px}
+td.name small.abil{color:var(--ink); opacity:.8}
+/* long-list scroll boxes */
+/* Under the hood: one collapsed section at the bottom of every tab */
+details.uth{border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+details.uth > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; padding:14px 18px}
+details.uth > summary::-webkit-details-marker{display:none}
+details.uth > summary::before{content:""; width:8px; height:8px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); transform:rotate(-45deg); align-self:center; margin-right:2px}
+details.uth[open] > summary::before{transform:rotate(45deg)}
+details.uth > summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px; border-radius:10px}
+.uth-t{font-family:var(--f-display); font-weight:600; font-size:17px}
+.uth-s{font-size:13.5px; color:var(--muted)}
+.uth-body{border-top:1px solid var(--line); padding:18px; display:flex; flex-direction:column; gap:26px; background:var(--bg); border-radius:0 0 10px 10px}
+.uth-body p{max-width:90ch}
+.uth-body h4{font-size:15px; margin:0; font-family:var(--f-display); font-weight:600}
+.how{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px dashed var(--line)}
+.how .codebox{align-self:flex-start; max-width:100%}
+pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
+.uth-body .facts{margin-top:0}
+/* the collapsed "Under the hood" section at the bottom of every tab */
