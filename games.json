@@ -78,9 +78,11 @@
         "Catch on the first ball",
         "TM codes",
         "Species & learnsets (both movepools)",
-        "Moves"
+        "Moves",
+        "Abilities",
+        "Encounter map"
       ],
-      "updated": "2026-10-18",
+      "updated": "2026-10-19",
       "rom_crc32": "c0e39f8e"
     }
   ]
