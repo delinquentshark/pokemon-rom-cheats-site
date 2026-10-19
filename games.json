@@ -57,6 +57,31 @@
       ],
       "updated": "2026-10-06",
       "rom_crc32": "8cde8229"
+    },
+    {
+      "slug": "perfect-emerald",
+      "title": "Perfect Emerald",
+      "platform": "GBA",
+      "engine": "Modern Emerald (pokeemerald), version 8.6",
+      "emulator": "mGBA 0.10.5",
+      "rom_sha1": "4ef6c0457745a359ba6b5fe475efe16d769bfba8",
+      "sections": [
+        "Any item ×999",
+        "Max money, coins & BP",
+        "Shiny",
+        "Perfect IVs",
+        "Species",
+        "Nature",
+        "Gender",
+        "Ability",
+        "No random encounters",
+        "Catch on the first ball",
+        "TM codes",
+        "Species & learnsets (both movepools)",
+        "Moves"
+      ],
+      "updated": "2026-10-18",
+      "rom_crc32": "c0e39f8e"
     }
   ]
 }
