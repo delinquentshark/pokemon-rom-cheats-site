@@ -548,7 +548,15 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .spc-more{color:var(--muted)}
 .spc-more b{color:var(--ink); font-family:var(--f-mono)}
 /* the evolution family (the card's `evolutions` option): the card can be moved into and clicked */
-#sptip.live{pointer-events:auto; max-height:calc(100vh - 16px); overflow:auto; overscroll-behavior:contain}
+#sptip.live, #sptip.pinned{pointer-events:auto; max-height:calc(100vh - 16px); overflow:auto; overscroll-behavior:contain}
+/* open: "click": names are buttons, and the card has a close button */
+.spc-btn[data-sp]{cursor:pointer}
+.spc-btn[data-sp][aria-expanded="true"]{color:var(--accent); text-decoration-style:solid}
+#sptip.pinned .spc-head{padding-right:30px}
+.spc-x{position:absolute; top:6px; right:6px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:8px;
+  background:none; color:var(--muted); font:inherit; font-size:20px; line-height:1; cursor:pointer}
+.spc-x:hover{background:var(--accent-soft); color:var(--ink)}
+.spc-x:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 .spc-evo{border-top:1px solid var(--line); padding-top:8px}
 .spc-evo-t{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px !important}
 .spc-evo-none{color:var(--muted); border-top:1px solid var(--line); padding-top:8px}
