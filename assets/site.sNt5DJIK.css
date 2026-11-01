@@ -571,12 +571,22 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .spc-go:hover{background:var(--accent-soft)}
 .spc-go:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 .spc-go.cur{color:var(--ink); text-decoration:none; background:var(--accent-soft)}
-/* `sprites.shinySrc`: a star in the sprite box's top right swaps in the shiny colours */
-.spc-shiny{position:absolute; top:2px; right:2px; width:24px; height:24px; display:grid; place-items:center; padding:0; border:0;
-  border-radius:6px; background:none; color:var(--muted); font:inherit; font-size:16px; line-height:1; cursor:pointer; opacity:.75}
-.spc-shiny:hover{opacity:1; background:var(--surface)}
-.spc-shiny[aria-pressed="true"]{color:#e0a800; opacity:1}
-.spc-shiny:focus-visible{outline:2px solid var(--accent); outline-offset:0; opacity:1}
+/* `sprites.shinySrc` / `backSrc`: Shiny and Back toggles under the picture (never on it) */
+.spc-sprite{display:flex; flex-direction:column; gap:6px; flex:none}
+.spc-tools{display:flex; gap:4px}
+.spc-tool{flex:1 1 0; min-width:0; display:inline-flex; align-items:center; justify-content:center; gap:4px; min-height:30px; padding:0 4px;
+  border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--muted); font:inherit; font-size:12px;
+  font-weight:600; line-height:1; cursor:pointer}
+.spc-tool svg{width:15px; height:15px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.spc-tool:hover{color:var(--ink); border-color:var(--accent)}
+.spc-tool[aria-pressed="true"]{color:var(--ink); background:var(--accent-soft); border-color:var(--accent)}
+.spc-shiny[aria-pressed="true"] svg{fill:#f2b705; stroke:#b58800}
+.spc-back[aria-pressed="true"] svg{stroke:var(--accent)}
+.spc-tool:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+@media (prefers-reduced-motion: no-preference){
+  .spc-back svg{transition:transform .2s}
+  .spc-back[aria-pressed="true"] svg{transform:scaleX(-1)}
+}
 .spc-never{display:block; color:var(--muted); font-size:12px; margin-top:2px}
 /* `abilityDescs`: an ability's description while it's hovered, focused or tapped */
 .spc-ab{border-bottom:1px dotted var(--muted); cursor:help}
