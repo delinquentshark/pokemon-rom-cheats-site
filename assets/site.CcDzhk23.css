@@ -523,10 +523,11 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .uth-body .facts{margin-top:0}
 /* the collapsed "Under the hood" section at the bottom of every tab */
 /* ---------- the species card (client/widgets/species-card.ts): sprite, types, abilities and base stats on hover or
-   focus over a species name (.spc), for pages that turn it on ---------- */
-.spc{text-decoration:underline dotted; text-underline-offset:3px; cursor:default}
-.spc:hover, .spc:focus-visible{color:var(--accent); text-decoration-style:solid}
-.spc:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px}
+   focus over a species name (.spc[data-sp]; the abilities table's td.spc is something else), for pages that turn it
+   on ---------- */
+.spc[data-sp]{text-decoration:underline dotted; text-underline-offset:3px; cursor:default}
+.spc[data-sp]:hover, .spc[data-sp]:focus-visible{color:var(--accent); text-decoration-style:solid}
+.spc[data-sp]:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px}
 #sptip{position:fixed; z-index:60; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px;
   padding:12px; font-size:13px; line-height:1.45; box-shadow:0 8px 24px rgba(0,0,0,.25); pointer-events:none; display:flex; flex-direction:column; gap:8px}
 #sptip p{margin:0}
@@ -546,4 +547,20 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .stb span{display:block; height:100%; border-radius:4px; background:var(--bar)}
 .spc-more{color:var(--muted)}
 .spc-more b{color:var(--ink); font-family:var(--f-mono)}
+/* the evolution family (the card's `evolutions` option): the card can be moved into and clicked */
+#sptip.live{pointer-events:auto; max-height:calc(100vh - 16px); overflow:auto; overscroll-behavior:contain}
+.spc-evo{border-top:1px solid var(--line); padding-top:8px}
+.spc-evo-t{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px !important}
+.spc-evo-none{color:var(--muted); border-top:1px solid var(--line); padding-top:8px}
+.evo, .evo ul{list-style:none; margin:0; padding:0}
+.evo ul{margin-left:9px; padding-left:8px; border-left:2px solid var(--line)}
+.evo li{margin:2px 0}
+.evo-step{display:flex; flex-wrap:wrap; align-items:center; gap:0 6px}
+.evo-arrow{color:var(--muted)}
+#sptip .evo-how{color:var(--muted); font-size:12px; flex-basis:100%; padding-left:18px; margin-top:-2px}
+.spc-go{font:inherit; font-weight:600; color:var(--accent); background:none; border:0; border-radius:6px; padding:3px 6px;
+  min-height:28px; cursor:pointer; text-decoration:underline; text-underline-offset:3px; text-align:left}
+.spc-go:hover{background:var(--accent-soft)}
+.spc-go:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.spc-go.cur{color:var(--ink); text-decoration:none; background:var(--accent-soft)}
 /* the species card (sprite and base stats) on pages that turn it on */
