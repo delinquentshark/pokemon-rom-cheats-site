@@ -87,6 +87,30 @@
       ],
       "updated": "2026-10-19",
       "rom_crc32": "c0e39f8e"
+    },
+    {
+      "slug": "monomyth",
+      "title": "Pokémon Monomyth",
+      "platform": "GBA",
+      "engine": "pokeemerald (the Emerald decompilation)",
+      "emulator": "mGBA 0.10.5",
+      "rom_sha1": "ae1c4be9be8d706bb989602bc05731203d42860d",
+      "sections": [
+        "Any item ×999",
+        "Max money",
+        "Shiny",
+        "Perfect IVs",
+        "Species",
+        "Gender",
+        "Ability (hidden too)",
+        "No random encounters",
+        "Catch on the first ball",
+        "TM codes",
+        "Species, types & learnsets (fakemon too)",
+        "Moves"
+      ],
+      "updated": "2026-10-31",
+      "rom_crc32": "8441c61b"
     }
   ]
 }
