@@ -549,6 +549,7 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .spc-more b{color:var(--ink); font-family:var(--f-mono)}
 /* the evolution family (the card's `evolutions` option): the card can be moved into and clicked */
 #sptip.live, #sptip.pinned{pointer-events:auto; max-height:calc(100vh - 16px); overflow:auto; overscroll-behavior:contain}
+#sptip.pinned.peek{pointer-events:none}   /* a hover preview: the pointer stays on the name */
 /* open: "click": names are buttons, and the card has a close button */
 .spc-btn[data-sp]{cursor:pointer}
 .spc-btn[data-sp][aria-expanded="true"]{color:var(--accent); text-decoration-style:solid}
