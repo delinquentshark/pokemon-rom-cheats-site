@@ -553,8 +553,25 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 /* open: "click": names are buttons, and the card has a close button */
 .spc-btn[data-sp]{cursor:pointer}
 .spc-btn[data-sp][aria-expanded="true"]{color:var(--accent); text-decoration-style:solid}
-#sptip.pinned .spc-head{padding-right:30px}
-.spc-x{position:absolute; top:6px; right:6px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:8px;
+/* its title bar: Move (drag, or arrow keys), Pin (stays on screen) and ×; it stays in view while the card scrolls */
+.spc-bar{position:sticky; top:-12px; z-index:1; display:flex; align-items:center; gap:4px; margin:-12px -12px 0; padding:4px 4px 4px 6px;
+  background:var(--surface); border-bottom:1px solid var(--line); border-radius:10px 10px 0 0; cursor:grab; touch-action:none; user-select:none}
+#sptip.pinned .spc-head{cursor:grab; touch-action:none}
+#sptip.pinned .spc-head button{cursor:pointer}
+.spc-move, .spc-stick{display:inline-flex; align-items:center; gap:4px; height:30px; padding:0 8px; border:0; border-radius:8px; background:none;
+  color:var(--muted); font:inherit; font-size:12px; font-weight:600}
+.spc-move{margin-right:auto; cursor:grab; touch-action:none}
+.spc-stick{cursor:pointer}
+.spc-move svg, .spc-stick svg{width:15px; height:15px; fill:currentColor}
+.spc-stick svg{fill:none; stroke:currentColor; stroke-width:2; stroke-linejoin:round}
+.spc-move:hover, .spc-stick:hover{background:var(--accent-soft); color:var(--ink)}
+.spc-stick[aria-pressed="true"]{color:var(--accent); background:var(--accent-soft)}
+.spc-stick[aria-pressed="true"] svg{fill:currentColor}
+.spc-move:focus-visible, .spc-stick:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+#sptip.stuck{border-color:var(--accent)}
+#sptip.dragging{box-shadow:0 14px 36px rgba(0,0,0,.35); user-select:none}
+#sptip.dragging, #sptip.dragging *{cursor:grabbing !important}
+.spc-x{width:32px; height:30px; display:grid; place-items:center; border:0; border-radius:8px;
   background:none; color:var(--muted); font:inherit; font-size:20px; line-height:1; cursor:pointer}
 .spc-x:hover{background:var(--accent-soft); color:var(--ink)}
 .spc-x:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
