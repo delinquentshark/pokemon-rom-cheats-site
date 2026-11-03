@@ -111,6 +111,34 @@
       ],
       "updated": "2026-10-31",
       "rom_crc32": "8441c61b"
+    },
+    {
+      "slug": "heartfelt-gold",
+      "title": "Heartfelt Gold",
+      "platform": "NDS",
+      "engine": "hg-engine on US HeartGold",
+      "emulator": "melonDS 1.1",
+      "rom_sha1": "b4e7111718b3aff566bd9118828b3a87fee870bf",
+      "sections": [
+        "Any item ×999",
+        "Max money, coins & BP",
+        "Shiny",
+        "Perfect IVs",
+        "Species",
+        "Nature",
+        "Gender",
+        "Ability (hidden too)",
+        "Starter or wild",
+        "No random encounters",
+        "Catch on the first ball",
+        "TM codes",
+        "Species & learnsets",
+        "Moves",
+        "Abilities",
+        "Encounter map"
+      ],
+      "updated": "2026-11-02",
+      "rom_crc32": "f4bba347"
     }
   ]
 }
