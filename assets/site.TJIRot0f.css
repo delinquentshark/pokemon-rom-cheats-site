@@ -613,4 +613,6 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 /* `onFind` */
 #sptip .spc-find{margin:2px 0 8px}
 #sptip .spc-nowild, #sptip .spc-how{color:var(--muted); font-size:12.5px}
+/* `notes` */
+#sptip .spc-note{color:var(--muted); font-size:12.5px; margin:-2px 0 8px}
 /* the species card (sprite and base stats) on pages that turn it on */
