@@ -630,13 +630,15 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 .spc-sp svg .dot{fill:currentColor; stroke:none}
 .spc-sp:hover{background:var(--accent-soft); color:var(--accent)}
 .spc-sp:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
-/* `form_of`: the species' forms and Megas; `battle_only`: the ones with no row, as text */
+/* `form_of`: the species' forms and Megas, a flat list under the species like a family with many evolutions;
+   `battle_only`: the ones with no row, as text */
 .spc-forms{border-top:1px solid var(--line); padding-top:8px}
-.spc-fl{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:2px 4px}
-.spc-fl li{display:inline-flex; align-items:center; gap:2px}
-#sptip .spc-tag{font-size:11px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:0 6px; margin-right:4px}
-#sptip .spc-bonly{color:var(--muted); font-size:12.5px; margin-top:4px}
-#sptip .spc-bonly span{display:block; font-size:12px}
+.frm, .frm ul{list-style:none; margin:0; padding:0}
+.frm ul{margin-left:9px; padding-left:8px; border-left:2px solid var(--line)}
+.frm li{margin:2px 0}
+.frm-step{display:flex; flex-wrap:wrap; align-items:center; gap:0 6px}
+#sptip .frm-how{color:var(--muted); font-size:12px; flex-basis:100%; padding-left:18px; margin-top:-2px}
+.frm-txt{font-weight:600; padding:3px 6px; min-height:28px; display:inline-flex; align-items:center}
 /* `evo_only`: met nowhere itself, only by evolving the one before */
 #sptip .spc-evonly{border:1px solid var(--accent); background:var(--accent-soft); border-radius:8px; padding:6px 8px; margin-bottom:8px}
 #sptip .spc-evonly p{margin:0}
