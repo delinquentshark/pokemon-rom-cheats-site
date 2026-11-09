@@ -562,16 +562,18 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
   background:var(--surface); border-bottom:1px solid var(--line); border-radius:10px 10px 0 0; cursor:grab; touch-action:none; user-select:none}
 #sptip.pinned .spc-head{cursor:grab; touch-action:none}
 #sptip.pinned .spc-head button{cursor:pointer}
-.spc-move, .spc-stick{display:inline-flex; align-items:center; gap:4px; height:30px; padding:0 8px; border:0; border-radius:8px; background:none;
+.spc-move, .spc-stick, .spc-info{display:inline-flex; align-items:center; gap:4px; height:30px; padding:0 8px; border:0; border-radius:8px; background:none;
   color:var(--muted); font:inherit; font-size:12px; font-weight:600}
 .spc-move{margin-right:auto; cursor:grab; touch-action:none}
-.spc-stick{cursor:pointer}
+.spc-stick, .spc-info{cursor:pointer}
+.spc-info svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+.spc-info svg .dot{fill:currentColor; stroke:none}
 .spc-move svg, .spc-stick svg{width:15px; height:15px; fill:currentColor}
 .spc-stick svg{fill:none; stroke:currentColor; stroke-width:2; stroke-linejoin:round}
-.spc-move:hover, .spc-stick:hover{background:var(--accent-soft); color:var(--ink)}
+.spc-move:hover, .spc-stick:hover, .spc-info:hover{background:var(--accent-soft); color:var(--ink)}
 .spc-stick[aria-pressed="true"]{color:var(--accent); background:var(--accent-soft)}
 .spc-stick[aria-pressed="true"] svg{fill:currentColor}
-.spc-move:focus-visible, .spc-stick:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.spc-move:focus-visible, .spc-stick:focus-visible, .spc-info:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 #sptip.stuck{border-color:var(--accent)}
 #sptip.dragging{box-shadow:0 14px 36px rgba(0,0,0,.35); user-select:none}
 #sptip.dragging, #sptip.dragging *{cursor:grabbing !important}
