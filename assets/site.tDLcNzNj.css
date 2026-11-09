@@ -621,4 +621,26 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 #sptip .spc-nowild, #sptip .spc-how{color:var(--muted); font-size:12.5px}
 /* `notes` */
 #sptip .spc-note{color:var(--muted); font-size:12.5px; margin:-2px 0 8px}
+/* a Pokémon named on the card (family, forms, "only by evolution"): its button, then (`onSpecies`) a small Species
+   button straight to its entry in the Species tab */
+.spc-nm{display:inline-flex; align-items:center; gap:0; vertical-align:middle}
+.spc-sp{display:inline-grid; place-items:center; width:26px; height:28px; padding:0; border:0; border-radius:6px; background:none;
+  color:var(--muted); cursor:pointer; flex:none}
+.spc-sp svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+.spc-sp svg .dot{fill:currentColor; stroke:none}
+.spc-sp:hover{background:var(--accent-soft); color:var(--accent)}
+.spc-sp:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+/* `form_of`: the species' forms and Megas; `battle_only`: the ones with no row, as text */
+.spc-forms{border-top:1px solid var(--line); padding-top:8px}
+.spc-fl{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:2px 4px}
+.spc-fl li{display:inline-flex; align-items:center; gap:2px}
+#sptip .spc-tag{font-size:11px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:0 6px; margin-right:4px}
+#sptip .spc-bonly{color:var(--muted); font-size:12.5px; margin-top:4px}
+#sptip .spc-bonly span{display:block; font-size:12px}
+/* `evo_only`: met nowhere itself, only by evolving the one before */
+#sptip .spc-evonly{border:1px solid var(--accent); background:var(--accent-soft); border-radius:8px; padding:6px 8px; margin-bottom:8px}
+#sptip .spc-evonly p{margin:0}
+#sptip .spc-evonly b{color:var(--ink)}
+#sptip .spc-evpath{margin-top:2px; line-height:1.9}
+#sptip .spc-evpath small{color:var(--muted)}
 /* the species card (sprite and base stats) on pages that turn it on */
