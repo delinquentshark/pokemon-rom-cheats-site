@@ -645,4 +645,9 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 #sptip .spc-evonly b{color:var(--ink)}
 #sptip .spc-evpath{margin-top:2px; line-height:1.9}
 #sptip .spc-evpath small{color:var(--muted)}
+/* `form_of`: another species in the family that has forms or Megas of its own ("+2 Megas"): opens its card at its Forms */
+#sptip .evo-has{font:inherit; font-size:11px; font-weight:600; color:var(--muted); background:none; border:1px solid var(--line); border-radius:999px;
+  padding:1px 7px; min-height:22px; cursor:pointer; white-space:nowrap}
+#sptip .evo-has:hover{color:var(--accent); border-color:var(--accent); background:var(--accent-soft)}
+#sptip .evo-has:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 /* the species card (sprite and base stats) on pages that turn it on */
