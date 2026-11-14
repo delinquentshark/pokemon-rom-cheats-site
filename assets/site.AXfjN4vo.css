@@ -654,3 +654,150 @@ pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
 #sptip .evo-has:hover{color:var(--accent); border-color:var(--accent); background:var(--accent-soft)}
 #sptip .evo-has:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 /* the species card (sprite and base stats) on pages that turn it on */
+/* ---------- the team builder (pages/teambuilder, client/widgets/team-builder.ts) ---------- */
+/* the site bar's link to it, on every page (left, next to "← All games"; the theme switch keeps the right) */
+.sitebar .sitelink{font-size:13.5px; font-weight:600; text-decoration:none; color:var(--accent); margin-right:auto; white-space:nowrap}
+.sitebar .sitelink:hover{text-decoration:underline}
+.sitebar .sitelink:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+.sitebar .back + .sitelink{padding-left:12px; border-left:1px solid var(--line); align-self:flex-start}
+
+.tb-main{display:flex; flex-direction:column; gap:28px; min-width:0}
+.tb-main > *, #tb-cov{min-width:0}
+.tb-short{display:none}
+.tb-long, .tb-short{font:inherit}
+.tb-gamerow{display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px 18px}
+.tb-gamepick{flex:0 1 380px; min-width:0}
+.tb-gamepick select{font:inherit; font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.tb-guide{font-weight:700; font-size:14px; text-decoration:none; padding-bottom:10px}
+.tb-guide:hover{text-decoration:underline}
+.tb-options{display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px}
+.tb-options .fnote{flex-basis:100%}
+.tb-status.bad{color:var(--bad)}
+.tb-headrow{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 16px}
+.tb-acts{display:flex; flex-wrap:wrap; gap:8px}
+.tb-acts .copy:disabled{opacity:.45; cursor:default}
+.tb-chk{display:flex; gap:6px; align-items:center; font-weight:600; font-size:14px; cursor:pointer}
+
+/* the six slots */
+.tb-slots{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px}
+@media (max-width:860px){ .tb-slots{grid-template-columns:repeat(2, minmax(0, 1fr))} }
+@media (max-width:350px){ .tb-slots{grid-template-columns:minmax(0, 1fr)} }
+.tb-slot{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 14px 14px; display:flex; flex-direction:column; gap:10px; min-width:0}
+.tb-slot.empty{border-style:dashed; background:none; justify-content:center; min-height:84px}
+.tb-n{position:absolute; top:8px; left:12px; font:600 13px/1 var(--f-display); color:var(--muted)}
+.tb-slot.empty .tb-n{position:static}
+.tb-x{position:absolute; top:4px; right:4px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:8px; background:none; color:var(--muted); font:inherit; font-size:20px; line-height:1; cursor:pointer}
+.tb-x:hover{background:var(--accent-soft); color:var(--ink)}
+.tb-x:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-who{display:flex; align-items:center; gap:12px; padding:6px 26px 0 14px; min-height:64px}
+.tb-types{display:flex; flex-direction:column; gap:3px; min-width:0}
+.tb-abil select{font:inherit; font-size:14px; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); min-width:0; text-overflow:ellipsis}
+.tb-abil1{font-size:14px}
+.tb-fx{font-size:13px; color:var(--muted)}
+.tb-fx b{color:var(--ink)}
+.tb-fx.off{text-decoration:line-through; text-decoration-color:var(--line)}
+
+/* a sprite cut from the game's sheet, at --k times its size; or two halves in the types' colours */
+.tb-pic{--k:1; position:relative; overflow:hidden; flex:none; display:block; width:calc(var(--sz) * var(--k) * 1px); height:calc(var(--sz) * var(--k) * 1px); border-radius:8px; background:var(--accent-soft)}
+.tb-pic img{position:absolute; max-width:none; image-rendering:pixelated; width:calc(var(--w) * var(--k) * 1px); height:calc(var(--h) * var(--k) * 1px); left:calc(var(--x) * var(--k) * -1px); top:calc(var(--y) * var(--k) * -1px)}
+.tb-disc{--sz:48; border-radius:50%; display:flex; transform:rotate(45deg); background:none}
+.tb-disc i{flex:1; background:var(--tc, var(--muted))}
+
+/* the species search: a box with a list under it */
+.tb-pick{position:relative; display:flex}
+.tb-pick .search{flex:1 1 auto; width:100%; font-weight:600}
+.tb-pick .search::placeholder{font-weight:400}
+.tb-pick .search:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-list{position:absolute; z-index:20; top:calc(100% + 4px); left:0; right:0; margin:0; padding:4px; list-style:none; max-height:296px; overflow:auto; overscroll-behavior:contain;
+  background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.tb-list li{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:7px 9px; border-radius:7px; font-size:14px; cursor:pointer}
+.tb-list li[aria-selected="true"]{background:var(--accent-soft)}
+.tb-list li:hover{background:var(--sunk)}
+.tb-list li[aria-selected="true"]:hover{background:var(--accent-soft)}
+.tb-on{font-weight:600; min-width:0}
+.tb-on small{font-weight:400; color:var(--muted); font-size:12.5px}
+.tb-ot{display:flex; gap:8px; flex:none}
+.tb-ot .ty{font-size:12px; font-weight:500; color:var(--muted)}
+.tb-list .tb-none{cursor:default; color:var(--muted)}
+.tb-list .tb-none:hover{background:none}
+
+/* the coverage table */
+.tb-how{font-size:14px}
+.tb-table{table-layout:fixed; min-width:calc(104px + var(--n) * 64px + 136px); font-size:15px}
+.tb-table th, .tb-table td{text-align:center; padding:0; height:40px; border-bottom:1px solid var(--line)}
+.tb-table td + td, .tb-table th + td, .tb-table thead th + th{border-left:1px dashed var(--line)}
+.tb-table thead th{position:static; vertical-align:bottom; padding:10px 4px 8px; text-transform:none; letter-spacing:0; font-size:13px; color:var(--ink); font-weight:600; background:var(--sunk)}
+.tb-table thead .tb-move{width:104px; text-align:left; padding-left:12px; color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+.tb-table thead .tb-tot{width:68px; color:var(--muted); font-size:12px; line-height:1.25}
+.tb-mon .tb-pic{--k:.75; margin:0 auto 6px}
+.tb-mon .tb-pic img{image-rendering:auto}
+.tb-mon .tb-disc{--sz:36}
+.tb-mn{display:block; overflow-wrap:anywhere; line-height:1.2}
+.tb-mn small{display:block; font-weight:400; color:var(--muted); font-size:11.5px}
+.tb-table tbody th{position:sticky; left:0; z-index:1; background:var(--surface); text-align:left; padding:0 8px 0 10px; font-weight:400}
+.tb-table thead .tb-move{position:sticky; left:0; z-index:2}
+/* a type's name on its colour, dark text on every one of them (each passes 4.5:1 with #14161F but Fighting, Poison,
+   Ghost, Dragon and Dark, which take white) */
+.tb-type{display:block; padding:3px 8px; border-radius:6px; background:var(--tc); color:#14161F; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; text-align:center}
+.tb-type.ty2, .tb-type.ty4, .tb-type.ty8, .tb-type.ty17, .tb-type.ty18{color:#fff}
+.tb-table tbody tr:hover td, .tb-table tbody tr:hover th{background-image:linear-gradient(var(--hov), var(--hov))}
+.tb{--hov:rgba(127,127,160,.10)}
+/* the cells: weak in the "bad" colours, resisting in the "ok" ones; the strong ones as filled pills */
+.tb-table td span, .tb-key span{display:inline-block; min-width:30px; padding:2px 7px; border-radius:8px; font-weight:700; font-variant-numeric:normal}
+.c2 span{color:var(--bad)}
+.c4 span{background:var(--bad); color:var(--surface)}
+.ch span{color:var(--ok)}
+.cq span{background:var(--ok); color:var(--surface)}
+.c0 span{background:var(--muted); color:var(--surface); font-size:12px; font-weight:600; padding:4px 8px}
+/* changed by the Pokémon's ability: a dotted ring */
+.tb-table td.ab span, .tb-key.ab span{outline:2px dotted var(--accent); outline-offset:2px}
+.tb-table td.ab{cursor:help}
+/* the totals: stronger the more team members */
+.tb-table td.tb-w, .tb-table td.tb-r{font-weight:700; font-family:var(--f-mono)}
+.tb-table td.tb-w{border-left:2px solid var(--line)}
+.tb-w.w1{background:color-mix(in srgb, var(--bad) 14%, var(--surface))}
+.tb-w.w2{background:color-mix(in srgb, var(--bad) 32%, var(--surface))}
+.tb-w.w3{background:var(--bad); color:var(--surface)}
+.tb-r.r1{background:color-mix(in srgb, var(--ok) 12%, var(--surface))}
+.tb-r.r2{background:color-mix(in srgb, var(--ok) 24%, var(--surface))}
+.tb-r.r3{background:color-mix(in srgb, var(--ok) 40%, var(--surface))}
+.tb-r.r4{background:var(--ok); color:var(--surface)}
+/* phones: the whole table on the screen, no sideways scrolling (narrow columns, 0× for "immune", short headings) */
+@media (max-width:600px){
+  .tb-table{font-size:13px; min-width:0}
+  .tb-table th, .tb-table td{height:36px}
+  .tb-table thead .tb-move{width:62px; padding-left:6px; font-size:10px; letter-spacing:.04em}
+  .tb-table thead .tb-tot{width:32px; font-size:10px; padding-inline:0}
+  .tb-table tbody th{padding:0 4px}
+  .tb-type{font-size:9.5px; padding:3px 2px; letter-spacing:0}
+  .tb-mon .tb-pic{--k:.5} .tb-mon .tb-disc{--sz:24}
+  .tb-table thead th{font-size:10px; padding:8px 1px 6px}
+  .tb-mn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; overflow-wrap:normal}
+  .tb-mn small{font-size:9px; overflow:hidden; text-overflow:ellipsis}
+  /* a game without sprite sheets: the names upright in full, read bottom to top, since nothing else says who's who */
+  .tb-mon.nopic .tb-mn{writing-mode:vertical-rl; transform:rotate(180deg); margin:0 auto; max-height:92px; text-align:left; font-size:11px}
+  .tb-mon.nopic .tb-mn small{display:inline; margin-top:4px}
+  .tb-mon.nopic .tb-disc{margin-bottom:5px}
+  .tb-table td span{min-width:0; padding:2px 4px; border-radius:6px}
+  .c0 span{font-size:12px; padding:2px 4px}
+  .tb-table td.ab span{outline-offset:1px}
+  .tb-long{display:none} .tb-short{display:inline}
+  .tb-slot{padding:12px 10px 10px; gap:8px}
+  .tb-who{padding:4px 22px 0 10px; gap:8px; min-height:48px}
+  .tb-who .tb-pic{--k:.75}
+  .tb-types .ty{font-size:12px}
+  .tb-pick .search{font-size:14px; padding:8px 9px}
+  .tb-abil select{font-size:13px; padding:7px 6px}
+  .tb-fx{font-size:12px}
+  .tb-list li{flex-direction:column; align-items:flex-start; gap:2px}
+}
+.tb-legend{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px 22px; font-size:13px; color:var(--muted)}
+.tb-legend li{display:flex; align-items:center; gap:6px}
+.tb-key span{font-size:13px; min-width:0}
+.tb-key.ab{margin:0 4px}
+.tb-glance{display:flex; flex-direction:column; gap:8px; font-size:14px}
+.tb-glance p{display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px}
+.tb-tag{display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--line); font-size:13px; color:var(--muted)}
+.tb-tag .ty{color:var(--ink)}
+.tb-fxt td{font-size:14px}
+/* the team builder page, and the site bar's link to it */

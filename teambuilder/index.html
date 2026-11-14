@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Builder · Pokémon ROM Hack Field Guides</title>
+<meta name="description" content="Build a team of six from any ROM hack on the site and see its defensive type coverage, with each game's own Pokémon, types, abilities and type chart read from the ROM.">
+<script>try{if(localStorage.getItem("prc-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.AXfjN4vo.css"></head>
+<body>
+
+<div class="wrap tb">
+  <nav class="sitebar" aria-label="Site">
+    <a class="back" href="../">← All games</a>
+    <button class="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark mode" title="Switch to light mode"><svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"></path></svg><svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9z"></path></svg><span class="tt-thumb" aria-hidden="true"></span></button>
+  </nav>
+  <header>
+    <span class="eyebrow">Team builder · every guide&#39;s Pokémon</span>
+    <h1>Team Builder</h1>
+    <p class="lede">Pick a game, add up to six of its Pokémon and see which types of moves your team is weak to and which it shrugs off. Types, abilities and the type chart are each game&#39;s own, read from its ROM.</p>
+  </header>
+
+  <main class="tb-main">
+    <section class="block tb-setup" aria-label="Game">
+      <div class="tb-gamerow">
+        <label class="picker tb-gamepick"><span>Game</span><select id="tb-game"></select></label>
+        <a id="tb-guide" class="tb-guide" href="../"></a>
+      </div>
+      <div id="tb-options" class="tb-options" hidden></div>
+      <p id="tb-status" class="tb-status muted" role="status">Loading…</p>
+      <noscript><p class="muted">The team builder needs JavaScript.</p></noscript>
+    </section>
+
+    <section class="block" aria-labelledby="tb-team-h">
+      <div class="tb-headrow">
+        <h2 id="tb-team-h">Your team</h2>
+        <div class="tb-acts">
+          <button type="button" class="copy" id="tb-link">Copy link to this team</button>
+          <button type="button" class="copy" id="tb-clear" disabled>Clear team</button>
+        </div>
+      </div>
+      <ol class="tb-slots" id="tb-slots"></ol>
+    </section>
+
+    <section class="block" aria-labelledby="tb-cov-h">
+      <div class="tb-headrow">
+        <h2 id="tb-cov-h">Defensive coverage</h2>
+        <label class="chk tb-chk"><input type="checkbox" id="tb-abilities" checked> Count abilities</label>
+      </div>
+      <p class="muted tb-how">Each row is a type of move; each cell is the damage it does to that team member. Blank means normal damage.</p>
+      <div id="tb-cov"></div>
+      <ul class="tb-legend" aria-label="Legend">
+        <li><span class="tb-key c4"><span>4×</span></span> <span class="tb-key c2"><span>2×</span></span> weak</li>
+        <li><span class="tb-key ch"><span>½</span></span> <span class="tb-key cq"><span>¼</span></span> resists</li>
+        <li><span class="tb-key c0"><span><b class="tb-long">immune</b><b class="tb-short">0×</b></span></span> no effect</li>
+        <li><span class="tb-key ch ab"><span>½</span></span> changed by its ability (hover or tap for which)</li>
+      </ul>
+      <div id="tb-glance" class="tb-glance" aria-live="polite"></div>
+    </section>
+
+    <details class="uth">
+      <summary><span class="uth-t">Under the hood</span><span class="uth-s">Where the types, the chart and the ability rules come from</span></summary>
+      <div class="uth-body" id="tb-sources"></div>
+    </details>
+  </main>
+
+  <footer class="site-foot">
+    <p><b>Please read before using any code.</b> Every Action Replay code on this site was worked out by Claude (an AI model), which reverse-engineered the game's ROM file (<code>.gba</code> or <code>.nds</code>) and then ran each code in the target emulator named on the guide. This website was vibe-coded with Claude as well.</p>
+    <p>I maintain this site, and I have not personally tested every code documented here. I've only tried a few, the ones I needed in my own playthroughs.</p>
+    <p><b>Always back up your save file before using any code.</b></p>
+    
+    <p>The team builder shows each game's own types, abilities and type chart, read from the ROM named on its guide. No ROMs are hosted here.</p>
+  
+  </footer>
+</div>
+
+<script type="application/json" id="tb-games">[{"slug":"wishes-of-tomorrow","title":"Wishes of Tomorrow","platform":"GBA"},{"slug":"origin-heartgold","title":"Origin HeartGold","platform":"NDS"},{"slug":"perfect-emerald","title":"Perfect Emerald","platform":"GBA"},{"slug":"monomyth","title":"Pokémon Monomyth","platform":"GBA"},{"slug":"heartfelt-gold","title":"Heartfelt Gold","platform":"NDS"},{"slug":"generation-3-evolved","title":"Pokémon Generation 3 Evolved","platform":"GBA"}]</script>
+<script type="module" src="../assets/teambuilder.BwGGNY9t.js"></script>
+<script type="module">function e(){let e=document.documentElement,t=e.dataset.theme===`light`?`light`:`dark`;function n(n){t=n,e.dataset.theme=n,document.querySelectorAll(`.theme-toggle`).forEach(e=>{e.setAttribute(`aria-checked`,n===`dark`?`true`:`false`),e.title=n===`dark`?`Switch to light mode`:`Switch to dark mode`})}function r(e){try{localStorage.setItem(`prc-theme`,e)}catch{}document.startViewTransition?document.startViewTransition(()=>n(e)):n(e)}n(t),document.querySelectorAll(`.theme-toggle`).forEach(e=>e.addEventListener(`click`,()=>r(t===`dark`?`light`:`dark`))),window.addEventListener(`storage`,e=>{e.key===`prc-theme`&&(e.newValue===`light`||e.newValue===`dark`)&&n(e.newValue)})}e();</script></body>
+</html>
