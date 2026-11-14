@@ -139,6 +139,33 @@
       ],
       "updated": "2026-11-02",
       "rom_crc32": "f4bba347"
+    },
+    {
+      "slug": "generation-3-evolved",
+      "title": "Pokémon Generation 3 Evolved",
+      "platform": "GBA",
+      "engine": "pokeemerald-expansion 1.16.3 (built as FireRed)",
+      "emulator": "mGBA 0.10.5",
+      "rom_sha1": "2f62d74b539be852fdc3e67013e7645ced3182ad",
+      "sections": [
+        "Any item ×999",
+        "Max money, coins & BP",
+        "Shiny",
+        "Perfect IVs",
+        "Species",
+        "Nature",
+        "Gender",
+        "Ability (hidden too)",
+        "No random encounters",
+        "Catch on the first ball",
+        "TM codes (tutors too)",
+        "Species & learnsets",
+        "Moves",
+        "Abilities",
+        "Encounter map"
+      ],
+      "updated": "2026-11-13",
+      "rom_crc32": "a459e886"
     }
   ]
 }
