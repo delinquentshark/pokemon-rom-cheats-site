@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/site.A6Xf_ypf.css"></head>
+<link rel="stylesheet" href="../assets/site.DYsVNsKl.css"></head>
 <body>
 
 <div class="wrap tb">
@@ -47,6 +47,7 @@
         </div>
       </div>
       <ol class="tb-slots" id="tb-slots"></ol>
+      <div id="tb-rules" class="tb-rules" role="status" hidden></div>
     </section>
 
     <section class="block" aria-labelledby="tb-cov-h">
@@ -71,17 +72,19 @@
         <div class="tb-recopts">
           <label class="chk tb-chk"><input type="checkbox" id="tb-rec-final" checked> Fully evolved only</label>
           <label class="chk tb-chk"><input type="checkbox" id="tb-rec-battle"> Megas and battle forms</label>
+          <label class="chk tb-chk"><input type="checkbox" id="tb-rec-legend" checked> Legendaries &amp; mythicals</label>
+          <label class="chk tb-chk"><input type="checkbox" id="tb-rec-pseudo" checked> Pseudo-legendaries</label>
           <label class="picker tb-cap"><span>Base stat total</span><select id="tb-rec-cap">
             <option value="0">Any</option><option value="600">600 or less</option><option value="550">550 or less</option><option value="500">500 or less</option>
           </select></label>
         </div>
       </div>
-      <p class="muted tb-how">This game's Pokémon that best close the gaps above (the types more of the team is weak to than resists, and the ones nothing resists), ranked with their base stats and what the team lacks. With a full team, the best swaps.</p>
+      <p class="muted tb-how">This game's Pokémon that best close the gaps above (the types more of the team is weak to than resists, and the ones nothing resists), ranked with their base stats and what the team lacks. With a full team, the best swaps. None of them breaks a party rule.</p>
       <div id="tb-rec" aria-live="polite"></div>
     </section>
 
     <details class="uth">
-      <summary><span class="uth-t">Under the hood</span><span class="uth-s">Where the types, the chart and the ability rules come from, and how suggestions are ranked</span></summary>
+      <summary><span class="uth-t">Under the hood</span><span class="uth-s">Where the types, the chart and the ability rules come from, how suggestions are ranked, and the party rules</span></summary>
       <div class="uth-body" id="tb-sources"></div>
     </details>
   </main>
@@ -97,7 +100,7 @@
 </div>
 
 <script type="application/json" id="tb-games">[{"slug":"wishes-of-tomorrow","title":"Wishes of Tomorrow","platform":"GBA"},{"slug":"origin-heartgold","title":"Origin HeartGold","platform":"NDS"},{"slug":"perfect-emerald","title":"Perfect Emerald","platform":"GBA"},{"slug":"monomyth","title":"Pokémon Monomyth","platform":"GBA"},{"slug":"heartfelt-gold","title":"Heartfelt Gold","platform":"NDS"},{"slug":"generation-3-evolved","title":"Pokémon Generation 3 Evolved","platform":"GBA"}]</script>
-<script type="module" src="../assets/teambuilder.NDYP4W6F.js"></script>
+<script type="module" src="../assets/teambuilder.zYsRDCUV.js"></script>
 
 <script type="module">function e(){let e=document.documentElement,t=e.dataset.theme===`light`?`light`:`dark`;function n(n){t=n,e.dataset.theme=n,document.querySelectorAll(`.theme-toggle`).forEach(e=>{e.setAttribute(`aria-checked`,n===`dark`?`true`:`false`),e.title=n===`dark`?`Switch to light mode`:`Switch to dark mode`})}function r(e){try{localStorage.setItem(`prc-theme`,e)}catch{}document.startViewTransition?document.startViewTransition(()=>n(e)):n(e)}n(t),document.querySelectorAll(`.theme-toggle`).forEach(e=>e.addEventListener(`click`,()=>r(t===`dark`?`light`:`dark`))),window.addEventListener(`storage`,e=>{e.key===`prc-theme`&&(e.newValue===`light`||e.newValue===`dark`)&&n(e.newValue)})}e();</script>
 </body>

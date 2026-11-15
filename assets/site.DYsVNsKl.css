@@ -877,4 +877,21 @@ li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:va
 .tb-rc.bad b{color:var(--bad)}
 .tb-recnote{color:var(--muted); font-size:12.5px}
 .tb-recmore{margin-top:12px}
+
+/* party rules: a member that breaks one is red, with a note in its slot; the rules it breaks under the slots */
+.tb-slot.bad{border-color:var(--bad); box-shadow:inset 0 0 0 1px var(--bad); background:color-mix(in srgb, var(--bad) 6%, var(--surface))}
+.tb-slot.bad .tb-n{color:var(--bad)}
+.tb-rulenote{margin:0; font-size:13px; line-height:1.4; color:var(--bad)}
+.tb-rulenote b{color:inherit}
+.tb-rules{margin-top:14px; padding:10px 14px; border:1px solid var(--bad); border-radius:10px; background:color-mix(in srgb, var(--bad) 8%, var(--surface)); font-size:14px}
+.tb-rules p, .tb-rules ul{margin:0}
+.tb-rules > p:first-child b{color:var(--bad)}
+.tb-rules ul{padding-left:18px; margin:4px 0}
+.tb-rules small{color:var(--muted)}
+.tb-rulet{font-weight:600}
+.tb-rules .tb-rulehow{font-size:13px; color:var(--muted)}
+.tb-table thead .tb-mon.bad{box-shadow:inset 0 -3px 0 var(--bad)}
+.tb-table thead .tb-mon.bad .tb-mn{color:var(--bad)}
+/* a suggestion's class (legendary, pseudo-legendary…) */
+.tb-cls{display:inline-block; margin-left:4px; padding:0 7px; border-radius:999px; border:1px solid var(--line); font-size:11.5px; color:var(--muted); white-space:nowrap}
 /* the team builder page, and the site bar's link to it */
