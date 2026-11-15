@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/site.AXfjN4vo.css"></head>
+<link rel="stylesheet" href="../assets/site.C8rQ21ed.css"></head>
 <body>
 
 <div class="wrap tb">
@@ -25,9 +25,12 @@
 
   <main class="tb-main">
     <section class="block tb-setup" aria-label="Game">
-      <div class="tb-gamerow">
-        <label class="picker tb-gamepick"><span>Game</span><select id="tb-game"></select></label>
-        <a id="tb-guide" class="tb-guide" href="../"></a>
+      <div class="tb-gamepick">
+        <label class="flabel" for="tb-game">Game</label>
+        <div class="tb-gamerow">
+          <select id="tb-game"></select>
+          <a id="tb-guide" class="tb-guide" href="../"></a>
+        </div>
       </div>
       <div id="tb-options" class="tb-options" hidden></div>
       <p id="tb-status" class="tb-status muted" role="status">Loading…</p>
@@ -50,7 +53,7 @@
         <h2 id="tb-cov-h">Defensive coverage</h2>
         <label class="chk tb-chk"><input type="checkbox" id="tb-abilities" checked> Count abilities</label>
       </div>
-      <p class="muted tb-how">Each row is a type of move; each cell is the damage it does to that team member. Blank means normal damage.</p>
+      <p class="muted tb-how">Each row is a type of move; each cell is the damage it does to that team member. Blank means normal damage. The last row counts each member's weaknesses and resistances.</p>
       <div id="tb-cov"></div>
       <ul class="tb-legend" aria-label="Legend">
         <li><span class="tb-key c4"><span>4×</span></span> <span class="tb-key c2"><span>2×</span></span> weak</li>
@@ -78,6 +81,6 @@
 </div>
 
 <script type="application/json" id="tb-games">[{"slug":"wishes-of-tomorrow","title":"Wishes of Tomorrow","platform":"GBA"},{"slug":"origin-heartgold","title":"Origin HeartGold","platform":"NDS"},{"slug":"perfect-emerald","title":"Perfect Emerald","platform":"GBA"},{"slug":"monomyth","title":"Pokémon Monomyth","platform":"GBA"},{"slug":"heartfelt-gold","title":"Heartfelt Gold","platform":"NDS"},{"slug":"generation-3-evolved","title":"Pokémon Generation 3 Evolved","platform":"GBA"}]</script>
-<script type="module" src="../assets/teambuilder.BwGGNY9t.js"></script>
+<script type="module" src="../assets/teambuilder.BHwZqz6e.js"></script>
 <script type="module">function e(){let e=document.documentElement,t=e.dataset.theme===`light`?`light`:`dark`;function n(n){t=n,e.dataset.theme=n,document.querySelectorAll(`.theme-toggle`).forEach(e=>{e.setAttribute(`aria-checked`,n===`dark`?`true`:`false`),e.title=n===`dark`?`Switch to light mode`:`Switch to dark mode`})}function r(e){try{localStorage.setItem(`prc-theme`,e)}catch{}document.startViewTransition?document.startViewTransition(()=>n(e)):n(e)}n(t),document.querySelectorAll(`.theme-toggle`).forEach(e=>e.addEventListener(`click`,()=>r(t===`dark`?`light`:`dark`))),window.addEventListener(`storage`,e=>{e.key===`prc-theme`&&(e.newValue===`light`||e.newValue===`dark`)&&n(e.newValue)})}e();</script></body>
 </html>
