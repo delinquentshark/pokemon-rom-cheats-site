@@ -1,0 +1,880 @@
+/* The site's one stylesheet, used by every page (layouts/BaseLayout.astro imports it; the build bundles it into a
+   single hashed file). It's split into partials only to keep it readable: they are concatenated in this order, which
+   is the order of the rules in the cascade, so keep it. The styles are global on purpose (no per-component scoped
+   styles): a new game's page gets every one of them by using the shared components.
+
+   Performance rule: never transition colour properties (background, color, border, fill). The theme switch changes
+   every colour at once and must repaint in a single frame. Transitions on transform/opacity are fine. *//* Shared styles for every page on the site: tokens (colours for both themes, fonts) and base elements. */
+:root{
+  --bg:#F2F4F9; --surface:#FFFFFF; --sunk:#E9ECF4; --ink:#1A2032; --muted:#586179; --line:#D6DBE7;
+  --accent:#5638C9; --accent-soft:#ECE7FF; --code:#0C7C7C; --code-soft:#E1F4F2;
+  --gold:#9A6A00; --gold-soft:#FFF3D1; --bad:#B3261E; --bad-soft:#FBE3E3; --ok:#1F7A4A; --ok-soft:#E3F4EA;
+  --bar:#5638C9;
+  --f-display:"Pixelify Sans", "Courier New", monospace;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+/* Pages set data-theme on <html>: "dark" by default, "light" when the visitor picks it (client/core/theme.ts). */
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F121C; --surface:#161A27; --sunk:#1D2232; --ink:#E5E8F2; --muted:#9BA3B9; --line:#2A3044;
+  --accent:#A994FF; --accent-soft:#272042; --code:#57D2C6; --code-soft:#12302F;
+  --gold:#F2C45A; --gold-soft:#3A2E12; --bad:#FF8A80; --bad-soft:#3D1715; --ok:#5DD39A; --ok-soft:#133224; --bar:#A994FF;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.55; padding-inline:16px; padding-block:28px 64px}
+.wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:24px}
+h1,h2,h3{font-family:var(--f-display); font-weight:600; text-wrap:balance; margin:0; letter-spacing:.01em}
+h1{font-size:clamp(26px,4.4vw,38px); line-height:1.1}
+h2{font-size:21px}
+h3{font-size:17px}
+p{margin:0}
+code{font-family:var(--f-mono); font-size:.9em}
+a{color:var(--accent)}
+.eyebrow{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:600}
+.lede{color:var(--muted); max-width:68ch}
+.muted{color:var(--muted)}
+header{display:flex; flex-direction:column; gap:10px}
+.facts{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
+.fact{font-family:var(--f-mono); font-size:12.5px; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:4px 9px; color:var(--muted)}
+.fact b{color:var(--ink); font-weight:600; overflow-wrap:anywhere}
+.fact{max-width:100%}
+section.panel{display:flex; flex-direction:column; gap:22px}
+.block{display:flex; flex-direction:column; gap:12px}
+/* colour tokens for both themes, fonts, base elements, header, facts */
+/* tabs */
+.tabs{position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:var(--bg); padding-block:8px; border-bottom:1px solid var(--line)}
+.tablist{display:flex; gap:6px; flex-wrap:wrap}
+.tab{font:inherit; font-weight:700; font-size:14px; padding:9px 14px; border-radius:8px 8px 0 0; border:1px solid transparent; background:transparent; color:var(--muted); cursor:pointer}
+@media (max-width:600px){ .tab{font-size:13px; padding:8px 9px} }
+.tab[aria-selected="true"]{color:var(--ink); background:var(--surface); border-color:var(--line); border-bottom-color:var(--surface); margin-bottom:-9px; padding-bottom:17px}
+.tab:focus-visible, .search:focus-visible, .chip:focus-visible, .copy:focus-visible, .seg button:focus-visible, .marker:focus-visible, .loc:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+/* the sticky tab bar */
+/* code cards */
+.tpl{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:24px}
+@media (max-width:760px){ .tpl{grid-template-columns:1fr} }
+.codebox{font-family:var(--f-mono); font-size:clamp(17px,2.6vw,22px); background:var(--sunk); border-radius:8px; padding:16px 18px; line-height:1.7; overflow-x:auto; white-space:pre}
+.codebox.sm{font-size:15px; padding:10px 14px; max-height:calc(8 * 1.7em + 20px); overflow:auto}
+/* on the code cards the box shows the first five lines and scrolls; Copy copies every line */
+.cleft > .codebox.sm, .cright > .codebox.sm, .ccard.mini > .codebox.sm{max-height:calc(5 * 1.7em + 20px)}
+.hl-i{background:var(--accent-soft); color:var(--accent); border-radius:4px; padding:0 3px; font-weight:600}
+.hl-q{background:var(--code-soft); color:var(--code); border-radius:4px; padding:0 3px; font-weight:600}
+.legend{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; font-size:14px; align-items:baseline}
+.legend code{font-size:13px}
+.steps{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.steps li::marker{color:var(--muted); font-family:var(--f-mono)}
+.warn{font-size:13.5px; color:var(--muted); border-top:1px dashed var(--line); padding-top:10px}
+.warn b{color:var(--ink)}
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+details.alt{font-size:14px}
+details.alt summary{cursor:pointer; color:var(--muted); font-weight:600}
+details.alt[open] summary{margin-bottom:8px}
+/* code boxes, raw templates, highlight marks, rows, "Raw forms" */
+/* controls */
+.controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.search{flex:1 1 260px; min-width:0; font:inherit; font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:var(--surface)}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.seg button{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border:0; background:var(--surface); color:var(--muted); cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--sunk); color:var(--ink)}
+.count{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
+.copy{font:inherit; font-size:12px; font-weight:600; padding:5px 10px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; white-space:nowrap}
+.copy.done{color:var(--ok); border-color:var(--ok)}
+
+/* tables */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums}
+.items table{min-width:640px}
+/* Performance rule: never transition colour properties (background, color, border, fill).
+   The theme switch changes every colour at once and must repaint in a single frame.
+   Transitions on transform/opacity are fine. */
+
+/* Long tables (hundreds of rows). Rows are laid out as grids instead of table rows, and the
+   body is split into several <tbody class="chunk"> blocks of ~40 rows. Each chunk has
+   content-visibility:auto, so chunks outside the viewport skip style, layout and paint
+   entirely. That keeps the theme switch, filtering and tab changes to one cheap frame.
+   Set --cols (column widths) on the table; chunks get their estimated height from JS. */
+table.big{display:block}
+table.big thead, table.big tbody{display:block}
+table.big tbody.chunk{content-visibility:auto}
+table.big tr{display:grid; grid-template-columns:var(--cols)}
+table.big th, table.big td{min-width:0; align-content:center}
+table.big tr.coderow td{grid-column:1 / -1}
+table.big tbody tr:last-child td{border-bottom:1px solid var(--line)}
+table.big tbody:last-child tr:last-child td{border-bottom:0}
+thead th{background:var(--sunk); text-align:left; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:9px 12px; font-weight:700; border-bottom:1px solid var(--line)}
+.items thead th{position:sticky; top:0}
+tbody td{padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td.hex{font-family:var(--f-mono); font-weight:600; color:var(--accent); font-size:15px; white-space:nowrap}
+td.dec{font-family:var(--f-mono); color:var(--muted); font-size:12.5px}
+td.name{font-weight:600}
+td.name small{display:block; font-weight:400; color:var(--muted); font-size:12.5px}
+.pk{font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; background:var(--sunk); color:var(--muted); white-space:nowrap}
+td.ar{font-family:var(--f-mono); font-size:12.5px; white-space:nowrap}
+td.ar span{display:block}
+.empty{padding:28px; text-align:center; color:var(--muted)}
+/* search boxes, chips, segmented buttons, Copy; tables and long tables */
+/* evidence */
+.shots{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:16px}
+figure{margin:0; display:flex; flex-direction:column; gap:6px}
+figure img{width:100%; image-rendering:pixelated; border-radius:8px; border:1px solid var(--line); display:block; background:#000}
+figcaption{font-size:12.5px; color:var(--muted)}
+figcaption b{color:var(--ink)}
+dl.re{display:grid; grid-template-columns:auto 1fr; gap:8px 16px; margin:0; font-size:14px}
+dl.re dt{font-family:var(--f-mono); font-size:13px; color:var(--accent); white-space:nowrap}
+dl.re dd{margin:0}
+dl.re dd small{color:var(--muted)}
+@media (max-width:560px){ dl.re{grid-template-columns:1fr} dl.re dt{white-space:normal} dl.re dd{margin-bottom:6px} }
+.pass{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.04em; padding:1px 7px; border-radius:999px; background:var(--ok-soft); color:var(--ok); margin-right:6px}
+.proof{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:760px){ .proof{grid-template-columns:1fr} }
+
+.twoways{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.way{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:8px}
+.way p{font-size:14px}
+.way .copy{align-self:flex-start; margin-top:8px}
+td.acts{white-space:nowrap}
+td.acts .copy{margin-right:6px}
+td.acts .copy.full{border-color:var(--accent); color:var(--accent)}
+td.acts .copy.done{border-color:var(--ok); color:var(--ok)}
+tr.coderow td{background:var(--sunk)}
+tr.coderow .codebox{background:var(--surface); display:inline-block}
+/* a long code opened under its row (ItemList long): stays in view when the list is scrolled sideways (phones) */
+tr.longcode .codebox{position:sticky; left:12px}
+.cards3{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; align-items:start}
+.ccard{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0}
+.ccard p{font-size:14px}
+.ccard .copy{align-self:flex-start}
+.pk.warn{background:var(--gold-soft); color:var(--gold); margin-top:4px; display:inline-block}
+.pk.bad{background:var(--bad-soft); color:var(--bad); margin-top:4px; display:inline-block}
+/* screenshots, definition lists, PASS badges, list actions, card base */
+/* encounter map */
+.encgrid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:20px; align-items:start}
+@media (max-width:860px){ .encgrid{grid-template-columns:1fr} }
+.mapbox{position:relative; width:100%; aspect-ratio:var(--map-ar, 240/144); border-radius:10px; overflow:hidden; border:1px solid var(--line); background:#1f6fc3}
+.mapbox img{position:absolute; inset:0; width:100%; height:100%; image-rendering:pixelated}
+.marker{position:absolute; transform:translate(-50%,-50%); width:var(--mk,clamp(16px,3.2vw,24px)); height:var(--mk,clamp(16px,3.2vw,24px)); border-radius:50%; border:2px solid #fff; background:#5638C9; color:#fff; font:700 11px/1 var(--f-body); display:grid; place-items:center; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.45); padding:0}
+.marker[aria-pressed="true"]{background:#F2C45A; color:#1A2032; border-color:#1A2032}
+.marker.dim{opacity:.35}
+.marker.hit{background:#E0457B}
+.marker.hit[aria-pressed="true"]{background:#F2C45A; color:#1A2032; border-color:#E0457B}
+.mapscroll{overflow-x:auto; border-radius:10px}
+.mapbox.wide{min-width:var(--map-min); --mk:clamp(14px,1.7vw,20px)}
+.maplegend.wide{margin:10px 0 16px}
+.loclist{display:flex; flex-wrap:wrap; gap:6px}
+.maplegend{font-size:13px; color:var(--muted); line-height:1.6; margin:0}
+.maplegend .mk{display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:18px; height:18px; border-radius:50%; border:2px solid #fff; background:#5638C9; color:#fff; font:700 10px/1 var(--f-body); vertical-align:middle; margin:-2px 5px 0 0; box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.maplegend .mk:not(:first-child){margin-left:6px}
+.loc{font:inherit; font-size:13px; font-weight:600; padding:6px 10px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; text-align:left}
+.loc small{font-weight:500; color:var(--muted)}
+.loc[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+.loc.hit{border-color:#E0457B}
+.loc.off{opacity:.45}
+.detail{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px; display:flex; flex-direction:column; gap:16px}
+.detail .meta{font-size:13px; color:var(--muted)}
+.meth{display:flex; flex-direction:column; gap:8px}
+.meth h3{display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
+.meth h3 span{font-family:var(--f-body); font-size:12.5px; font-weight:600; color:var(--muted)}
+.meth table td{padding:6px 10px}
+.meth td.lv{font-family:var(--f-mono); font-size:13px; white-space:nowrap; color:var(--muted)}
+.meth td.pc{width:42%}
+.barcell{display:flex; align-items:center; gap:8px}
+.bar{height:8px; border-radius:4px; background:var(--bar); min-width:2px}
+.barcell b{font-family:var(--f-mono); font-size:13px; min-width:3.5ch; text-align:right}
+.meth tr.hit td{background:var(--gold-soft)}
+.meth details summary{cursor:pointer; font-size:13px; color:var(--muted); font-weight:600}
+.slots{font-family:var(--f-mono); font-size:12.5px; color:var(--muted); display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:2px 16px; margin-top:6px}
+.results{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.results button{font:inherit; text-align:left; background:none; border:0; padding:4px 0; color:var(--ink); cursor:pointer; border-bottom:1px dashed var(--line)}
+.results button b{color:var(--accent)}
+.encnotes{margin:0; padding-left:18px; font-size:14px; display:flex; flex-direction:column; gap:4px}
+.encnotes li.hit{background:var(--gold-soft)}
+.toggle{font-size:13.5px; color:var(--muted); display:flex; gap:8px; align-items:center}
+/* a find's "entered from" place (encounter-map.ts viaHTML): a text button that opens that place on the map */
+.encgo{font:inherit; color:var(--accent); background:none; border:0; padding:0; text-decoration:underline; text-underline-offset:3px; cursor:pointer}
+.encgo:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px}
+/* the encounter map, its places and results */
+.vtable td, .vtable th{padding:6px 10px}
+.vtable td.num{font-family:var(--f-mono); text-align:right}
+.picker{display:flex; flex-direction:column; gap:4px; font-size:12.5px; font-weight:600; color:var(--muted)}
+.picker select{flex:none; width:100%; font-size:14px; padding:8px 10px}
+.picker select:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.natfx{font-weight:600; color:var(--ink)}
+.nattable td, .nattable th{padding:4px 8px; font-size:13px}
+.nattable td:first-child{font-family:var(--f-mono); color:var(--accent); font-weight:600}
+.nattable td.neu{color:var(--muted)}
+.ccard .tablewrap{max-height:260px; overflow:auto}
+.mx td{text-align:center; white-space:nowrap}
+.mx td:first-child{text-align:left; font-weight:600; white-space:normal}
+.mx td small{color:var(--muted); font-family:var(--f-mono)}
+.vtable td.nm{font-weight:600}
+.block > h3{margin-top:8px}
+/* result tables, pickers, nature table, the combination matrix */
+.clist{display:flex; flex-direction:column; gap:12px}
+.clist .ccard{display:block; padding:0}
+.cctl{gap:8px}
+.chead-h{margin:0; font-size:inherit; font-weight:inherit}
+.chead{width:100%; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:16px 20px; margin:0; background:none; border:0; border-radius:10px; color:inherit; font:inherit; text-align:left; cursor:pointer}
+.chead:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.ctitle{font-family:var(--f-display); font-weight:600; font-size:17px; color:var(--ink); letter-spacing:.01em}
+.chead:hover .ctitle{color:var(--accent)}
+.chev{margin-left:auto; align-self:center; flex:none; color:var(--muted); transition:transform .15s ease}
+.chead[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.cbody{display:grid; grid-template-columns:300px minmax(0,1fr); gap:12px 28px; padding:0 20px 18px}
+.cleft{display:flex; flex-direction:column; gap:10px; min-width:0}
+.cright{display:flex; flex-direction:column; gap:10px; min-width:0}
+.cleft .copy, .cleft .seg{align-self:flex-start}
+/* collapsible code cards: header, chevron, two-column body */
+/* Codes that come in versions (wild / wild + static / wild + static + gifts): the panel's data-scope shows one.
+   .sc-st is text shared by the two versions that cover static encounters. */
+[data-scope="wild"] .sc-all, [data-scope="wild"] .sc-gift, [data-scope="wild"] .sc-st,
+[data-scope="all"] .sc-wild, [data-scope="all"] .sc-gift,
+[data-scope="gift"] .sc-wild, [data-scope="gift"] .sc-all{display:none !important}
+/* games whose versions are wild / wild + starter (Origin HeartGold) */
+[data-scope="wild"] .sc-starter, [data-scope="starter"] .sc-wild{display:none !important}
+.cleft > .sc-wild, .cleft > .sc-all, .cleft > .sc-gift, .cleft > .sc-starter{display:flex; flex-direction:column; gap:10px; min-width:0}
+details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift, details.alt .sc-starter{margin-bottom:8px}
+.scope{gap:10px 12px}
+.scope .seg{max-width:100%}   /* on a phone the three labels wrap inside their buttons instead of overflowing */
+.scope-lbl{font-size:13.5px; font-weight:600; color:var(--muted)}
+.scope-note{font-size:14px; color:var(--muted); max-width:78ch}
+.scope-note b{color:var(--ink)}
+.cright p{font-size:14.5px; max-width:70ch}
+@media (max-width:720px){ .cbody{grid-template-columns:minmax(0,1fr); gap:10px} .chead{padding:14px 16px} .cbody{padding:0 16px 16px} }
+@media (prefers-reduced-motion:reduce){ .chev{transition:none} }
+
+/* a picker's label and its buttons, kept on one line when the bar wraps (Perfect Emerald's type options) */
+.optpair{display:inline-flex; align-items:center; gap:8px}
+/* codes that come in versions (Wild only / + one-off / + gifts) */
+/* ---------- site chrome (shared by every page) ---------- */
+.back{align-self:flex-start; font-size:13.5px; font-weight:600; text-decoration:none; color:var(--muted); padding:4px 0}
+.back:hover{color:var(--accent)}
+.back:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+.site-foot{font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:4px}
+.site-foot b{color:var(--ink)}
+
+/* ---------- landing page ---------- */
+.games{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px, 100%),1fr)); gap:16px}
+.game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit}
+/* the home page's section chips wrap on narrow phones instead of pushing the card past the screen */
+.game .pk{white-space:normal}
+.game:hover{border-color:var(--accent)}
+.game:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.game h2{font-size:22px}
+.game .meta{font-size:13px; color:var(--muted)}
+.game .secs{display:flex; flex-wrap:wrap; gap:6px}
+.game .go{margin-top:auto; font-weight:700; font-size:14px; color:var(--accent)}
+.game.soon{opacity:.6; pointer-events:none}
+
+/* ---------- site bar + theme switch (same on every page) ---------- */
+.sitebar{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:32px}
+.sitebar .back{padding:0}
+.theme-toggle{position:relative; flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:space-between; width:64px; height:32px; padding:0 9px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.theme-toggle svg{position:relative; z-index:1; width:14px; height:14px}
+.theme-toggle .tt-thumb{position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--accent-soft); box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .22s cubic-bezier(.4,0,.2,1)}
+.theme-toggle[aria-checked="true"] .tt-thumb{transform:translateX(32px)}
+.theme-toggle[aria-checked="true"] .tt-moon, .theme-toggle[aria-checked="false"] .tt-sun{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){ .theme-toggle .tt-thumb{transition:none} }
+
+/* Theme fade. client/core/theme.ts runs the switch inside document.startViewTransition(): the old and new
+   page are crossfaded as two GPU snapshots, so nothing is restyled or repainted per frame.
+   While it runs (0.25 s) the page is a snapshot, so clicks are ignored; scrolling still works.
+   It stays on with reduced motion: an opacity crossfade isn't motion (WCAG 2.3.3). */
+::view-transition-old(root), ::view-transition-new(root){animation-duration:.25s}
+
+/* Guides with a sticky tab bar: the switch lives in .tt-rail, a zero-height sticky strip right after the site bar.
+   It starts in the site bar's spot, stays at the top of the window as the page scrolls (so it slides down the page),
+   and meets the tab bar exactly where the bar keeps room for it (72px on the right); from then on both stay stuck.
+   Plain position:sticky: the browser moves it while scrolling, with no script and no animation on the main thread.
+   The margins cancel the rail's place in .wrap's column: -(gap 24px + site bar 32px) above, +32px below. */
+[data-theme-dock]{padding-right:72px}
+@media (max-width:360px){ [data-theme-dock] .tab{padding-inline:7px} }
+/* top: centred on the bar's first row of tabs (bar padding 8px + half a tab's height - half the switch's 32px). */
+.tt-rail{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 14px + 20px - 32px) / 2); z-index:6;
+  height:0; margin:-56px 0 32px; display:flex; justify-content:flex-end; align-items:flex-start}
+@media (max-width:600px){ .tt-rail{top:calc(env(safe-area-inset-top, 0px) + 8px + (1.55 * 13px + 18px - 32px) / 2)} }
+/* a ring in the page colour keeps the header's text from touching the switch as it passes underneath */
+.tt-rail .theme-toggle{box-shadow:0 0 0 6px var(--bg)}
+/* site bar, footer, home page game cards, theme switch and its rail */
+/* ---------- moves tab and learnsets ---------- */
+/* "What ticking and unticking does" under the TM codes */
+.tickwrap{max-width:860px}
+.ticktable td{vertical-align:top; font-size:14px}
+.ticktable td.nm{width:27%}
+.ticktable th{text-align:left}
+/* phones: one block per row, each cell labelled */
+@media (max-width:600px){
+  .ticktable thead{display:none}
+  .ticktable tr{display:block; padding:10px 12px}
+  .ticktable tr + tr{border-top:1px solid var(--line)}
+  .ticktable td, .ticktable td.nm{display:block; width:auto; padding:2px 0; border:0}
+  .ticktable td.nm{padding-bottom:4px}
+  .ticktable td[data-label]::before{content:attr(data-label) ": "; color:var(--muted); font-weight:600}
+}
+.picker.inline{flex-direction:row; align-items:center; gap:8px}
+.picker.inline select{width:auto}
+.mtable td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.mtable td.hex small{display:block; font-weight:400; color:var(--muted); font-size:12px}
+.mtable td.tags small{display:block; color:var(--muted); font-size:12px; margin-top:3px}
+.mtable tr.mhl td{background:var(--accent-soft)}
+.mv-tmnote{font-size:13px}
+.tg{display:inline-block; font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; margin:0 4px 2px 0; white-space:nowrap}
+.tg-damage{background:var(--sunk); color:var(--ink)}
+.tg-status{background:var(--bad-soft); color:var(--bad)}
+.tg-setup{background:var(--ok-soft); color:var(--ok)}
+.tg-other{background:var(--sunk); color:var(--muted)}
+.mv-legend{grid-template-columns:auto 1fr}
+/* type: a coloured dot, the name in the normal text colour (readable in both themes) */
+.ty{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; white-space:nowrap}
+.ty::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--tc, var(--muted)); flex:none}
+.ty1{--tc:#A8A77A} .ty2{--tc:#C22E28} .ty3{--tc:#A98FF3} .ty4{--tc:#A33EA1} .ty5{--tc:#E2BF65} .ty6{--tc:#B6A136}
+.ty7{--tc:#A6B91A} .ty8{--tc:#735797} .ty9{--tc:#B7B7CE} .ty10{--tc:#68A090} .ty11{--tc:#EE8130} .ty12{--tc:#6390F0}
+.ty13{--tc:#7AC74C} .ty14{--tc:#F7D02C} .ty15{--tc:#F95587} .ty16{--tc:#96D9D6} .ty17{--tc:#6F35FC} .ty18{--tc:#705746}
+.ty19{--tc:#D685AD} .ty20{--tc:#40B5A5}
+tr.lsrow td{background:var(--sunk)}
+.lset{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px 22px; padding:4px 0}
+.lgrp h4{margin:0 0 6px; font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+.lgrp h4 .muted{font-weight:400}
+.mvlist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px}
+.mvlist li{display:grid; grid-template-columns:48px 1fr; gap:8px; align-items:baseline; font-size:14px}
+.mvlist .lv{font-family:var(--f-mono); font-size:12px; color:var(--muted); white-space:nowrap}
+.mvl{color:var(--ink); text-decoration:none; border-left:3px solid var(--tc, var(--line)); padding-left:7px; font-weight:500}
+.mvl:hover, .mvl:focus-visible{color:var(--accent); text-decoration:underline}
+.mvl:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+span.mvl{cursor:default}
+span.mvl:hover{color:var(--ink); text-decoration:underline dotted}
+.lnote{margin:10px 0 0; font-size:13px}
+td.acts .copy.lsb{border-style:dashed}
+#mvtip{position:fixed; z-index:60; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px;
+  padding:10px 12px; font-size:13px; line-height:1.45; box-shadow:0 8px 24px rgba(0,0,0,.25); pointer-events:none; display:flex; flex-direction:column; gap:5px}
+#mvtip p{color:var(--muted)}
+#mvtip .tipnums{font-family:var(--f-mono); font-size:12.5px}
+.mtable td.type small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+/* tables whose columns add up to more than .items' 640px: content-visibility clips anything past the table's box,
+   so the table must be at least as wide as its columns */
+#stable, #mtable{min-width:720px}
+/* ---------- abilities tab (client/widgets/abilities.ts) and ability links ---------- */
+.atable td.hex small{display:block; font-weight:400; color:var(--muted); font-size:12px}
+.atable td.name{font-weight:600}
+.atable td.desc{color:var(--muted); font-size:14px}
+.atable td.spc small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+.atable tr.mhl td{background:var(--accent-soft)}
+.asp, .abl{color:inherit; text-decoration:underline dotted; text-underline-offset:3px}
+.asp:hover, .asp:focus-visible, .abl:hover, .abl:focus-visible{color:var(--accent); text-decoration-style:solid}
+/* moves tab, TM table, type dots, learnsets, move tooltip */
+/* Phones and tablets: the tabs stay on one row that scrolls sideways, instead of wrapping into more rows.
+   The padding keeps the selected tab's extension (margin-bottom:-9px) inside the scroll box. */
+@media (max-width:1060px){
+  .tablist{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; padding-bottom:9px; margin-bottom:-9px}
+  .tablist::-webkit-scrollbar{display:none}
+  .tab{flex:none}
+}
+/* Tabs have a long and a short label (<span class="tl">Items &amp; money</span><span class="ts">Items</span>, with the
+   long one as the button's aria-label). Where the row stops wrapping, the short ones keep it on one screen down to about
+   770px wide (eight tabs); below that it scrolls sideways, with a fade on the edge that has more tabs past it. */
+.tab .ts{display:none}
+@media (max-width:1060px){ .tab .tl{display:none} .tab .ts{display:inline} }
+/* When the row still scrolls sideways, the edge with more tabs past it fades out (client/core/tabs.ts sets the classes). */
+.tablist.more-r{-webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent)}
+.tablist.more-l{-webkit-mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to left, #000 calc(100% - 36px), transparent)}
+.tablist.more-l.more-r{-webkit-mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent)}
+/* learnsets stay in view (and wrap to one column) inside the sideways-scrolling table on phones */
+tr.lsrow .lset{position:sticky; left:0; max-width:calc(100vw - 72px)}
+/* phones and tablets: one scrolling row of tabs, short labels, edge fades */
+/* ---------- guide layout (Start here, plain-language cards, long lists, Under the hood) ---------- */
+/* Deep links (#card-money) and scrollIntoView land below the sticky tab bar */
+[role="tabpanel"] [id]{scroll-margin-top:76px}
+/* Start here */
+.how3{margin:0; padding:0; list-style:none; counter-reset:step; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+.how3 li{counter-increment:step; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px 16px; font-size:14.5px}
+.how3 li::before{content:counter(step); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font:600 15px/1 var(--f-display); margin-bottom:8px}
+.how3 li b:first-child{display:block; font-size:15px; margin-bottom:2px}
+/* four steps (melonDS guides): two by two */
+.how3.four{grid-template-columns:repeat(2, minmax(0,1fr))}
+@media (max-width:760px){ .how3, .how3.four{grid-template-columns:1fr} }
+code.crc{font-size:1em; font-weight:600; color:var(--accent)}
+.start2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:900px){ .start2{grid-template-columns:minmax(0,1fr)} }
+.start2 .dir{grid-template-columns:repeat(auto-fill, minmax(240px, 1fr))}
+.dir{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:14px}
+.dgrp{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px}
+.dgrp h3{font-size:16px; margin-bottom:8px}
+.dgrp h3 a{color:inherit; text-decoration:none}
+.dgrp h3 a:hover{color:var(--accent)}
+.dgrp ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px}
+.dgrp li{font-size:14px; display:flex; flex-wrap:wrap; gap:0 8px; align-items:baseline}
+.dgrp li a{font-weight:600; text-decoration:none}
+.dgrp li a:hover{text-decoration:underline}
+.dgrp li span{color:var(--muted); font-size:13px}
+/* "Good to know" lists and "How to use" lines on the cards */
+ul.gtk{margin:0; padding:0 0 0 18px; font-size:14px; color:var(--muted); display:flex; flex-direction:column; gap:3px}
+ul.gtk::before{content:"Good to know"; display:block; margin-left:-18px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+ul.gtk li::marker{color:var(--line)}
+ul.gtk.big{font-size:14.5px; color:var(--ink); gap:6px; max-width:90ch}
+ul.gtk.big::before{content:none}
+ul.gtk.big li::marker{color:var(--accent)}
+.use{font-size:14px}
+ol.use{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:3px}
+ol.use li::marker{color:var(--muted); font-family:var(--f-mono)}
+.lines{font-size:12.5px; color:var(--muted)}
+.cleft .row, .cright .row, .ccard.mini .row{gap:10px}
+.cleft .row .copy, .cright .row .copy{align-self:auto}
+.codebox.blocked{white-space:normal; font-family:var(--f-body); font-size:14px; color:var(--bad); background:var(--bad-soft)}
+.copy:disabled{opacity:.45; cursor:not-allowed}
+/* card headers: title + a short summary that stays visible when the card is collapsed */
+.csub{font-size:13.5px; color:var(--muted); font-weight:500}
+.ccard.flash{outline:2px solid var(--accent); outline-offset:2px}
+/* small cards in a grid (money, coins, BP) */
+.cgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:14px; align-items:start}
+.ccard.mini{gap:9px}
+.ccard.mini .mhead{font-size:17px}
+/* a card-styled block holding a list (Any item ×999) */
+.ccard.wide{padding:18px 20px}
+.ccard.wide > p{max-width:80ch}
+/* the version picker above the catching codes and the species list */
+.scopebar{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 16px}
+.scopebar .scope-note{flex-basis:100%; margin:0}
+/* the game version bar above the tab bar (components/guide/VersionBar.astro): it covers every tab */
+.verbar{margin-bottom:14px}
+.verbar .scope-lbl{color:var(--ink); font-size:14.5px}
+.verbar .seg button{font-size:14px; padding:7px 14px}
+.note{font-size:13.5px; color:var(--muted)}
+.note .pk{margin-top:0}
+.pickmsg{font-size:12.5px; color:var(--muted); margin-top:-4px}
+.picker input{flex:none; width:100%; font-size:14px; padding:8px 10px}
+/* Start here, Good to know, mini cards, scope bar, pickers */
+/* party editor form */
+.cbody.wide{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+@media (max-width:720px){ .cbody.wide{grid-template-columns:minmax(0,1fr)} }
+.edform{gap:12px}
+.field{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px}
+.flabel{font-size:12.5px; font-weight:600; color:var(--muted)}
+.fnote{font-size:12.5px; color:var(--muted); font-weight:400}
+.edset{border:1px solid var(--line); border-radius:8px; padding:8px 12px 12px; margin:0; min-width:0; display:flex; flex-direction:column; gap:8px}
+.edset legend{padding:0 4px; display:flex; gap:10px; align-items:baseline; font-weight:600; font-size:14px}
+.edset legend label{display:flex; gap:6px; align-items:center; cursor:pointer}
+.edgrid{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:6px}
+@media (max-width:520px){ .edgrid{grid-template-columns:repeat(3, minmax(0,1fr))} }
+.edgrid label{display:flex; flex-direction:column; gap:2px; font-size:12px; font-weight:600; color:var(--muted); min-width:0}
+.edgrid input{font:inherit; font-family:var(--f-mono); font-size:14px; width:100%; padding:6px 6px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.edgrid input:disabled{opacity:.45}
+.edgrid input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.presets{gap:6px}
+.evsum{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin-left:auto}
+.evsum.bad{color:var(--bad); font-weight:700}
+.field2{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px}
+.field.col{flex-direction:column; align-items:stretch; gap:6px}
+.field.col .picker{gap:4px}
+.pickmsg.bad{color:var(--bad)}
+p.flabel{margin:4px 0 -4px}
+.frrow label.chk{display:flex; gap:6px; align-items:center; font-weight:600; font-size:14px; cursor:pointer}
+input.num{font:inherit; font-family:var(--f-mono); font-size:14px; width:84px; padding:6px 8px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+input.num:disabled{opacity:.45}
+input.num:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+/* party slot picker, laid out like the game's POKeMON screen: slot 1 big on the left, 2-6 stacked on the right */
+.slotpick{flex-direction:column; align-items:stretch; gap:6px}
+.party{display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); grid-template-rows:repeat(5, minmax(30px, auto)); gap:5px;
+  max-width:380px; padding:7px; border-radius:12px; background:var(--sunk)}
+.pslot{font:inherit; display:flex; align-items:center; gap:8px; min-width:0; text-align:left; border:1px solid var(--line); border-radius:8px;
+  background:var(--surface); color:var(--ink); padding:4px 10px; cursor:pointer}
+.pslot.lead{grid-row:1 / span 5; flex-direction:column; justify-content:center; align-items:flex-start; gap:2px; border-radius:12px; padding:10px 12px}
+.pslot .pn{font:600 16px/1 var(--f-display); color:var(--muted)}
+.pslot.lead .pn{font-size:22px}
+.pslot .pw{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.pslot .pm{font-size:12.5px; font-weight:600; color:var(--accent); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pslot.lead .pm{white-space:normal}
+.pslot:hover{border-color:var(--accent)}
+.pslot[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft); box-shadow:inset 0 0 0 1px var(--accent)}
+.pslot[aria-pressed="true"] .pn, .pslot[aria-pressed="true"] .pw{color:var(--accent)}
+.pslot:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+/* the editor's plain-English summary */
+.edsum{background:var(--sunk); border-radius:8px; padding:12px 14px; font-size:14px; display:flex; flex-direction:column; gap:6px}
+.edsum h4{margin:0; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.edsum ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:2px}
+.edsum ul li::marker{color:var(--accent)}
+.edsum .muted{font-size:13.5px}
+/* the party editor form and slot picker */
+/* long lists: a scroll box with a sticky header, rows added in batches as it scrolls (client/core/lazy-table.ts) */
+.lazybox{max-height:min(680px, calc(100vh - 150px)); min-height:160px; overflow:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+.lazybox:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.lazybox table.big thead{position:sticky; top:0; z-index:2}
+.lazybox table.big{min-width:640px}
+.lazyend{height:1px}
+td.name small.abil{color:var(--ink); opacity:.8}
+/* a species' types after its name (Species list with types: Perfect Emerald) */
+td.name .sty{display:inline-flex; flex-wrap:wrap; gap:2px 10px; margin-left:10px; vertical-align:1px}
+/* long-list scroll boxes */
+/* Under the hood: one collapsed section at the bottom of every tab */
+details.uth{border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+details.uth > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; padding:14px 18px}
+details.uth > summary::-webkit-details-marker{display:none}
+details.uth > summary::before{content:""; width:8px; height:8px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); transform:rotate(-45deg); align-self:center; margin-right:2px}
+details.uth[open] > summary::before{transform:rotate(45deg)}
+details.uth > summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px; border-radius:10px}
+.uth-t{font-family:var(--f-display); font-weight:600; font-size:17px}
+.uth-s{font-size:13.5px; color:var(--muted)}
+.uth-body{border-top:1px solid var(--line); padding:18px; display:flex; flex-direction:column; gap:26px; background:var(--bg); border-radius:0 0 10px 10px}
+.uth-body p{max-width:90ch}
+.uth-body h4{font-size:15px; margin:0; font-family:var(--f-display); font-weight:600}
+.how{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px dashed var(--line)}
+.how .codebox{align-self:flex-start; max-width:100%}
+pre.asm{margin:0; font-size:13px; line-height:1.5; max-height:24em}
+.uth-body .facts{margin-top:0}
+/* the collapsed "Under the hood" section at the bottom of every tab */
+/* ---------- the species card (client/widgets/species-card.ts): sprite, types, abilities and base stats on hover or
+   focus over a species name (.spc[data-sp]; the abilities table's td.spc is something else), for pages that turn it
+   on ---------- */
+.spc[data-sp]{text-decoration:underline dotted; text-underline-offset:3px; cursor:default}
+.spc[data-sp]:hover, .spc[data-sp]:focus-visible{color:var(--accent); text-decoration-style:solid}
+.spc[data-sp]:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px}
+#sptip{position:fixed; z-index:60; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px;
+  padding:12px; font-size:13px; line-height:1.45; box-shadow:0 8px 24px rgba(0,0,0,.25); pointer-events:none; display:flex; flex-direction:column; gap:8px}
+#sptip p{margin:0}
+.spc-head{display:flex; gap:12px; align-items:center}
+.spc-head > div:last-child{display:flex; flex-direction:column; gap:2px; min-width:0}
+.spc-pic{position:relative; overflow:hidden; flex:none; border-radius:8px; background:var(--accent-soft)}
+.spc-pic img{position:absolute; max-width:none; image-rendering:pixelated}
+.spc-name{font-size:15px}
+#sptip small{color:var(--muted); font-size:12px}
+.spc-id{font-family:var(--f-mono)}
+.spc-types{display:flex; gap:10px; flex-wrap:wrap; margin-top:3px}
+.spc-abil small{font-size:inherit}
+.sts{display:grid; grid-template-columns:auto 3.5ch 1fr; gap:3px 8px; align-items:center; font-size:12.5px}
+.sts .stn{color:var(--muted)}
+.sts b{font-family:var(--f-mono); text-align:right}
+.stb{height:7px; border-radius:4px; background:var(--line); overflow:hidden}
+.stb span{display:block; height:100%; border-radius:4px; background:var(--bar)}
+.spc-more{color:var(--muted)}
+.spc-more b{color:var(--ink); font-family:var(--f-mono)}
+/* the evolution family (the card's `evolutions` option): the card can be moved into and clicked */
+#sptip.live, #sptip.pinned{pointer-events:auto; max-height:calc(100vh - 16px); overflow:auto; overscroll-behavior:contain}
+#sptip.pinned.peek{pointer-events:none}   /* a hover preview: the pointer stays on the name */
+/* open: "click": names are buttons, and the card has a close button */
+.spc-btn[data-sp]{cursor:pointer}
+.spc-btn[data-sp][aria-expanded="true"]{color:var(--accent); text-decoration-style:solid}
+/* its title bar: Move (drag, or arrow keys), Pin (stays on screen) and ×; it stays in view while the card scrolls */
+.spc-bar{position:sticky; top:-12px; z-index:1; display:flex; align-items:center; gap:4px; margin:-12px -12px 0; padding:4px 4px 4px 6px;
+  background:var(--surface); border-bottom:1px solid var(--line); border-radius:10px 10px 0 0; cursor:grab; touch-action:none; user-select:none}
+#sptip.pinned .spc-head{cursor:grab; touch-action:none}
+#sptip.pinned .spc-head button{cursor:pointer}
+.spc-move, .spc-stick, .spc-info{display:inline-flex; align-items:center; gap:4px; height:30px; padding:0 8px; border:0; border-radius:8px; background:none;
+  color:var(--muted); font:inherit; font-size:12px; font-weight:600}
+.spc-move{margin-right:auto; cursor:grab; touch-action:none}
+.spc-stick, .spc-info{cursor:pointer}
+.spc-info svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+.spc-info svg .dot{fill:currentColor; stroke:none}
+.spc-move svg, .spc-stick svg{width:15px; height:15px; fill:currentColor}
+.spc-stick svg{fill:none; stroke:currentColor; stroke-width:2; stroke-linejoin:round}
+.spc-move:hover, .spc-stick:hover, .spc-info:hover{background:var(--accent-soft); color:var(--ink)}
+.spc-stick[aria-pressed="true"]{color:var(--accent); background:var(--accent-soft)}
+.spc-stick[aria-pressed="true"] svg{fill:currentColor}
+.spc-move:focus-visible, .spc-stick:focus-visible, .spc-info:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+#sptip.stuck{border-color:var(--accent)}
+#sptip.dragging{box-shadow:0 14px 36px rgba(0,0,0,.35); user-select:none}
+#sptip.dragging, #sptip.dragging *{cursor:grabbing !important}
+.spc-x{width:32px; height:30px; display:grid; place-items:center; border:0; border-radius:8px;
+  background:none; color:var(--muted); font:inherit; font-size:20px; line-height:1; cursor:pointer}
+.spc-x:hover{background:var(--accent-soft); color:var(--ink)}
+.spc-x:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.spc-go{font:inherit; font-weight:600; color:var(--accent); background:none; border:0; border-radius:6px; padding:3px 6px;
+  min-height:28px; cursor:pointer; text-decoration:underline; text-underline-offset:3px; text-align:left}
+.spc-go:hover{background:var(--accent-soft)}
+.spc-go:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.spc-go.cur{color:var(--ink); text-decoration:none; background:var(--accent-soft)}
+/* `sprites.shinySrc` / `backSrc`: Shiny and Back toggles under the picture (never on it) */
+.spc-sprite{display:flex; flex-direction:column; gap:6px; flex:none}
+.spc-tools{display:flex; gap:4px}
+.spc-tool{flex:1 1 0; min-width:0; display:inline-flex; align-items:center; justify-content:center; gap:4px; min-height:30px; padding:0 4px;
+  border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--muted); font:inherit; font-size:12px;
+  font-weight:600; line-height:1; cursor:pointer}
+.spc-tool svg{width:15px; height:15px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.spc-tool:hover{color:var(--ink); border-color:var(--accent)}
+.spc-tool[aria-pressed="true"]{color:var(--ink); background:var(--accent-soft); border-color:var(--accent)}
+.spc-shiny[aria-pressed="true"] svg{fill:#f2b705; stroke:#b58800}
+.spc-back[aria-pressed="true"] svg{stroke:var(--accent)}
+.spc-tool:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+@media (prefers-reduced-motion: no-preference){
+  .spc-back svg{transition:transform .2s}
+  .spc-back[aria-pressed="true"] svg{transform:scaleX(-1)}
+}
+.spc-never{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+/* `abilityDescs`: an ability's description while it's hovered, focused or tapped */
+.spc-ab{border-bottom:1px dotted var(--muted); cursor:help}
+.spc-ab:hover, .spc-ab:focus-visible{color:var(--accent); outline:none}
+#sptip .spc-abdesc{font-size:12.5px; color:var(--ink); background:var(--accent-soft); border-radius:6px; padding:5px 8px; margin-top:-4px}
+/* `onFind` */
+#sptip .spc-find{margin:2px 0 8px}
+#sptip .spc-nowild, #sptip .spc-how{color:var(--muted); font-size:12.5px}
+/* `notes` */
+#sptip .spc-note{color:var(--muted); font-size:12.5px; margin:-2px 0 8px}
+/* a Pokémon named on the card (family, forms, "only by evolution"): its button, then (`onSpecies`) a small Species
+   button straight to its entry in the Pokédex tab */
+.spc-nm{display:inline-flex; align-items:center; gap:0; vertical-align:middle}
+.spc-sp{display:inline-grid; place-items:center; width:26px; height:28px; padding:0; border:0; border-radius:6px; background:none;
+  color:var(--muted); cursor:pointer; flex:none}
+.spc-sp svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+.spc-sp svg .dot{fill:currentColor; stroke:none}
+.spc-sp:hover{background:var(--accent-soft); color:var(--accent)}
+.spc-sp:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+/* `form_of`: another species in the family that has forms or Megas of its own ("+2 Megas"): opens its card at its Forms */
+#sptip .evo-has{font:inherit; font-size:11px; font-weight:600; color:var(--muted); background:none; border:1px solid var(--line); border-radius:999px;
+  padding:1px 7px; min-height:22px; cursor:pointer; white-space:nowrap}
+#sptip .evo-has:hover{color:var(--accent); border-color:var(--accent); background:var(--accent-soft)}
+#sptip .evo-has:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+/* the evolution family, Forms and the "only by evolution" line: a rail of small round pictures (.evo-ic, the front
+   sprite shrunk), each Pokémon's name with the way into it under it. One evolution goes on in the same column; several
+   fork (.evo-fork: a column per branch, each joined to the rail by an elbow). The card's own Pokémon is ringed; the
+   line to it from where it's met (`evo_only`, .evo-path) has its rail in the accent colour (.evo-rail on the Pokémon
+   above each step of it, .evo-pass on the branches it passes in a fork: set by the script, no :has()). */
+.spc-evo, .spc-forms{border-top:1px solid var(--line); padding-top:10px}
+.spc-evo-t{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px !important}
+.spc-evo-none{color:var(--muted); border-top:1px solid var(--line); padding-top:8px}
+.evo{--ic:40px; --gap:6px; --pad:34px; list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--gap); position:relative}
+.evo > li{position:relative; margin:0}
+.evo-n{display:flex; align-items:center; gap:8px; min-height:var(--ic)}
+.evo-ic{position:relative; z-index:2; flex:none; width:var(--ic); height:var(--ic); border-radius:50%; overflow:hidden;
+  background:var(--accent-soft); box-shadow:inset 0 0 0 1px var(--line)}
+.evo-ic img{position:absolute; max-width:none; image-rendering:auto}
+.evo-ic.dot{background:var(--surface)}
+.evo-ic.dot::after{content:""; position:absolute; inset:calc(50% - 5px); border-radius:50%; background:var(--line)}
+.evo-n.cur .evo-ic{box-shadow:0 0 0 2px var(--accent)}
+.evo-tx{display:flex; flex-direction:column; align-items:flex-start; min-width:0}
+.evo-nm{display:flex; flex-wrap:wrap; align-items:center; gap:2px 4px}
+#sptip .evo-how, #sptip .frm-how{color:var(--muted); font-size:12px; line-height:1.3; padding:0 6px 2px}
+.frm-txt{font-weight:600; padding:3px 6px; min-height:28px; display:inline-flex; align-items:center}
+/* the rail: from a picture down to the next one in its column */
+.evo > li:not(:last-child)::after{content:""; position:absolute; z-index:1; left:calc(var(--ic) / 2 - 1px); width:2px;
+  top:calc(50% + var(--ic) / 2); bottom:calc(var(--gap) * -1); background:var(--line)}
+.evo > li.evo-n:not(:first-child)::before{content:""; position:absolute; z-index:1; left:calc(var(--ic) / 2 - 1px); width:2px;
+  top:0; height:calc(50% - var(--ic) / 2); background:var(--line)}
+.evo > li.evo-fork::after{display:none}
+/* a fork: each branch indented; an elbow from the rail into its first picture, the rail going on past every branch but the last */
+.evo-fork{display:flex; flex-direction:column; gap:var(--gap)}
+.evo-fork > .evo{padding-left:var(--pad)}
+.evo-fork > .evo:not(:last-child)::after{content:""; position:absolute; z-index:1; left:calc(var(--ic) / 2 - 1px); width:2px;
+  top:0; bottom:calc(var(--gap) * -1); background:var(--line)}
+.evo-fork > .evo > li:first-child::before{content:""; position:absolute; z-index:1; box-sizing:border-box;
+  left:calc(var(--ic) / 2 - 1px - var(--pad)); width:calc(var(--pad) - var(--ic) / 2 - 2px);
+  top:calc(var(--gap) * -1); height:calc(50% + var(--gap) + 1px); border:0 solid var(--line); border-width:0 0 2px 2px; border-bottom-left-radius:10px}
+/* the "only by evolution" line, in the accent colour, over the grey rail */
+.evo > li.evo-rail::after, .evo > li.evo-rail + li.evo-path::before,
+li.evo-rail + .evo-fork > .evo.evo-pass::after{background:var(--accent); z-index:1}
+li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:var(--accent); z-index:2}
+/* `evo_only`: met nowhere itself, only by evolving the one before */
+#sptip .spc-evonly{display:flex; flex-direction:column; gap:4px; border:1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  background:var(--accent-soft); border-radius:10px; padding:8px 10px; margin-bottom:8px}
+#sptip .spc-evonly p{margin:0}
+#sptip .spc-evonly-t{display:flex; align-items:center; gap:6px; color:var(--accent); font-size:12px; text-transform:uppercase; letter-spacing:.06em}
+#sptip .spc-evonly-t b{color:inherit}
+#sptip .spc-evonly-t svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+#sptip .spc-evonly .spc-nm{vertical-align:baseline}
+#sptip .spc-evonly .spc-go{min-height:0; padding:1px 4px}
+#sptip .spc-evonly .spc-sp{height:22px; width:22px; vertical-align:-5px}
+#sptip .spc-evonly .evo{margin-top:6px}
+/* the species card (sprite and base stats) on pages that turn it on */
+/* ---------- the team builder (pages/teambuilder, client/widgets/team-builder.ts) ---------- */
+/* the site bar's link to it, on every page (left, next to "← All games"; the theme switch keeps the right) */
+.sitebar .sitelink{font-size:13.5px; font-weight:600; text-decoration:none; color:var(--accent); margin-right:auto; white-space:nowrap}
+.sitebar .sitelink:hover{text-decoration:underline}
+.sitebar .sitelink:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+.sitebar .back + .sitelink{padding-left:12px; border-left:1px solid var(--line); align-self:flex-start}
+
+.tb-main{display:flex; flex-direction:column; gap:28px; min-width:0}
+.tb-main > *, #tb-cov{min-width:0}
+.tb-short{display:none}
+.tb-long, .tb-short{font:inherit}
+/* the game: its label above, then the picker and the link to the guide on one line, centred on each other */
+.tb-gamepick{display:flex; flex-direction:column; gap:6px; min-width:0}
+.tb-gamerow{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px}
+.tb-gamerow select{flex:0 1 380px; min-width:0; font:inherit; font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.tb-gamerow select:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-guide{font-weight:700; font-size:14px; text-decoration:none}
+.tb-guide:hover{text-decoration:underline}
+.tb-options{display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px}
+.tb-options .fnote{flex-basis:100%}
+.tb-status.bad{color:var(--bad)}
+.tb-headrow{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 16px}
+.tb-acts{display:flex; flex-wrap:wrap; gap:8px}
+.tb-acts .copy:disabled{opacity:.45; cursor:default}
+.tb-chk{display:flex; gap:6px; align-items:center; font-weight:600; font-size:14px; cursor:pointer}
+
+/* the six slots */
+.tb-slots{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px}
+@media (max-width:860px){ .tb-slots{grid-template-columns:repeat(2, minmax(0, 1fr))} }
+@media (max-width:350px){ .tb-slots{grid-template-columns:minmax(0, 1fr)} }
+.tb-slot{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 14px 14px; display:flex; flex-direction:column; gap:10px; min-width:0}
+.tb-slot.empty{border-style:dashed; background:none; justify-content:center; min-height:84px}
+.tb-n{position:absolute; top:8px; left:12px; font:600 13px/1 var(--f-display); color:var(--muted)}
+.tb-slot.empty .tb-n{position:static}
+.tb-x{position:absolute; top:4px; right:4px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:8px; background:none; color:var(--muted); font:inherit; font-size:20px; line-height:1; cursor:pointer}
+.tb-x:hover{background:var(--accent-soft); color:var(--ink)}
+.tb-x:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-who{display:flex; align-items:center; gap:12px; padding:6px 26px 0 14px; min-height:64px}
+.tb-types{display:flex; flex-direction:column; gap:3px; min-width:0}
+.tb-abil select{font:inherit; font-size:14px; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); min-width:0; text-overflow:ellipsis}
+.tb-abil1{font-size:14px}
+.tb-fx{font-size:13px; color:var(--muted)}
+.tb-fx b{color:var(--ink)}
+.tb-fx.off{text-decoration:line-through; text-decoration-color:var(--line)}
+/* base stats (the species card's .sts), three to a column, the total under them */
+.tb-sts{display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:6px 16px; margin-top:auto; padding-top:10px; border-top:1px solid var(--line)}
+.tb-bst{grid-column:1 / -1; font-size:12.5px; color:var(--muted)}
+.tb-bst b{font-family:var(--f-mono); color:var(--ink); margin-left:4px}
+
+/* a sprite cut from the game's sheet, at --k times its size; or two halves in the types' colours */
+.tb-pic{--k:1; position:relative; overflow:hidden; flex:none; display:block; width:calc(var(--sz) * var(--k) * 1px); height:calc(var(--sz) * var(--k) * 1px); border-radius:8px; background:var(--accent-soft)}
+.tb-pic img{position:absolute; max-width:none; image-rendering:pixelated; width:calc(var(--w) * var(--k) * 1px); height:calc(var(--h) * var(--k) * 1px); left:calc(var(--x) * var(--k) * -1px); top:calc(var(--y) * var(--k) * -1px)}
+.tb-disc{--sz:48; border-radius:50%; display:flex; transform:rotate(45deg); background:none}
+.tb-disc i{flex:1; background:var(--tc, var(--muted))}
+
+/* the species search: a box with a list under it */
+.tb-pick{position:relative; display:flex}
+.tb-pick .search{flex:1 1 auto; width:100%; font-weight:600}
+.tb-pick .search::placeholder{font-weight:400}
+.tb-pick .search:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-list{position:absolute; z-index:20; top:calc(100% + 4px); left:0; right:0; margin:0; padding:4px; list-style:none; max-height:296px; overflow:auto; overscroll-behavior:contain;
+  background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.tb-list li{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:7px 9px; border-radius:7px; font-size:14px; cursor:pointer}
+.tb-list li[aria-selected="true"]{background:var(--accent-soft)}
+.tb-list li:hover{background:var(--sunk)}
+.tb-list li[aria-selected="true"]:hover{background:var(--accent-soft)}
+.tb-on{font-weight:600; min-width:0}
+.tb-on small{font-weight:400; color:var(--muted); font-size:12.5px}
+.tb-ot{display:flex; gap:8px; flex:none}
+.tb-ot .ty{font-size:12px; font-weight:500; color:var(--muted)}
+.tb-list .tb-none{cursor:default; color:var(--muted)}
+.tb-list .tb-none:hover{background:none}
+
+/* the coverage table */
+.tb-how{font-size:14px}
+.tb-table{table-layout:fixed; min-width:calc(104px + var(--n) * 64px + 136px); font-size:15px}
+.tb-table th, .tb-table td{text-align:center; padding:0; height:40px; border-bottom:1px solid var(--line)}
+.tb-table td + td, .tb-table th + td, .tb-table thead th + th{border-left:1px dashed var(--line)}
+.tb-table thead th{position:static; vertical-align:bottom; padding:10px 4px 8px; text-transform:none; letter-spacing:0; font-size:13px; color:var(--ink); font-weight:600; background:var(--sunk)}
+.tb-table thead .tb-move{width:104px; text-align:left; padding-left:12px; color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+.tb-table thead .tb-tot{width:68px; color:var(--muted); font-size:12px; line-height:1.25}
+/* the totals row */
+.tb-table tfoot th, .tb-table tfoot td{height:48px; border-bottom:0; border-top:2px solid var(--line); background:var(--sunk)}
+.tb-table tfoot th{position:sticky; left:0; z-index:1; text-align:left; padding-left:12px; color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:600}
+.tb-table tfoot td span{display:block; min-width:0; padding:0; border-radius:0; font-size:13px; line-height:1.35; font-family:var(--f-mono)}
+.tb-table tfoot small{font-family:var(--f-body); font-weight:400; font-size:11.5px; color:var(--muted)}
+.tb-fw{color:var(--bad)} .tb-fr{color:var(--ok)}
+.tb-table tfoot td.tb-w, .tb-table tfoot td.tb-r{font-size:16px}
+.tb-table tfoot td.tb-w{color:var(--bad)} .tb-table tfoot td.tb-r{color:var(--ok)}
+.tb-table tfoot td.tb-w span, .tb-table tfoot td.tb-r span{font-family:inherit}
+.tb-mon .tb-pic{--k:.75; margin:0 auto 6px}
+.tb-mon .tb-pic img{image-rendering:auto}
+.tb-mon .tb-disc{--sz:36}
+.tb-mn{display:block; overflow-wrap:anywhere; line-height:1.2}
+.tb-mn small{display:block; font-weight:400; color:var(--muted); font-size:11.5px}
+.tb-table tbody th{position:sticky; left:0; z-index:1; background:var(--surface); text-align:left; padding:0 8px 0 10px; font-weight:400}
+.tb-table thead .tb-move{position:sticky; left:0; z-index:2}
+/* a type's name on its colour, dark text on every one of them (each passes 4.5:1 with #14161F but Fighting, Poison,
+   Ghost, Dragon and Dark, which take white) */
+.tb-type{display:block; padding:3px 8px; border-radius:6px; background:var(--tc); color:#14161F; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; text-align:center}
+.tb-type.ty2, .tb-type.ty4, .tb-type.ty8, .tb-type.ty17, .tb-type.ty18{color:#fff}
+.tb-table tbody tr:hover td, .tb-table tbody tr:hover th{background-image:linear-gradient(var(--hov), var(--hov))}
+.tb{--hov:rgba(127,127,160,.10)}
+/* the cells: weak in the "bad" colours, resisting in the "ok" ones; the strong ones as filled pills */
+.tb-table td span, .tb-key span{display:inline-block; min-width:30px; padding:2px 7px; border-radius:8px; font-weight:700; font-variant-numeric:normal}
+.c2 span{color:var(--bad)}
+.c4 span{background:var(--bad); color:var(--surface)}
+.ch span{color:var(--ok)}
+.cq span{background:var(--ok); color:var(--surface)}
+.c0 span{background:var(--muted); color:var(--surface); font-size:12px; font-weight:600; padding:4px 8px}
+/* changed by the Pokémon's ability: a dotted ring */
+.tb-table td.ab span, .tb-key.ab span{outline:2px dotted var(--accent); outline-offset:2px}
+.tb-table td.ab{cursor:help}
+/* the totals: stronger the more team members */
+.tb-table td.tb-w, .tb-table td.tb-r{font-weight:700; font-family:var(--f-mono)}
+.tb-table td.tb-w{border-left:2px solid var(--line)}
+.tb-w.w1{background:color-mix(in srgb, var(--bad) 14%, var(--surface))}
+.tb-w.w2{background:color-mix(in srgb, var(--bad) 32%, var(--surface))}
+.tb-w.w3{background:var(--bad); color:var(--surface)}
+.tb-r.r1{background:color-mix(in srgb, var(--ok) 12%, var(--surface))}
+.tb-r.r2{background:color-mix(in srgb, var(--ok) 24%, var(--surface))}
+.tb-r.r3{background:color-mix(in srgb, var(--ok) 40%, var(--surface))}
+.tb-r.r4{background:var(--ok); color:var(--surface)}
+/* phones: the whole table on the screen, no sideways scrolling (narrow columns, 0× for "immune", short headings) */
+@media (max-width:600px){
+  .tb-table{font-size:13px; min-width:0}
+  .tb-table th, .tb-table td{height:36px}
+  .tb-table thead .tb-move{width:62px; padding-left:6px; font-size:10px; letter-spacing:.04em}
+  .tb-table thead .tb-tot{width:32px; font-size:10px; padding-inline:0}
+  .tb-table tbody th{padding:0 4px}
+  .tb-type{font-size:9.5px; padding:3px 2px; letter-spacing:0}
+  .tb-mon .tb-pic{--k:.5} .tb-mon .tb-disc{--sz:24}
+  .tb-table thead th{font-size:10px; padding:8px 1px 6px}
+  .tb-mn{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; overflow-wrap:normal}
+  .tb-mn small{font-size:9px; overflow:hidden; text-overflow:ellipsis}
+  /* a game without sprite sheets: the names upright in full, read bottom to top, since nothing else says who's who */
+  .tb-mon.nopic .tb-mn{writing-mode:vertical-rl; transform:rotate(180deg); margin:0 auto; max-height:92px; text-align:left; font-size:11px}
+  .tb-mon.nopic .tb-mn small{display:inline; margin-top:4px}
+  .tb-mon.nopic .tb-disc{margin-bottom:5px}
+  .tb-table td span{min-width:0; padding:2px 4px; border-radius:6px}
+  .c0 span{font-size:12px; padding:2px 4px}
+  .tb-table td.ab span{outline-offset:1px}
+  .tb-long{display:none} .tb-short{display:inline}
+  .tb-table tfoot th{padding-left:6px; font-size:10px; letter-spacing:.04em}
+  .tb-table tfoot td span{font-size:12px}
+  .tb-table tfoot small{font-size:9px}
+  .tb-table tfoot td.tb-w, .tb-table tfoot td.tb-r{font-size:13px}
+  .tb-sts{grid-template-columns:minmax(0, 1fr); gap:3px}
+  .tb-sts .sts{font-size:12px; gap:3px 6px}
+  .tb-slot{padding:12px 10px 10px; gap:8px}
+  .tb-who{padding:4px 22px 0 10px; gap:8px; min-height:48px}
+  .tb-who .tb-pic{--k:.75}
+  .tb-types .ty{font-size:12px}
+  .tb-pick .search{font-size:14px; padding:8px 9px}
+  .tb-abil select{font-size:13px; padding:7px 6px}
+  .tb-fx{font-size:12px}
+  .tb-list li{flex-direction:column; align-items:flex-start; gap:2px}
+}
+.tb-legend{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px 22px; font-size:13px; color:var(--muted)}
+.tb-legend li{display:flex; align-items:center; gap:6px}
+.tb-key span{font-size:13px; min-width:0}
+.tb-key.ab{margin:0 4px}
+.tb-glance{display:flex; flex-direction:column; gap:8px; font-size:14px}
+.tb-glance p{display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px}
+.tb-tag{display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--line); font-size:13px; color:var(--muted)}
+.tb-tag .ty{color:var(--ink)}
+.tb-fxt td{font-size:14px}
+
+/* suggestions: cards of Pokémon that close the team's gaps, with the reasons */
+.tb-recopts{display:flex; flex-wrap:wrap; align-items:center; gap:6px 18px}
+.tb-cap{flex-direction:row; align-items:center; gap:8px; font-size:14px; color:var(--ink)}
+.tb-cap select{width:auto; font:inherit; font-weight:400; font-size:14px; padding:6px 8px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.tb-cap select:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-recs{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap:12px}
+.tb-rec{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; display:flex; flex-direction:column; gap:8px; min-width:0}
+.tb-rech{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; min-width:0}
+.tb-rech .tb-pic{--k:.75}
+.tb-rech .tb-pic img{image-rendering:auto}
+.tb-rech .tb-disc{--sz:40}
+.tb-recn{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1 1 150px}
+.tb-recn > b{font-size:15px; overflow-wrap:anywhere}
+.tb-recn > b small{font-weight:400; color:var(--muted); font-size:12.5px}
+.tb-rect{display:flex; flex-wrap:wrap; gap:4px 10px}
+.tb-rect .ty{font-size:12.5px}
+.tb-recs-s{font-size:12.5px; color:var(--muted)}
+.tb-recs-s b{font-family:var(--f-mono); color:var(--ink)}
+.tb-recadd{flex:none; align-self:flex-start; margin-left:auto}
+.tb-recl{display:flex; flex-wrap:wrap; align-items:center; gap:5px 6px; margin:0; font-size:13px}
+.tb-recl .flabel{min-width:52px; margin:0}
+.tb-rc{display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:999px; border:1px solid color-mix(in srgb, var(--ok) 45%, var(--line));
+  background:color-mix(in srgb, var(--ok) 10%, var(--surface)); font-size:12.5px}
+.tb-rc .ty{color:var(--ink)}
+.tb-rc b{color:var(--ok); font-weight:700}
+.tb-rc.bad{border-color:color-mix(in srgb, var(--bad) 45%, var(--line)); background:color-mix(in srgb, var(--bad) 10%, var(--surface))}
+.tb-rc.bad b{color:var(--bad)}
+.tb-recnote{color:var(--muted); font-size:12.5px}
+.tb-recmore{margin-top:12px}
+/* the team builder page, and the site bar's link to it */
