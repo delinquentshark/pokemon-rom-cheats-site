@@ -59,7 +59,10 @@ section.panel{display:flex; flex-direction:column; gap:22px}
 .codebox{font-family:var(--f-mono); font-size:clamp(17px,2.6vw,22px); background:var(--sunk); border-radius:8px; padding:16px 18px; line-height:1.7; overflow-x:auto; white-space:pre}
 .codebox.sm{font-size:15px; padding:10px 14px; max-height:calc(8 * 1.7em + 20px); overflow:auto}
 /* on the code cards the box shows the first five lines and scrolls; Copy copies every line */
-.cleft > .codebox.sm, .cright > .codebox.sm, .ccard.mini > .codebox.sm{max-height:calc(5 * 1.7em + 20px)}
+.cleft > .codebox.sm, .cright > .codebox.sm{max-height:calc(5 * 1.7em + 20px)}
+/* the small cards (money, coins, BP): every box is exactly five lines tall, however long its code, so the boxes and
+   their Copy rows line up on every card and every guide */
+.ccard.mini .mcode > .codebox.sm{height:calc(5 * 1.7em + 20px); max-height:none}
 .hl-i{background:var(--accent-soft); color:var(--accent); border-radius:4px; padding:0 3px; font-weight:600}
 .hl-q{background:var(--code-soft); color:var(--code); border-radius:4px; padding:0 3px; font-weight:600}
 .legend{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; font-size:14px; align-items:baseline}
@@ -260,16 +263,42 @@ details.alt .sc-wild, details.alt .sc-all, details.alt .sc-gift, details.alt .sc
 .site-foot b{color:var(--ink)}
 
 /* ---------- landing page ---------- */
+/* Every card has the same six rows (client/widgets/game-list.ts): platform + date, title, facts, codes, look-ups,
+   link. Each card spans six rows of the list's grid and shares them (subgrid), so a row is as tall as the tallest
+   card's in that line and every title, facts list and chip group starts at the same height. Without subgrid the
+   cards fall back to a plain column. */
 .games{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px, 100%),1fr)); gap:16px}
-.game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:inherit}
-/* the home page's section chips wrap on narrow phones instead of pushing the card past the screen */
-.game .pk{white-space:normal}
+.game{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px 16px; display:flex; flex-direction:column; gap:14px; text-decoration:none; color:inherit; min-width:0}
+@supports (grid-template-rows:subgrid){
+  .game{display:grid; grid-row:span 6; grid-template-rows:subgrid; row-gap:14px}
+}
 .game:hover{border-color:var(--accent)}
+.game:hover .go{text-decoration:underline; text-underline-offset:3px}
 .game:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.game h2{font-size:22px}
-.game .meta{font-size:13px; color:var(--muted)}
+.game h2{font-size:22px; line-height:1.2; align-self:start}
+.game > *{min-width:0}
+/* row 1: platform badge on the left, the date on the right, one line */
+.g-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.g-plat{font-size:11.5px; font-weight:700; letter-spacing:.1em; padding:3px 9px; border-radius:6px; background:var(--accent-soft); color:var(--accent)}
+.g-plat-nds{background:var(--code-soft); color:var(--code)}
+.g-date{font-size:12.5px; color:var(--muted); white-space:nowrap}
+/* row 3: the facts as label / value pairs, labels in one column */
+.g-facts{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:5px 14px; margin:0; font-size:13px; align-content:start}
+.g-facts dt{color:var(--muted); font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding-top:1px}
+.g-facts dd{margin:0; color:var(--ink); overflow-wrap:anywhere}
+.g-facts code{font-size:12.5px}
+/* a guide with versions: one CRC32 per line, the version after it */
+.g-vers{display:flex; flex-direction:column; gap:2px}
+.g-vname{color:var(--muted); font-size:12.5px}
+/* rows 4-5: a label over its chips; the chips wrap on narrow phones instead of pushing the card past the screen */
+.g-group{display:flex; flex-direction:column; gap:7px; align-content:start}
+.g-label{font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
 .game .secs{display:flex; flex-wrap:wrap; gap:6px}
-.game .go{margin-top:auto; font-weight:700; font-size:14px; color:var(--accent)}
+.game .pk{white-space:normal}
+.g-lookups .pk{background:transparent; box-shadow:inset 0 0 0 1px var(--line)}
+/* row 6: the link, on a rule, at the bottom of every card */
+.g-foot{border-top:1px solid var(--line); padding-top:12px; margin-top:auto}
+.game .go{font-weight:700; font-size:14px; color:var(--accent)}
 .game.soon{opacity:.6; pointer-events:none}
 
 /* ---------- site bar + theme switch (same on every page) ---------- */
@@ -433,9 +462,23 @@ ol.use li::marker{color:var(--muted); font-family:var(--f-mono)}
 .csub{font-size:13.5px; color:var(--muted); font-weight:500}
 .ccard.flash{outline:2px solid var(--accent); outline-offset:2px}
 /* small cards in a grid (money, coins, BP) */
-.cgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:14px; align-items:start}
-.ccard.mini{gap:9px}
+/* Each card is five rows (MiniCard.astro: title, description, code + Copy, How to use, Good to know). The cards span
+   five rows of the grid and share them (subgrid), so a row is as tall as the tallest card's in that line: the code
+   boxes, Copy rows, How to use and Good to know start at the same height across the cards. Cards in a line are the
+   same height. auto-fill keeps a card the same width on a guide with fewer of them (Monomyth has one). Without
+   subgrid they fall back to plain columns. */
+.cgrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(min(290px, 100%), 1fr)); gap:14px; align-items:start}
+.ccard.mini{gap:12px; padding:16px 18px}
+@supports (grid-template-rows:subgrid){
+  .cgrid{align-items:stretch}
+  .cgrid > .ccard.mini{display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:12px; align-content:start}
+}
+.ccard.mini > *{min-width:0}
 .ccard.mini .mhead{font-size:17px}
+.msum{display:flex; flex-direction:column; gap:9px}
+.mcode{display:flex; flex-direction:column; gap:9px}
+/* How to use sits on a hairline, so the instructions read as their own part under the code on every card */
+.ccard.mini > .use{border-top:1px solid var(--line); padding-top:12px}
 /* a card-styled block holding a list (Any item ×999) */
 .ccard.wide{padding:18px 20px}
 .ccard.wide > p{max-width:80ch}

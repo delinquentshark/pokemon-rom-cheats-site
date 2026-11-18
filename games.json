@@ -7,7 +7,7 @@
       "engine": "pokeemerald-expansion 1.15.3",
       "emulator": "mGBA 0.10.5",
       "rom_sha1": "b26eca106827ece4506fee585a78d34bf5314f47",
-      "sections": [
+      "codes": [
         "Any item ×999",
         "Max money, coins & BP",
         "Shiny",
@@ -21,13 +21,16 @@
         "Party editor: IVs, any ability, shiny & more",
         "EXP boost",
         "Fast eggs",
-        "TM codes",
+        "TM codes"
+      ],
+      "lookups": [
+        "Items & where to find them",
         "Species & learnsets",
         "Moves",
         "Abilities",
         "Encounter map"
       ],
-      "updated": "2026-09-27",
+      "updated": "2026-11-15",
       "rom_crc32": "5fff1cc3"
     },
     {
@@ -37,7 +40,7 @@
       "engine": "Japanese HeartGold (v4.0 Special Edition, English)",
       "emulator": "melonDS 1.1",
       "rom_sha1": "7234f7b34933e0dc8902d1d079e4747490241a2d",
-      "sections": [
+      "codes": [
         "Any item ×999",
         "Max money, coins & BP",
         "Shiny",
@@ -49,13 +52,16 @@
         "Starter or wild",
         "No random encounters",
         "Catch on the first ball",
-        "TM codes",
+        "TM codes"
+      ],
+      "lookups": [
+        "Items & where to find them",
         "Species & learnsets",
         "Moves",
         "Abilities",
         "Encounter map"
       ],
-      "updated": "2026-10-06",
+      "updated": "2026-11-15",
       "rom_crc32": "8cde8229"
     },
     {
@@ -65,7 +71,7 @@
       "engine": "Modern Emerald (pokeemerald), version 8.6",
       "emulator": "mGBA 0.10.5",
       "rom_sha1": "4ef6c0457745a359ba6b5fe475efe16d769bfba8",
-      "sections": [
+      "codes": [
         "Any item ×999",
         "Max money, coins & BP",
         "Shiny",
@@ -79,13 +85,16 @@
         "Party editor: IVs, EVs, ability, nature, shiny & more",
         "EXP boost",
         "Fast eggs",
-        "TM codes",
+        "TM codes"
+      ],
+      "lookups": [
+        "Items & where to find them",
         "Species, types & learnsets (both movepools)",
         "Moves",
         "Abilities",
         "Encounter map"
       ],
-      "updated": "2026-10-19",
+      "updated": "2026-11-15",
       "rom_crc32": "c0e39f8e"
     },
     {
@@ -95,7 +104,7 @@
       "engine": "pokeemerald (the Emerald decompilation)",
       "emulator": "mGBA 0.10.5",
       "rom_sha1": "ae1c4be9be8d706bb989602bc05731203d42860d",
-      "sections": [
+      "codes": [
         "Any item ×999",
         "Max money",
         "Shiny",
@@ -105,11 +114,21 @@
         "Ability (hidden too)",
         "No random encounters",
         "Catch on the first ball",
-        "TM codes",
-        "Species, types & learnsets (fakemon too)",
-        "Moves"
+        "Party editor: IVs, EVs, any ability, shiny & more",
+        "EXP boost",
+        "One-shot kill",
+        "Fast eggs",
+        "PC from anywhere",
+        "TM codes"
       ],
-      "updated": "2026-10-31",
+      "lookups": [
+        "Items & where to find them",
+        "Species, types & learnsets (fakemon too)",
+        "Moves",
+        "Abilities",
+        "Encounter map"
+      ],
+      "updated": "2026-11-15",
       "rom_crc32": "8441c61b"
     },
     {
@@ -118,8 +137,8 @@
       "platform": "NDS",
       "engine": "hg-engine on US HeartGold",
       "emulator": "melonDS 1.1",
-      "rom_sha1": "b4e7111718b3aff566bd9118828b3a87fee870bf",
-      "sections": [
+      "rom_sha1": "79dfae89e5d03259b3ff3022992b8bac6f667710",
+      "codes": [
         "Any item ×999",
         "Max money, coins & BP",
         "Shiny",
@@ -131,14 +150,30 @@
         "Starter or wild",
         "No random encounters",
         "Catch on the first ball",
-        "TM codes",
+        "Party editor: IVs, EVs, any ability, nature & more",
+        "EXP boost",
+        "Fast eggs",
+        "TM codes"
+      ],
+      "lookups": [
+        "Items & where to find them",
         "Species & learnsets",
         "Moves",
         "Abilities",
         "Encounter map"
       ],
-      "updated": "2026-11-02",
-      "rom_crc32": "f4bba347"
+      "updated": "2026-11-15",
+      "rom_crc32": "32c4bc3b",
+      "versions": [
+        {
+          "v": "1.0.12",
+          "crc32": "32c4bc3b"
+        },
+        {
+          "v": "1.0.4",
+          "crc32": "f4bba347"
+        }
+      ]
     },
     {
       "slug": "generation-3-evolved",
@@ -146,8 +181,8 @@
       "platform": "GBA",
       "engine": "pokeemerald-expansion 1.16.3 (built as FireRed)",
       "emulator": "mGBA 0.10.5",
-      "rom_sha1": "2f62d74b539be852fdc3e67013e7645ced3182ad",
-      "sections": [
+      "rom_sha1": "08040ec31435e710318406ac1dc778ccb7592bfa",
+      "codes": [
         "Any item ×999",
         "Max money, coins & BP",
         "Shiny",
@@ -158,14 +193,27 @@
         "Ability (hidden too)",
         "No random encounters",
         "Catch on the first ball",
-        "TM codes (tutors too)",
+        "TM codes (tutors too)"
+      ],
+      "lookups": [
+        "Items & where to find them",
         "Species & learnsets",
         "Moves",
         "Abilities",
         "Encounter map"
       ],
-      "updated": "2026-11-13",
-      "rom_crc32": "a459e886"
+      "updated": "2026-11-17",
+      "rom_crc32": "64eac717",
+      "versions": [
+        {
+          "v": "1.0.24",
+          "crc32": "64eac717"
+        },
+        {
+          "v": "1.0.20",
+          "crc32": "a459e886"
+        }
+      ]
     }
   ]
 }
