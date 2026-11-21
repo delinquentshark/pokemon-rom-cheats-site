@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/site.1iawpUWs.css"></head>
+<link rel="stylesheet" href="../assets/site.kS_K4nP4.css"></head>
 <body>
 
 <div class="wrap tb">
@@ -84,6 +84,24 @@
       <div id="tb-rec" aria-live="polite"></div>
     </section>
 
+    <section class="block" aria-labelledby="tb-mrec-h">
+      <div class="tb-headrow">
+        <h2 id="tb-mrec-h">Move suggestions</h2>
+        <div class="tb-recopts">
+          <div class="seg tb-mrcat" role="group" aria-label="Kind of attacks" id="tb-mrec-cat">
+            <button type="button" data-v="auto" aria-pressed="true">By its stats</button>
+            <button type="button" data-v="phys" aria-pressed="false">Physical</button>
+            <button type="button" data-v="spec" aria-pressed="false">Special</button>
+            <button type="button" data-v="both" aria-pressed="false">Mixed</button>
+          </div>
+          <label class="chk tb-chk"><input type="checkbox" id="tb-mrec-setup" checked> Setup moves</label>
+        </div>
+      </div>
+      <p class="muted tb-how">The moves it learns that add the most to a team member's coverage: the types it hits super effectively (most for the ones no other member does), how hard it hits with its better attacking stat and its type bonus, and setup moves that suit its stats and the team. With four moves picked, the best swaps.</p>
+      <div id="tb-mrec-who" class="tb-mwho" role="group" aria-label="Team member" hidden></div>
+      <div id="tb-mrec" aria-live="polite"></div>
+    </section>
+
     <details class="uth">
       <summary><span class="uth-t">Under the hood</span><span class="uth-s">Where the types, the chart, the moves and the ability rules come from, how suggestions are ranked, and the party rules</span></summary>
       <div class="uth-body" id="tb-sources"></div>
@@ -101,7 +119,7 @@
 </div>
 
 <script type="application/json" id="tb-games">[{"slug":"wishes-of-tomorrow","title":"Wishes of Tomorrow","platform":"GBA"},{"slug":"origin-heartgold","title":"Origin HeartGold","platform":"NDS"},{"slug":"perfect-emerald","title":"Perfect Emerald","platform":"GBA"},{"slug":"monomyth","title":"Pokémon Monomyth","platform":"GBA"},{"slug":"heartfelt-gold","title":"Heartfelt Gold","platform":"NDS"},{"slug":"generation-3-evolved","title":"Pokémon Generation 3 Evolved","platform":"GBA"}]</script>
-<script type="module" src="../assets/teambuilder.CAMBzw-r.js"></script>
+<script type="module" src="../assets/teambuilder.N98HZUB7.js"></script>
 
 <script type="module">function e(){let e=document.documentElement,t=e.dataset.theme===`light`?`light`:`dark`;function n(n){t=n,e.dataset.theme=n,document.querySelectorAll(`.theme-toggle`).forEach(e=>{e.setAttribute(`aria-checked`,n===`dark`?`true`:`false`),e.title=n===`dark`?`Switch to light mode`:`Switch to dark mode`})}function r(e){try{localStorage.setItem(`prc-theme`,e)}catch{}document.startViewTransition?document.startViewTransition(()=>n(e)):n(e)}n(t),document.querySelectorAll(`.theme-toggle`).forEach(e=>e.addEventListener(`click`,()=>r(t===`dark`?`light`:`dark`))),window.addEventListener(`storage`,e=>{e.key===`prc-theme`&&(e.newValue===`light`||e.newValue===`dark`)&&n(e.newValue)})}e();</script>
 </body>

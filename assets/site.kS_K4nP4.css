@@ -754,11 +754,21 @@ li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:va
 .tb-chk{display:flex; gap:6px; align-items:center; font-weight:600; font-size:14px; cursor:pointer}
 
 /* the six slots */
-.tb-slots{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px}
+/* no row gap: the slots' rows are shared with their parts (below), and a gap there would open between every part even
+   where a slot has none; the space between rows of slots is the slots' own bottom margin */
+.tb-slots{list-style:none; margin:0 0 -14px; padding:0; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:0 14px}
 @media (max-width:860px){ .tb-slots{grid-template-columns:repeat(2, minmax(0, 1fr))} }
 @media (max-width:350px){ .tb-slots{grid-template-columns:minmax(0, 1fr)} }
-.tb-slot{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 14px 14px; display:flex; flex-direction:column; gap:10px; min-width:0}
-.tb-slot.empty{border-style:dashed; background:none; justify-content:center; min-height:84px}
+/* a filled slot's parts sit in the same rows as its neighbours' (a subgrid of seven rows: picture, search, rule note,
+   ability, ability effect, moves, stats), so the ability boxes, the move chips and the stats line up across a row of
+   slots even when one has an effect line or a rule note the others don't */
+.tb-slot{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px; min-width:0;
+  display:grid; grid-row:span 7; grid-template-rows:subgrid; row-gap:0; align-content:start; margin-bottom:14px}
+.tb-slot > *{min-width:0}
+.tb-slot > .tb-who{grid-row:1} .tb-slot > .tb-pick{grid-row:2} .tb-slot > .tb-rulenote{grid-row:3}
+.tb-slot > .tb-abil, .tb-slot > .tb-abil1{grid-row:4} .tb-slot > .tb-fx{grid-row:5} .tb-slot > .tb-moves{grid-row:6} .tb-slot > .tb-sts{grid-row:7}
+.tb-slot > .tb-who, .tb-slot > .tb-pick, .tb-slot > .tb-rulenote, .tb-slot > .tb-abil, .tb-slot > .tb-fx, .tb-slot > .tb-moves{margin-bottom:10px}
+.tb-slot.empty{border-style:dashed; background:none; display:flex; flex-direction:column; gap:10px; justify-content:center; min-height:84px}
 .tb-n{position:absolute; top:8px; left:12px; font:600 13px/1 var(--f-display); color:var(--muted)}
 .tb-slot.empty .tb-n{position:static}
 .tb-x{position:absolute; top:4px; right:4px; width:32px; height:32px; display:grid; place-items:center; border:0; border-radius:8px; background:none; color:var(--muted); font:inherit; font-size:20px; line-height:1; cursor:pointer}
@@ -767,7 +777,8 @@ li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:va
 .tb-who{display:flex; align-items:center; gap:12px; padding:6px 26px 0 14px; min-height:64px}
 .tb-types{display:flex; flex-direction:column; gap:3px; min-width:0}
 .tb-abil select{font:inherit; font-size:14px; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); min-width:0; text-overflow:ellipsis}
-.tb-abil1{font-size:14px}
+.tb-abilv{display:flex; align-items:center; min-height:38px; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:var(--sunk);
+  font-size:14px; font-weight:400; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .tb-fx{font-size:13px; color:var(--muted)}
 .tb-fx b{color:var(--ink)}
 .tb-fx.off{text-decoration:line-through; text-decoration-color:var(--line)}
@@ -876,7 +887,9 @@ li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:va
   .tb-table tfoot td.tb-w, .tb-table tfoot td.tb-r{font-size:13px}
   .tb-sts{grid-template-columns:minmax(0, 1fr); gap:3px}
   .tb-sts .sts{font-size:12px; gap:3px 6px}
-  .tb-slot{padding:12px 10px 10px; gap:8px}
+  .tb-slot{padding:12px 10px 10px}
+  .tb-slot > .tb-who, .tb-slot > .tb-pick, .tb-slot > .tb-rulenote, .tb-slot > .tb-abil, .tb-slot > .tb-fx, .tb-slot > .tb-moves{margin-bottom:8px}
+  .tb-abilv{font-size:13px; padding:7px 6px; min-height:34px}
   .tb-who{padding:4px 22px 0 10px; gap:8px; min-height:48px}
   .tb-who .tb-pic{--k:.75}
   .tb-types .ty{font-size:12px}
@@ -942,31 +955,47 @@ li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:va
 /* a suggestion's class (legendary, pseudo-legendary…) */
 .tb-cls{display:inline-block; margin-left:4px; padding:0 7px; border-radius:999px; border:1px solid var(--line); font-size:11.5px; color:var(--muted); white-space:nowrap}
 
-/* ---------- moves: four boxes per slot (team-builder.ts movesHTML) ---------- */
-.tb-moves{display:flex; flex-direction:column; gap:6px}
-/* one grid for the four rows (each row a subgrid): the boxes all get the same width whatever is beside them */
-.tb-mvs{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:minmax(0, 1fr) auto auto auto; gap:5px 6px; align-items:center}
-.tb-mv{display:grid; grid-template-columns:subgrid; grid-column:1 / -1; align-items:center; min-width:0}
+/* ---------- moves: four chips per slot, 2×2 (team-builder.ts movesHTML) ---------- */
+.tb-moves{display:flex; flex-direction:column; gap:6px; container-type:inline-size}
+.tb-mvhead{display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:22px}
+.tb-mvsug{border:0; background:none; padding:2px 6px; margin-right:-6px; border-radius:6px; font:inherit; font-size:12.5px; font-weight:600; color:var(--accent); cursor:pointer}
+.tb-mvsug:hover{background:var(--accent-soft)}
+.tb-mvsug:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.tb-mvs{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px}
+@container (max-width:250px){ .tb-mvs{grid-template-columns:minmax(0, 1fr)} }
+.tb-mv{min-width:0}
 .tb-mvbox{position:relative; display:flex; min-width:0}
-.tb-mvin{flex:1 1 auto; min-width:0; width:100%; font-size:14px; font-weight:600; padding:7px 9px}
+/* the chip is the search box: the name on top, room under it for the meta line, the remove button inside on the right */
+.tb-mvin{flex:1 1 auto; min-width:0; width:100%; height:44px; font-size:13.5px; font-weight:600; padding:5px 24px 19px 9px; border-radius:9px;
+  text-overflow:ellipsis}
+.tb-mv0 .tb-mvin{height:44px; padding:5px 9px; border-style:dashed; background:none}
 .tb-mvin::placeholder{font-weight:400}
 .tb-mvin.ty-edge{border-left:4px solid var(--tc, var(--line))}
 .tb-mvin:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
-.tb-mvm{font-size:12px; color:var(--muted); font-family:var(--f-mono); white-space:nowrap; text-align:right}
-.tb-mvm.bad{color:var(--bad); font-family:var(--f-body); white-space:normal; max-width:13ch; line-height:1.25}
-.tb-mvto{color:var(--ink)}
-.tb-stab{font-family:var(--f-body); font-size:10.5px; font-weight:700; letter-spacing:.04em; color:var(--accent)}
-.tb-mv.bad .tb-mvin{text-decoration:line-through; text-decoration-color:var(--bad)}
-.tb-mvx{flex:none; width:26px; height:26px; display:grid; place-items:center; border:0; border-radius:6px; background:none; color:var(--muted); font:inherit; font-size:17px; line-height:1; cursor:pointer}
+.tb-mvin:focus{padding-bottom:5px}
+.tb-mvm{position:absolute; left:13px; right:24px; bottom:5px; display:flex; align-items:center; gap:5px; min-width:0; overflow:hidden;
+  font-size:11px; line-height:14px; color:var(--muted); white-space:nowrap; pointer-events:none}
+.tb-mvin:focus ~ .tb-mvm{visibility:hidden}
+.tb-mvc{font-family:var(--f-mono)}
+.tb-mvm.bad{color:var(--bad); font-weight:600}
+.tb-mvto{color:var(--ink); overflow:hidden; text-overflow:ellipsis}
+.tb-stab{margin-left:auto; font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--accent)}
+.tb-mv.bad .tb-mvin{text-decoration:line-through; text-decoration-color:var(--bad); border-color:color-mix(in srgb, var(--bad) 55%, var(--line))}
+.tb-mvx{position:absolute; top:4px; right:3px; width:20px; height:20px; display:grid; place-items:center; border:0; border-radius:5px; background:none;
+  color:var(--muted); font:inherit; font-size:15px; line-height:1; cursor:pointer}
 .tb-mvx:hover{background:var(--accent-soft); color:var(--ink)}
-.tb-mvx:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
-/* Hidden Power's type: a line of its own under the move, so the four boxes keep their width */
-.tb-hp{grid-column:1 / -1; display:flex; align-items:center; gap:8px; padding-left:12px; font-size:12.5px; color:var(--muted)}
-.tb-hp select{font:inherit; font-size:12.5px; padding:4px 6px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.tb-mvx:focus-visible{outline:2px solid var(--accent); outline-offset:0}
+/* Hidden Power's type: a small picker in the meta line */
+.tb-hp{display:flex; pointer-events:auto; min-width:0}
+.tb-hp select{font:inherit; font-size:11px; line-height:1.2; padding:0 2px; height:15px; max-width:9ch; border-radius:4px; border:1px solid var(--line);
+  background:var(--surface); color:var(--ink)}
 .tb-hp select:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 .tb-mvwait{font-size:13px}
+/* a move list is as wide as both chips: the right-hand chip's opens to the left */
+.tb-mvs .tb-mlist{width:calc(200% + 6px); right:auto}
+.tb-mvs .tb-mv:nth-child(2n) .tb-mlist{left:auto; right:0}
+@container (max-width:250px){ .tb-mvs .tb-mlist, .tb-mvs .tb-mv:nth-child(2n) .tb-mlist{width:auto; left:0; right:0} }
 /* the move list: name on the left; type, category / power and how it's learned on the right */
-.tb-mlist{min-width:260px}
 .tb-mo{display:flex; align-items:baseline; gap:8px; flex:none; font-size:12px; color:var(--muted)}
 .tb-mo .ty{font-size:12px; font-weight:500}
 .tb-mo .ty0{--tc:var(--muted)}
@@ -991,19 +1020,44 @@ li.evo-rail + .evo-fork > .evo > li.evo-path:first-child::before{border-color:va
 .tb-off td.tb-r{border-left:2px solid var(--line)}
 .tb-off tfoot td.tb-r{color:var(--ok)} .tb-off tfoot td.tb-w{color:var(--bad)}
 @media (max-width:600px){
-  .tb-mvs{gap:4px 0}
-  .tb-mvin{font-size:13px; padding:6px 7px}
-  /* two slots side by side leave no room for category and power: the type edge and the move list say the rest
-     (kept in the grid at no width, so the columns stay as they are) */
-  .tb-mvm:not(.bad){width:0; overflow:hidden; visibility:hidden}
-  .tb-mvm.bad{margin-left:4px}
-  .tb-hp{padding-left:8px}
-  .tb-mvx{margin-left:2px}
-  .tb-mvm.bad{font-size:10.5px; max-width:9ch}
+  .tb-mvs{gap:5px}
+  .tb-mvin{font-size:13px}
   .tb-covtabs button{padding:7px 10px; font-size:13px}
   .tb-tabsub{display:none}
   .o0 span{font-size:12px; padding:2px 4px}
-  .tb-mlist{min-width:0}
   .tb-mo{flex-wrap:wrap}
+}
+
+/* ---------- move suggestions: a member picker, then cards of moves with the reasons ---------- */
+.tb-mwho{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
+.tb-mwho[hidden]{display:none}
+.tb-mwhob{display:inline-flex; align-items:center; gap:6px; padding:3px 12px 3px 4px; min-height:38px; border:1px solid var(--line); border-radius:999px;
+  background:var(--surface); color:var(--ink); font:inherit; font-size:13.5px; font-weight:600; cursor:pointer}
+.tb-mwhob small{font-weight:400; color:var(--muted)}
+.tb-mwhob .tb-pic{--k:.5}
+.tb-mwhob .tb-disc{--sz:26}
+.tb-mwhob:hover{background:var(--sunk)}
+.tb-mwhob[aria-pressed="true"]{border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); background:var(--accent-soft)}
+.tb-mwhob:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.tb-mrsum{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; margin-bottom:12px}
+.tb-mrsum p{margin:0; font-size:14px}
+.tb-mrsum .n{font-family:var(--f-mono)}
+.tb-mrsum small{color:var(--muted)}
+.tb-mrecs{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap:10px}
+.tb-mrec{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; flex-direction:column; gap:7px; min-width:0}
+.tb-mrh{display:flex; align-items:center; gap:8px; min-width:0}
+.tb-mrr{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.tb-mrh .ty{font-size:12px}
+.tb-mrname{font-size:15px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tb-mrmeta{font-size:12px; color:var(--muted); font-family:var(--f-mono)}
+.tb-mrgain{margin-left:auto; font-family:var(--f-mono); font-size:13px; font-weight:700; color:var(--ok)}
+.tb-mradd{flex:none; padding:5px 12px; max-width:62%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tb-mrwhy{gap:5px 10px; color:var(--muted); font-size:12.5px}
+.tb-mrwhy .tb-stab{margin:0; font-size:10.5px}
+.tb-mrb{color:var(--ink); font-weight:600}
+.tb-recl .ty.tb-gap{box-shadow:0 0 0 2px var(--surface), 0 0 0 3.5px var(--ok)}
+.tb-recl small{color:var(--muted)}
+@media (max-width:600px){
+  .tb-mrname{font-size:14px}
 }
 /* the team builder page, and the site bar's link to it */
