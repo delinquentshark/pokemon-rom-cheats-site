@@ -181,7 +181,7 @@
       "platform": "GBA",
       "engine": "pokeemerald-expansion 1.16.3 (built as FireRed)",
       "emulator": "mGBA 0.10.5",
-      "rom_sha1": "08040ec31435e710318406ac1dc778ccb7592bfa",
+      "rom_sha1": "26d9feea3e8dde937a6f43ebb24758e515be8a61",
       "codes": [
         "Any item ×999",
         "Max money, coins & BP",
@@ -193,7 +193,8 @@
         "Ability (hidden too)",
         "No random encounters",
         "Catch on the first ball",
-        "TM codes (tutors too)"
+        "TM codes (tutors too)",
+        "Party editor (1.0.26): IVs, EVs, ability, nature, shiny & more"
       ],
       "lookups": [
         "Items & where to find them",
@@ -202,9 +203,13 @@
         "Abilities",
         "Encounter map"
       ],
-      "updated": "2026-11-17",
-      "rom_crc32": "64eac717",
+      "updated": "2026-11-22",
+      "rom_crc32": "122351e1",
       "versions": [
+        {
+          "v": "1.0.26",
+          "crc32": "122351e1"
+        },
         {
           "v": "1.0.24",
           "crc32": "64eac717"
