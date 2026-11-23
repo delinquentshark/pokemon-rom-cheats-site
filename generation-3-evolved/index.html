@@ -93,7 +93,7 @@
         </div><div class="dgrp">
           <h3>Look things up</h3>
           <ul>
-<li><a href="#abilities">Abilities</a><span>what each one does and which species have it</span></li><li><a href="#species">Pokédex</a><span>every Pokémon&#39;s ID, types, abilities and moves; click a name for its sprite, base stats and evolutions</span></li><li><a href="#encounters">Encounter map</a><span>the wild Pokémon, gifts, one-off battles and roaming Pokémon of every place</span></li>
+<li><a href="#abilities">Abilities</a><span>what each one does and which species have it</span></li><li data-ver="1.0.26"><a href="#card-dex">Fill the Pokédex</a><span>seen and caught, any range of numbers (1.0.26)</span></li><li><a href="#species">Pokédex</a><span>every Pokémon&#39;s ID, types, abilities and moves; click a name for its sprite, base stats and evolutions</span></li><li><a href="#encounters">Encounter map</a><span>the wild Pokémon, gifts, one-off battles and roaming Pokémon of every place</span></li>
           </ul>
         </div>
       </div>
@@ -139,14 +139,14 @@
           </div></div><div data-ver="1.0.24" hidden><p class="muted vernote">On <b>1.0.24</b>; switch the version at the top of the page for 1.0.20 and 1.0.26's.</p><div class="tablewrap" style="max-width:860px">
             <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">All six catching codes at once (Eevee, Modest, female, hidden ability; broadest versions): a shiny, all-31, Modest, female Eevee with Anticipation on Route 1, caught with a Master Ball; the same after save, untick, reset, Continue</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every code on this page (100,676 codes: every species in every version, every nature, gender, ability and IV code, every item, every TM and move pair, and the fixed codes) loads in mGBA as Action Replay MAX (and the fixed and chosen codes as Autodetect, encrypted and raw), writes exactly its patch, and unticking restores the ROM <small class="muted">(94 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Two catching codes share their routine: ticked together, then unticked in either order, the other keeps working, and with both unticked the ROM is restored <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Removing a code that is still ticked (Pick the nature) leaves its patch in place: untick before removing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">no two codes meant to be used together patch the same address differently</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The codes the page builds in the browser (codes.ts) equal the Python generator: 299,815 codes, 5,767,535 lines</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">asm/catch.s and asm/bag_item.s (and asm/party_editor.s, any_ability.s and exp_boost.s, on the versions with the Your Pokémon tab) assemble to the routines in codes.py, in free space; the hooks overwrite the instructions the routines redo</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the nature and gender search always ends: each of the 25 natures with each gender is reachable for every gender ratio the game uses (31, 63, 127, 191, 223 of 254), for 256 keys spread over the 65,536</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the ROM is the expected build (SHA-1, CRC32) and no test changes it</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No codes: a wild Hoothoot on Route 1 (seed 0x51), its normal colours</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Always shiny, the same encounter: shiny</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Max money: a Rare Candy (10,000) bought at a Poké Mart, money still 99,999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any item x999, Rare Candy: the Bag (opened from the Start menu) lists x999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn any TM: TM04 Hyper Beam in the Bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn any TM: Charmander learned Hyper Beam (it can&#39;t without the code)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball: one Poké Ball at a full-HP Lv70 Mewtwo, caught</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div></div><div data-ver="1.0.26"><p class="muted vernote">On <b>1.0.26</b>; switch the version at the top of the page for 1.0.20 and 1.0.24's.</p><div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">All six catching codes at once (Eevee, Modest, female, hidden ability; broadest versions): a shiny, all-31, Modest, female Eevee with Anticipation on Route 1, caught with a Master Ball; the same after save, untick, reset, Continue</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every code on this page (100,727 codes: every species in every version, every nature, gender, ability and IV code, every item, every TM and move pair, and the fixed codes) loads in mGBA as Action Replay MAX (and the fixed and chosen codes as Autodetect, encrypted and raw), writes exactly its patch, and unticking restores the ROM <small class="muted">(94 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Two catching codes share their routine: ticked together, then unticked in either order, the other keeps working, and with both unticked the ROM is restored <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Removing a code that is still ticked (Pick the nature) leaves its patch in place: untick before removing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">no two codes meant to be used together patch the same address differently</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The codes the page builds in the browser (codes.ts) equal the Python generator: 301,728 codes, 5,931,691 lines</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">asm/catch.s and asm/bag_item.s (and asm/party_editor.s, any_ability.s and exp_boost.s, on the versions with the Your Pokémon tab) assemble to the routines in codes.py, in free space; the hooks overwrite the instructions the routines redo</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the nature and gender search always ends: each of the 25 natures with each gender is reachable for every gender ratio the game uses (31, 63, 127, 191, 223 of 254), for 256 keys spread over the 65,536</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the ROM is the expected build (SHA-1, CRC32) and no test changes it</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No codes: a wild Hoothoot on Route 1 (seed 0x51), its normal colours</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Always shiny, the same encounter: shiny</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Max money: a Rare Candy (10,000) bought at a Poké Mart, money still 99,999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any item x999, Rare Candy: the Bag (opened from the Start menu) lists x999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn any TM: TM04 Hyper Beam in the Bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn any TM: Charmander learned Hyper Beam (it can&#39;t without the code)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball: one Poké Ball at a full-HP Lv70 Mewtwo, caught</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">All six catching codes at once (Eevee, Modest, female, hidden ability; broadest versions): a shiny, all-31, Modest, female Eevee with Anticipation on Route 1, caught with a Master Ball; the same after save, untick, reset, Continue</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every code on this page (100,733 codes: every species in every version, every nature, gender, ability and IV code, every item, every TM and move pair, and the fixed codes) loads in mGBA as Action Replay MAX (and the fixed and chosen codes as Autodetect, encrypted and raw), writes exactly its patch, and unticking restores the ROM <small class="muted">(94 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Two catching codes share their routine: ticked together, then unticked in either order, the other keeps working, and with both unticked the ROM is restored <small class="muted">(6 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Removing a code that is still ticked (Pick the nature) leaves its patch in place: untick before removing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">no two codes meant to be used together patch the same address differently</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">The codes the page builds in the browser (codes.ts) equal the Python generator: 300,241 codes, 6,351,979 lines</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">asm/catch.s and asm/bag_item.s (and asm/party_editor.s, any_ability.s, exp_boost.s and dex_fill.s, on the versions with the Your Pokémon tab) assemble to the routines in codes.py, in free space; the hooks overwrite the instructions the routines redo</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the nature and gender search always ends: each of the 25 natures with each gender is reachable for every gender ratio the game uses (31, 63, 127, 191, 223 of 254), for 256 keys spread over the 65,536</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the ROM is the expected build (SHA-1, CRC32) and no test changes it</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">No codes: a wild Hoothoot on Route 1 (seed 0x51), its normal colours</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Always shiny, the same encounter: shiny</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Max money: a Rare Candy (10,000) bought at a Poké Mart, money still 99,999,999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any item x999, Rare Candy: the Bag (opened from the Start menu) lists x999</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn any TM: TM04 Hyper Beam in the Bag</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Any Pokémon can learn any TM: Charmander learned Hyper Beam (it can&#39;t without the code)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Catch on the first ball: one Poké Ball at a full-HP Lv70 Mewtwo, caught</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div></div>
         </div>
         <div class="block">
           <h3>Version 1.0.26: what changed for the codes</h3>
           <p>1.0.26 (with 1.0.25's changes) is the whole game built again too, and every function the codes patch moved once more: from 1.0.20's places by 0x94 to 0x780 bytes. None of 1.0.24's codes can be used on 1.0.26: of the 130 ROM patches in a cheat file of 1.0.24 codes from this page, none lands on the instruction it was made for in 1.0.26 (tested). Pick 1.0.26 at the top of the page and every code switches to its build for 1.0.26.</p>
           <p>The release notes (1.0.25: fixes for MyBoy, NPC and trade bugs, VS Seeker in Lavaridge Gym, tiles, Drought only by day, Soothe Bells in Celadon, level-based evolutions for the Pokémon that evolve by friendship; 1.0.26: player sprite fixes, a Battle Factory softlock fix, a Doubles toggle) describe nothing aimed at what the codes change. In the ROM, the ball-throw command is 1.0.24's, unchanged, 0xE8 bytes earlier, so Catch on the first ball is the same one-instruction change there. Some of the game's RAM moved (EWRAM from 0x020348C0 up, by 0x14 bytes), none that a code uses: the save blocks, the party and the Battle Points stay where they were. The look-ups are read from 1.0.26: 34 Pokémon that evolve by friendship can also evolve at a level, 5 learnsets gained moves, Celadon's Game Corner sells its TMs for 500 coins and a Soothe Bell, Pallet Town's Old Rod catches Arrokuda, and Shaymin roams at Lv30. Every other look-up is the same as 1.0.24's.</p>
-          <p class="muted">The addresses were found the same way as 1.0.24's (<code>reloc.py</code>: 99.1 % of the data lined up in runs that each moved as one; <code>reloc.py check 1.0.26</code> compares the instructions around every address with 1.0.20's: all the same, five differences read by hand and found harmless), and every test on this page was run again on 1.0.26. The <a href="#pokemon">Your Pokémon</a> tab (the party editor, EXP boost and Eggs hatch fast) is new in this guide with 1.0.26 and is built for 1.0.26 only.</p>
+          <p class="muted">The addresses were found the same way as 1.0.24's (<code>reloc.py</code>: 99.1 % of the data lined up in runs that each moved as one; <code>reloc.py check 1.0.26</code> compares the instructions around every address with 1.0.20's: all the same, five differences read by hand and found harmless), and every test on this page was run again on 1.0.26. The <a href="#pokemon">Your Pokémon</a> tab (the party editor, EXP boost and Eggs hatch fast) and the Pokédex tab's Fill the Pokédex code are new in this guide with 1.0.26 and is built for 1.0.26 only.</p>
           <div class="tablewrap"><table class="vtable">
             <thead><tr><th>What</th><th>1.0.20</th><th>1.0.26</th><th>Codes</th></tr></thead>
             <tbody><tr><td>CreateBoxMon: the catching routine&#39;s two hooks and the shiny roll</td><td><code>0x081CBB22, 0x081CBCB4, 0x081CBCF6</code></td><td><code>0x081CBED2, 0x081CC064, 0x081CC0A6</code></td><td>Always shiny; Pick the species, nature, gender, ability</td></tr><tr><td>CreateWildMon: its call to CreateBoxMon (marker), the IV argument, the hidden-ability roll</td><td><code>0x0824534A, 0x0824534C, 0x0824536C</code></td><td><code>0x0824580E, 0x08245810, 0x08245830</code></td><td>the catching codes (every version)</td></tr><tr><td>the setwildbattle command&#39;s three calls</td><td><code>0x0820D5BE, 0x0820D65A, 0x0820D6AA</code></td><td><code>0x0820DA2A, 0x0820DAC6, 0x0820DB16</code></td><td>the catching codes (one-off battles)</td></tr><tr><td>the legendaries&#39; event special 0x201 (CreateEnemyEventMon)</td><td><code>0x081CC7CA, 0x081CC7F4</code></td><td><code>0x081CCB7A, 0x081CCBA4</code></td><td>the catching codes (one-off battles)</td></tr><tr><td>the givemon command: its call, the shiny setting, the IV loop, the ability</td><td><code>0x0820DD2C, 0x0820DD40, 0x0820DDB0, 0x0820DE0C</code></td><td><code>0x0820E198, 0x0820E1AC, 0x0820E21C, 0x0820E278</code></td><td>the catching codes (gifts), Always shiny</td></tr><tr><td>the ball-throw command&#39;s &quot;caught at once&quot; branch</td><td><code>0x080B4732</code></td><td><code>0x080B47C6</code></td><td>Catch on the first ball</td></tr><tr><td>WildEncounterCheck</td><td><code>0x08244BF4</code></td><td><code>0x082450B8</code></td><td>No random encounters</td></tr><tr><td>GetMoney, IsEnoughMoney, AddMoney, RemoveMoney and the two cost specials</td><td><code>0x08193F40, 0x08193F68, 0x08193F8C, 0x08193FB0, 0x08193FC4, 0x08193FF0</code></td><td><code>0x08194440, 0x08194468, 0x0819448C, 0x081944B0, 0x081944C4, 0x081944F0</code></td><td>Max money</td></tr><tr><td>GetCoins, AddCoins, RemoveCoins</td><td><code>0x080FA01C, 0x080FA06C, 0x080FA0CE</code></td><td><code>0x080FA3D0, 0x080FA420, 0x080FA482</code></td><td>Max coins</td></tr><tr><td>the Start menu&#39;s BAG entry; the routine&#39;s calls (CountTotalItemQuantityInBag, AddBagItem, StartMenuBagCallback)</td><td><code>0x08DA3C4C, 0x08170454, 0x081706A4, 0x0821AE74</code></td><td><code>0x08DA43CC, 0x08170914, 0x08170B64, 0x0821B2E0</code></td><td>Any item ×999</td></tr><tr><td>the TM → move table</td><td><code>0x087C0624</code></td><td><code>0x087C0B54</code></td><td>Change what a TM teaches</td></tr><tr><td>the storage screen&#39;s two &quot;can it learn this?&quot; calls</td><td><code>0x080F936C, 0x080F95C4</code></td><td><code>0x080F9720, 0x080F9978</code></td><td>Any Pokémon can learn any TM</td></tr></tbody>
@@ -176,7 +176,7 @@
             <dt>Encrypted</dt><dd>The codes you copy on this page are encrypted Action Replay (PAR v3) codes. mGBA reads them as <b>Autodetect</b> or <b>Action Replay MAX</b>.</dd>
             <dt>Raw</dt><dd>Each code's raw (decrypted) form is in the Under the hood section of its tab, with the addresses it changes. Raw codes need <b>Autodetect</b>. Most are ROM patches: <code>00000000 18aaaaaa</code> + <code>0000vvvv 00000000</code> puts the 16-bit value <code>vvvv</code> at address <code>0x08000000 + aaaaaa × 2</code>.</dd>
             <dt>Long codes</dt><dd>The species, nature, gender and ability codes are about 330 lines each, because each one carries the whole routine they share. Paste the whole code into one Add New Code. Ticking several of them at once is fine: they put the same routine in the same place, and mGBA keeps it while any of them is ticked.</dd>
-            <dt>In the browser</dt><dd>The page builds each code from your choices in <code>codes.ts</code>, a copy of the Python generator used for the tests. A check runs both on every code the page can make (301,728 codes, 5,931,691 lines: every species in each of the three versions, every nature, gender, ability and IV code, every TM and move pair, every item, and the fixed codes, for every game version, and over 3,000 party edits on 1.0.26), and they match exactly. That check runs in Node.js. The page itself was tested in Chromium at desktop and phone widths, not in other browsers.</dd>
+            <dt>In the browser</dt><dd>The page builds each code from your choices in <code>codes.ts</code>, a copy of the Python generator used for the tests. A check runs both on every code the page can make (300,241 codes, 6,351,979 lines: every species in each of the three versions, every nature, gender, ability and IV code, every TM and move pair, every item, and the fixed codes, for every game version, and over 3,000 party edits on 1.0.26), and they match exactly. That check runs in Node.js. The page itself was tested in Chromium at desktop and phone widths, not in other browsers.</dd>
             <dt>Remove while ticked</dt><dd>Unticking a code restores the original instructions. Removing a code that's still ticked leaves its patch in mGBA's memory (tested), so untick first; restarting mGBA clears it.</dd>
           </dl>
         </div>
@@ -4434,7 +4434,7 @@ sanitize:
             <div class="codebox sm blocked" id="code-editor" data-blocked="1">Type the Pokémon in the slot first (step 2).</div>
 <div class="row"><button class="copy" type="button" data-copy="code-editor" disabled>Copy code</button><span class="lines" data-lines="code-editor"></span></div>
             <div class="edany" id="ed-any-code" hidden>
-              <h4>And keep this code ticked: Any ability for <span class="any-sp"></span></h4>
+              <h4>And keep this code ticked: Any ability (the same code for every Pokémon)</h4>
               
               <div class="codebox sm blocked" id="code-anyab" data-blocked="1">Pick the ability first.</div>
 <div class="row"><button class="copy" type="button" data-copy="code-anyab" disabled>Copy code</button><span class="lines" data-lines="code-anyab"></span></div>
@@ -4448,7 +4448,7 @@ sanitize:
             <ul class="gtk">
               <li>While it's ticked, it runs every time you open POKéMON, but it only changes the slot while the species you typed is in it. If the party was reordered, the Pokémon evolved or the slot is empty, nothing changes.</li>
               <li>The change stays after you untick. To change the Pokémon again, make a new code.</li>
-              <li><b>Ability</b>: its first, second or hidden ability (a Pokémon without that one gets its first), or <b>Any ability…</b>: any of the game's abilities, even one its species can't have. That one comes with a second code, for its species, to keep ticked for good (other species' codes can be ticked with it). Untick it and the Pokémon has its species' hidden ability (its first, for a species without one): nothing else changes and the save stays fine.</li>
+              <li><b>Ability</b>: its first, second or hidden ability (a Pokémon without that one gets its first), or <b>Any ability…</b>: any of the game's abilities, even one its species can't have. That one is saved in the Pokémon itself, so it goes where the Pokémon goes: reorder the party, evolve, save and reload. The game uses it while a second code, <b>Any ability</b>, is ticked: one code, the same for every Pokémon you've given an ability (an Articuno with Snow Warning and a Zapdos with Drizzle need just the one). Untick it and those Pokémon have their hidden ability (their first, for a species without one) until you tick it again; nothing else changes and the save stays fine.</li>
               <li>Tick only one party-edit code at a time. Eggs are left alone.</li>
               <li>Made for 1.0.26 only: on an older version it would patch the wrong place, so this tab isn't shown for them.</li>
             </ul>
@@ -4540,11 +4540,12 @@ CDE8AE47 E0DF7372</div>
           <div class="how">
             <h4>Edit a party Pokémon</h4>
 
-            <p class="muted">The ROM is empty (0xFF) from 0x09BC9098 to its end. The code writes a small routine at 0x09FF4000, between the catching codes' routine (0x09FF0000) and Any item ×999's (0x09FF8000), followed by a table: the species the code was made for (two bytes), the party slot, then one entry per field (the field, then the value as two bytes, low first), then 0. Its last two lines point the Start menu's POKéMON entry (the pointer at 0x08DA43C4, normally StartMenuPokemonCallback at 0x0821B311) at the routine. Any item ×999 uses the BAG entry next to it, so the two codes can be ticked together. Each time POKéMON is picked, the routine runs first: it reads the slot's species with the game's GetMonData (0x081C4E8C) and stops unless it's the one in the table (an empty slot reads as 0, so it never matches), skips an Egg, writes each field with the game's own SetMonData (0x081C6E48, which re-encrypts the Pokémon's data and fixes its checksum, so it stays valid), calls CalculateMonStats (0x081CB9F8), then jumps to the real callback and the party screen opens as usual. Unticking restores the pointer, so the routine is never reached again. The routine is the same one Wishes of Tomorrow's guide uses: both games are built on pokeemerald-expansion and number these fields the same way.</p>
+            <p class="muted">The ROM is empty (0xFF) from 0x09BC9098 to its end. The code writes a small routine at 0x09FF4000, between the catching codes' routine (0x09FF0000) and Any item ×999's (0x09FF8000), followed by a table: the species the code was made for (two bytes), the party slot, then one entry per field (the field, then the value as two bytes, low first), then 0. Its last two lines point the Start menu's POKéMON entry (the pointer at 0x08DA43C4, normally StartMenuPokemonCallback at 0x0821B311) at the routine. Any item ×999 uses the BAG entry next to it, so the two codes can be ticked together. Each time POKéMON is picked, the routine runs first: it reads the slot's species with the game's GetMonData (0x081C4E8C) and stops unless it's the one in the table (an empty slot reads as 0, so it never matches), skips an Egg, writes each field with the game's own SetMonData (0x081C6E48, which re-encrypts the Pokémon's data and fixes its checksum, so it stays valid), calls CalculateMonStats (0x081CB9F8), then jumps to the real callback and the party screen opens as usual. Unticking restores the pointer, so the routine is never reached again. The routine is Wishes of Tomorrow's guide's (both games are built on pokeemerald-expansion and number these fields the same way), plus one entry type of its own for <b>Any ability</b> (field 0xFF, below).</p>
             <dl class="re">
               <dt>0x30–0x35</dt><dd>SetMonData fields for the IVs: HP, Attack, Defense, Speed, Sp. Atk, Sp. Def (the game's own order).</dd>
               <dt>0x21–0x26</dt><dd>EVs, same order.</dd>
               <dt>0x37</dt><dd>Ability number, two bits: 0 first, 1 second, 2 hidden, and 3 for <b>Any ability</b> (below). GetMonAbility (0x081CA90C) reads only this and the species; a species with no ability in that slot uses its first.</dd>
+              <dt>0xFF</dt><dd>Not a game field: the routine keeps an ability in the Pokémon's unused bits for <b>Any ability</b> (below).</dd>
               <dt>0x0C</dt><dd>The nature used for stats: this build's Mint field. The game stores it as a 5-bit modifier XORed with the personality's nature (bits 3–7 of byte 0x12), so the personality, and with it the gender, stay as they were. This hack's summary shows this nature on the Skills page.</dd>
               <dt>0x0B</dt><dd>Shiny: 1 or 0. It sets a shiny bit (bit 14 of the u16 at 0x1E) instead of changing the personality or trainer ID.</dd>
               <dt>0x27</dt><dd>Friendship, 0–255.</dd>
@@ -4553,15 +4554,18 @@ CDE8AE47 E0DF7372</div>
               <dt>How found</dt><dd>These field numbers differ from vanilla Emerald's in this build, so each was written on 1.0.26 in the emulator and the decrypted Pokémon compared before and after.</dd>
             </dl>
             <details class="alt"><summary>The routine (Thumb assembly, asm/party_editor.s)</summary><pre class="codebox sm asm">@ Party editor (code &quot;Edit a party Pokemon&quot;), Generation 3 Evolved 1.0.26 and later only (the owner&#39;s call: new
-@ features start on the latest version). The routine is Wishes of Tomorrow&#39;s (asm/party_editor.s there), unchanged:
-@ this build has the same SetMonData field IDs (species 0x12, Egg 0x36; tested on 1.0.26, NOTES.md &quot;Party editor&quot;).
+@ features start on the latest version). The routine is Wishes of Tomorrow&#39;s (asm/party_editor.s there), with one
+@ addition: field 0xFF, not a game field, keeps an ability in the Pokemon&#39;s own data for &quot;Any ability&quot; (setab, below;
+@ read by the Any ability code, asm/any_ability.s). This build has the same SetMonData field IDs as Wishes of Tomorrow
+@ (species 0x12, Egg 0x36; tested on 1.0.26, NOTES.md &quot;Party editor&quot;).
 @ Assembled at 0x09FF4000, in the ROM&#39;s free space (0xFF from 0x09FF0000 to the end; the catching routine is at
 @ 0x09FF0000-0x09FF0430, the Bag routine at 0x09FF8000). The code points the Start menu&#39;s POKeMON entry (sStartMenuItems[1]
 @ callback, the pointer at 0x08DA43C4 on 1.0.26) here. Each time the player picks POKeMON it applies the table to one
 @ party slot with the game&#39;s own SetMonData (which re-encrypts the Pokemon and fixes its checksum), recalculates its
 @ stats, then jumps to the real StartMenuPokemonCallback, so the party menu opens as usual.
 @ table: species (u16, the Pokemon the code was made for), slot (0-5), then (field, value low byte, value high byte)
-@ triples, then 0. SetMonData reads one byte for every field the editor sets; the high byte is 0.
+@ triples, then 0. SetMonData reads one byte for every field the editor sets; the high byte is 0. Field 0xFF&#39;s value
+@ is the ability (both bytes); the code puts it before the ability number (0x37, value 3).
 @ Safeguard: nothing happens unless the Pokemon in that slot is that species, so a code left ticked can&#39;t change a
 @ different Pokemon after the party is reordered. Empty slots (species 0) and Eggs are skipped too.
 @ Symbols (codes.py EDITOR_SYMBOLS): gPlayerParty, GetMonData, SetMonData, CalculateMonStats, StartMenuPokemonCallback.
@@ -4591,10 +4595,20 @@ loop:
     ldrb r1, [r5]              @ field; 0 ends the table
     cmp r1, #0
     beq stats
+    cmp r1, #0xFF
+    bne setmon
+    ldrb r0, [r5, #1]
+    ldrb r1, [r5, #2]
+    lsls r1, r1, #8
+    orrs r0, r1                @ the ability to keep
+    bl setab
+    b next
+setmon:
     movs r0, r4
     adds r2, r5, #1            @ &amp;value (low byte, then high byte)
     ldr r3, =SetMonData
     bl via
+next:
     adds r5, #3
     b loop
 stats:
@@ -4609,13 +4623,78 @@ done:
     bx r3
 via:
     bx r3
+
+@ setab(r4 = the Pokemon, r0 = an ability): keep the ability in the 9 bits this build never uses in the growth
+@ substruct: word 0 bits 26-31 = its low 6 bits, word 1 bits 29-31 = its high 3. Only those two words are decrypted
+@ (the key is personality XOR OT ID; the substructs&#39; order is personality % 24), changed and encrypted again, and the
+@ checksum (the sum of the 24 decrypted halfwords, at 0x1C) is corrected by the difference, so the Pokemon stays valid.
+setab:
+    push {r5, r6, r7, lr}
+    movs r6, r0
+    ldr r7, [r4]               @ personality
+    ldr r5, [r4, #4]
+    eors r5, r7                @ the key
+    lsrs r0, r7, #3
+    movs r1, #3
+    svc #6                     @ BIOS Div: r1 = (personality &gt;&gt; 3) % 3
+    lsls r1, r1, #3
+    lsls r7, r7, #29
+    lsrs r7, r7, #29
+    adds r7, r7, r1            @ personality % 24
+    adr r3, gpos
+    ldrb r7, [r3, r7]
+    adds r7, r4, r7            @ the growth substruct
+    ldr r0, [r7]
+    eors r0, r5                @ word 0
+    ldr r1, [r7, #4]
+    eors r1, r5                @ word 1
+    ldrh r2, [r4, #0x1C]       @ the checksum, less the four old halfwords
+    lsls r3, r0, #16
+    lsrs r3, r3, #16
+    subs r2, r2, r3
+    lsrs r3, r0, #16
+    subs r2, r2, r3
+    lsls r3, r1, #16
+    lsrs r3, r3, #16
+    subs r2, r2, r3
+    lsrs r3, r1, #16
+    subs r2, r2, r3
+    lsls r0, r0, #6
+    lsrs r0, r0, #6
+    lsls r3, r6, #26
+    orrs r0, r3                @ word 0 bits 26-31 = the ability&#39;s low 6 bits
+    lsls r1, r1, #3
+    lsrs r1, r1, #3
+    lsrs r3, r6, #6
+    lsls r3, r3, #29
+    orrs r1, r3                @ word 1 bits 29-31 = its high 3 bits
+    lsls r3, r0, #16           @ plus the four new ones
+    lsrs r3, r3, #16
+    adds r2, r2, r3
+    lsrs r3, r0, #16
+    adds r2, r2, r3
+    lsls r3, r1, #16
+    lsrs r3, r3, #16
+    adds r2, r2, r3
+    lsrs r3, r1, #16
+    adds r2, r2, r3
+    strh r2, [r4, #0x1C]
+    eors r0, r5
+    str r0, [r7]
+    eors r1, r5
+    str r1, [r7, #4]
+    pop {r5, r6, r7}
+    pop {r3}
+    bx r3
     .ltorg
     .balign 4
+gpos:                          @ 0x20 + 12 x the growth substruct&#39;s place, by personality % 24
+    .byte 0x20,0x20,0x20,0x20,0x20,0x20,0x2C,0x2C,0x38,0x44,0x38,0x44,0x2C,0x2C,0x38,0x44,0x38,0x44,0x2C,0x2C,0x38,0x44,0x38,0x44
 table:</pre></details>
             <details class="alt"><summary>Raw form (slot 1, Charmander, IVs all 31)</summary><div class="codebox sm">00000000 18FFA000
 0000B530 00000000
 00000000 18FFA001
-0000A51A 00000000
+0000A541 00000000
 00000000 18FFA002
 000078A8 00000000
 00000000 18FFA003
@@ -4623,7 +4702,7 @@ table:</pre></details>
 00000000 18FFA004
 00004348 00000000
 00000000 18FFA005
-00004C13 00000000
+00004C34 00000000
 00000000 18FFA006
 00001824 00000000
 00000000 18FFA007
@@ -4631,31 +4710,31 @@ table:</pre></details>
 00000000 18FFA008
 00002112 00000000
 00000000 18FFA009
-00004B12 00000000
+00004B33 00000000
 00000000 18FFA00A
 0000F000 00000000
 00000000 18FFA00B
-0000F81E 00000000
+0000F827 00000000
 00000000 18FFA00C
 00008829 00000000
 00000000 18FFA00D
 00004288 00000000
 00000000 18FFA00E
-0000D115 00000000
+0000D11E 00000000
 00000000 18FFA00F
 00000020 00000000
 00000000 18FFA010
 00002136 00000000
 00000000 18FFA011
-00004B0E 00000000
+00004B2F 00000000
 00000000 18FFA012
 0000F000 00000000
 00000000 18FFA013
-0000F816 00000000
+0000F81F 00000000
 00000000 18FFA014
 00002800 00000000
 00000000 18FFA015
-0000D10E 00000000
+0000D117 00000000
 00000000 18FFA016
 00003503 00000000
 00000000 18FFA017
@@ -4663,84 +4742,240 @@ table:</pre></details>
 00000000 18FFA018
 00002900 00000000
 00000000 18FFA019
-0000D006 00000000
+0000D00F 00000000
 00000000 18FFA01A
-00000020 00000000
+000029FF 00000000
 00000000 18FFA01B
-00001C6A 00000000
+0000D106 00000000
 00000000 18FFA01C
-00004B09 00000000
+00007868 00000000
 00000000 18FFA01D
-0000F000 00000000
+000078A9 00000000
 00000000 18FFA01E
-0000F80B 00000000
+00000209 00000000
 00000000 18FFA01F
-00003503 00000000
+00004308 00000000
 00000000 18FFA020
-0000E7F5 00000000
-00000000 18FFA021
-00000020 00000000
-00000000 18FFA022
-00004B07 00000000
-00000000 18FFA023
 0000F000 00000000
+00000000 18FFA021
+0000F812 00000000
+00000000 18FFA022
+0000E004 00000000
+00000000 18FFA023
+00000020 00000000
 00000000 18FFA024
-0000F805 00000000
+00001C6A 00000000
 00000000 18FFA025
-0000BC30 00000000
+00004B26 00000000
 00000000 18FFA026
-0000BC08 00000000
+0000F000 00000000
 00000000 18FFA027
-0000469E 00000000
+0000F80B 00000000
 00000000 18FFA028
-00004B05 00000000
+00003503 00000000
 00000000 18FFA029
-00004718 00000000
+0000E7EC 00000000
 00000000 18FFA02A
-00004718 00000000
+00000020 00000000
 00000000 18FFA02B
-00000000 00000000
+00004B24 00000000
 00000000 18FFA02C
-00003664 00000000
+0000F000 00000000
 00000000 18FFA02D
-00000203 00000000
+0000F805 00000000
 00000000 18FFA02E
-00004E8D 00000000
+0000BC30 00000000
 00000000 18FFA02F
-0000081C 00000000
+0000BC08 00000000
 00000000 18FFA030
-00006E49 00000000
+0000469E 00000000
 00000000 18FFA031
-0000081C 00000000
+00004B22 00000000
 00000000 18FFA032
-0000B9F9 00000000
+00004718 00000000
 00000000 18FFA033
-0000081C 00000000
+00004718 00000000
 00000000 18FFA034
-0000B311 00000000
+0000B5E0 00000000
 00000000 18FFA035
-00000821 00000000
+00000006 00000000
 00000000 18FFA036
-00000004 00000000
+00006827 00000000
 00000000 18FFA037
-00003000 00000000
+00006865 00000000
 00000000 18FFA038
-0000001F 00000000
+0000407D 00000000
 00000000 18FFA039
-00001F31 00000000
+000008F8 00000000
 00000000 18FFA03A
-00003200 00000000
+00002103 00000000
 00000000 18FFA03B
-0000001F 00000000
+0000DF06 00000000
 00000000 18FFA03C
-00001F33 00000000
+000000C9 00000000
 00000000 18FFA03D
-00003400 00000000
+0000077F 00000000
 00000000 18FFA03E
-0000001F 00000000
+00000F7F 00000000
 00000000 18FFA03F
-00001F35 00000000
+0000187F 00000000
 00000000 18FFA040
+0000A31B 00000000
+00000000 18FFA041
+00005DDF 00000000
+00000000 18FFA042
+000019E7 00000000
+00000000 18FFA043
+00006838 00000000
+00000000 18FFA044
+00004068 00000000
+00000000 18FFA045
+00006879 00000000
+00000000 18FFA046
+00004069 00000000
+00000000 18FFA047
+00008BA2 00000000
+00000000 18FFA048
+00000403 00000000
+00000000 18FFA049
+00000C1B 00000000
+00000000 18FFA04A
+00001AD2 00000000
+00000000 18FFA04B
+00000C03 00000000
+00000000 18FFA04C
+00001AD2 00000000
+00000000 18FFA04D
+0000040B 00000000
+00000000 18FFA04E
+00000C1B 00000000
+00000000 18FFA04F
+00001AD2 00000000
+00000000 18FFA050
+00000C0B 00000000
+00000000 18FFA051
+00001AD2 00000000
+00000000 18FFA052
+00000180 00000000
+00000000 18FFA053
+00000980 00000000
+00000000 18FFA054
+000006B3 00000000
+00000000 18FFA055
+00004318 00000000
+00000000 18FFA056
+000000C9 00000000
+00000000 18FFA057
+000008C9 00000000
+00000000 18FFA058
+000009B3 00000000
+00000000 18FFA059
+0000075B 00000000
+00000000 18FFA05A
+00004319 00000000
+00000000 18FFA05B
+00000403 00000000
+00000000 18FFA05C
+00000C1B 00000000
+00000000 18FFA05D
+000018D2 00000000
+00000000 18FFA05E
+00000C03 00000000
+00000000 18FFA05F
+000018D2 00000000
+00000000 18FFA060
+0000040B 00000000
+00000000 18FFA061
+00000C1B 00000000
+00000000 18FFA062
+000018D2 00000000
+00000000 18FFA063
+00000C0B 00000000
+00000000 18FFA064
+000018D2 00000000
+00000000 18FFA065
+000083A2 00000000
+00000000 18FFA066
+00004068 00000000
+00000000 18FFA067
+00006038 00000000
+00000000 18FFA068
+00004069 00000000
+00000000 18FFA069
+00006079 00000000
+00000000 18FFA06A
+0000BCE0 00000000
+00000000 18FFA06B
+0000BC08 00000000
+00000000 18FFA06C
+00004718 00000000
+00000000 18FFA06D
+00000000 00000000
+00000000 18FFA06E
+00003664 00000000
+00000000 18FFA06F
+00000203 00000000
+00000000 18FFA070
+00004E8D 00000000
+00000000 18FFA071
+0000081C 00000000
+00000000 18FFA072
+00006E49 00000000
+00000000 18FFA073
+0000081C 00000000
+00000000 18FFA074
+0000B9F9 00000000
+00000000 18FFA075
+0000081C 00000000
+00000000 18FFA076
+0000B311 00000000
+00000000 18FFA077
+00000821 00000000
+00000000 18FFA078
+00002020 00000000
+00000000 18FFA079
+00002020 00000000
+00000000 18FFA07A
+00002020 00000000
+00000000 18FFA07B
+00002C2C 00000000
+00000000 18FFA07C
+00004438 00000000
+00000000 18FFA07D
+00004438 00000000
+00000000 18FFA07E
+00002C2C 00000000
+00000000 18FFA07F
+00004438 00000000
+00000000 18FFA080
+00004438 00000000
+00000000 18FFA081
+00002C2C 00000000
+00000000 18FFA082
+00004438 00000000
+00000000 18FFA083
+00004438 00000000
+00000000 18FFA084
+00000004 00000000
+00000000 18FFA085
+00003000 00000000
+00000000 18FFA086
+0000001F 00000000
+00000000 18FFA087
+00001F31 00000000
+00000000 18FFA088
+00003200 00000000
+00000000 18FFA089
+0000001F 00000000
+00000000 18FFA08A
+00001F33 00000000
+00000000 18FFA08B
+00003400 00000000
+00000000 18FFA08C
+0000001F 00000000
+00000000 18FFA08D
+00001F35 00000000
+00000000 18FFA08E
 00000000 00000000
 00000000 186D21E2
 00004001 00000000
@@ -4751,125 +4986,463 @@ table:</pre></details>
           <div class="how">
             <h4>Any ability</h4>
 
-            <p class="muted">The game never stores ability number 3. Everything that needs a Pokémon's ability (GetMonAbility, the battle's setup and switches, the summary screen) calls GetAbilityBySpecies (0x081CA890: the species and the ability number), which reads the species' slot from gSpeciesInfo (0x087CAD58, 0x108 bytes a species, abilities at +0x18) and keeps the result in gLastUsedAbility (0x0200027A); for a number above 2 it takes the hidden ability, or the first non-empty one for a species without one. So with the party editor's <b>Any ability</b>, the edit itself sets number 3, and the second code, one per species, points GetAbilityBySpecies's first four halfwords at a routine at 0x09FFA000 (<code>ldr r2,[pc,#0]</code> / <code>bx r2</code> / the address). For number 3 it looks the species up in a table at 0x09FFA100 (one halfword per species: the code writes its own species' entry; the empty ROM reads 0xFFFF there, so other species have none) and returns the ability there, storing it in gLastUsedAbility as the game does. For anything else it does the four instructions it replaced and goes on in the game's function. Each species' code carries the routine, the hook and its own entry, so several can be ticked together, and unticking them puts the game's function back: the Pokémon then has what the game gives for 3.</p>
-            <details class="alt"><summary>The routine (Thumb assembly, asm/any_ability.s)</summary><pre class="codebox sm asm">@ Generation 3 Evolved 1.0.26: &quot;Any ability&quot; (the party editor&#39;s). Assembled at ANYAB_BASE (codes.py, 0x09FFA000, in
-@ the ROM&#39;s free space); tests.py asm checks that the bytes codes.py stores still match this source.
+            <p class="muted">A Pokémon's data has no room for an ability: it keeps a two-bit ability number (0 first, 1 second, 2 hidden) and the game looks the ability up in its species' data. But this build leaves 11 bits of the Pokémon's growth block unused, and no part of the game reads them (each was set in turn and every field the game can read compared: none changed but the checksum). So <b>Any ability</b> uses two parts. The party editor keeps the ability in 9 of those bits: the 6 above the held item (word 0, bits 26–31: the ability's low 6 bits) and the 3 above the EXP and the nickname's 11th letter (word 1, bits 29–31: its high 3). The routine decrypts just those two words (the key is the personality XOR the trainer ID, and the block's place comes from the personality mod 24), changes them, encrypts them again and corrects the checksum by the difference. Then the game's own SetMonData sets ability number 3, which the game never stores. The data is saved, copied and moved with the Pokémon like everything else in it.</p>
+            <p class="muted">The second code makes the game use it. Everything that needs a Pokémon's ability calls GetAbilityBySpecies (0x081CA890: the species and the ability number), which reads the species' slot and keeps the result in gLastUsedAbility (0x0200027A). For a number above 2 it takes the hidden ability, or the first non-empty one for a species without one: that's what a 3 is without the code. The code points the function's first four halfwords at a routine at 0x09FFA000 (<code>ldr r2,[pc,#0]</code> / <code>bx r2</code> / the address). For number 3 it finds the Pokémon asking and returns the ability kept in it. The callers that matter hold the Pokémon in a register, and the routine tells them apart by their return address: GetMonAbility (0x081CA90C; the Pokémon in r5, used by the field and many battle effects), the battle's copy of each Pokémon as it comes in (0x081CB940, r5), two more in the same file (0x081CAA2A and 0x081CB518, r6) and the summary screen (0x081E5664 and 0x081E56E8: its copy of the Pokémon, at sMonSummaryScreen + 0x0C). For any other caller (a form change in battle, a menu) it takes the first Pokémon in your party, then the opponent's, of that species with number 3 and a kept ability. The kept ability is used only if it's 1–332 and that Pokémon's species is the one asked about. Anything else goes on in the game's function, so wild and trainer Pokémon are untouched.</p>
+            <details class="alt"><summary>The routine (Thumb assembly, asm/any_ability.s)</summary><pre class="codebox sm asm">@ Generation 3 Evolved 1.0.26: &quot;Any ability&quot;, the one universal code. Assembled at ANYAB_BASE (codes.py, 0x09FFA000,
+@ in the ROM&#39;s free space); tests.py asm checks that the bytes codes.py stores still match this source.
 @
-@ A Pokemon&#39;s ability number is 2 bits of its data (0 first, 1 second, 2 hidden); the game never stores 3. Everything
-@ that needs a Pokemon&#39;s ability (GetMonAbility 0x081CA90C, the battle&#39;s setup and switches, the summary screen...)
-@ calls GetAbilityBySpecies (0x081CA890: species, ability number), which reads the species&#39; slot from gSpeciesInfo
-@ (0x087CAD58, 0x108 bytes a species, abilities at +0x18) and keeps the result in gLastUsedAbility (0x0200027A, u16).
-@ For a number above 2 the game takes the hidden ability, or the first non-empty one for a species without one: so
-@ without these codes a 3 reads as that. The code points the function&#39;s first four halfwords here (ldr r2,[pc,#0] /
-@ bx r2 / .word). For ability number 3 this looks the species up in ANYAB_TABLE (one halfword per species, written by
-@ each species&#39; own code; the ROM&#39;s free space reads 0xFFFF): an ability 1-MAX there is the Pokemon&#39;s. Anything else
-@ (another number, a species with no entry) goes on exactly like the game.
+@ The ability itself is kept in the Pokemon&#39;s own data: the party editor (asm/party_editor.s, field 0xFF) writes it
+@ into 9 bits this build never uses, in the Pokemon&#39;s growth substruct (G): the 6 bits above the held item (word 0,
+@ bits 26-31: the ability&#39;s low 6 bits) and the 3 above the EXP and the nickname&#39;s 11th character (word 1, bits 29-31:
+@ its high 3 bits), and sets the ability number to 3, which the game never stores. So it is saved with the Pokemon,
+@ goes into the PC, evolves with it and so on. No GetMonData field reads those bits (tested: setting each changes no
+@ field but the checksum).
+@
+@ Every ability read goes through GetAbilityBySpecies (0x081CA890: species, ability number), which reads the species&#39;
+@ slot and keeps the result in gLastUsedAbility (0x0200027A, u16); for a number above 2 it takes the hidden ability
+@ (the first non-empty one for a species without one). The code points its first four halfwords here (ldr r2,[pc,#0]
+@ / bx r2 / .word). For ability number 3, this finds the Pokemon that is asking and returns the ability kept in it:
+@   - its callers that hold the Pokemon: GetMonAbility (0x081CA90C; the Pokemon in r5), the battle&#39;s copy of a party
+@     Pokemon (0x081CB940 in PokemonToBattleMon: r5), 0x081CAA2A and 0x081CB518 (r6), the summary screen (0x081E5664
+@     and 0x081E56E8: the copy of the Pokemon at sMonSummaryScreen + 0x0C). They are told apart by the return address.
+@   - any other caller (the battle&#39;s own form changes, menus): the first Pokemon in the player&#39;s party, then the
+@     opponent&#39;s, of that species with ability number 3 and a kept ability.
+@ The kept ability is used only if that Pokemon&#39;s species is the one asked about and it is 1-MAX; anything else (another
+@ number, nothing kept) goes on exactly like the game. Untick the code and the game reads number 3 as it always would.
 
 AnyAbility:
     lsls r2, r1, #24
     lsrs r2, r2, #24           @ the ability number (a u8, as the game reads it)
     cmp r2, #3
     bne game
-    lsls r2, r0, #16
-    lsrs r2, r2, #16           @ the species
-    ldr r3, =COUNT
-    cmp r2, r3
-    bhs game
-    lsls r2, r2, #1
-    ldr r3, =ANYAB_TABLE
-    ldrh r3, [r3, r2]          @ its entry: 0xFFFF (none) or the ability
-    cmp r3, #0
-    beq game
-    ldr r2, =MAX
-    cmp r3, r2
-    bhi game
-    ldr r2, =gLastUsedAbility
-    strh r3, [r2]              @ as the game does
-    movs r0, r3
-    bx lr
+    push {r0, r1, r4, r5, r6, r7, lr}
+    lsls r4, r0, #16
+    lsrs r4, r4, #16           @ the species
+    mov r7, lr                 @ who called
+    ldr r2, =RET_MON_ABILITY
+    cmp r7, r2
+    beq use_r5
+    ldr r2, =RET_BATTLE_MON
+    cmp r7, r2
+    beq use_r5
+    ldr r2, =RET_R6_A
+    cmp r7, r2
+    beq use_r6
+    ldr r2, =RET_R6_B
+    cmp r7, r2
+    beq use_r6
+    ldr r2, =RET_SUMMARY_A
+    cmp r7, r2
+    beq use_summary
+    ldr r2, =RET_SUMMARY_B
+    cmp r7, r2
+    beq use_summary
+    ldr r6, =gPlayerParty      @ anyone else: the player&#39;s party, then the opponent&#39;s (right after it)
+    movs r5, #12
+search:
+    movs r0, r6
+    movs r1, r4
+    bl kept
+    cmp r0, #0
+    bne found
+    adds r6, #100
+    subs r5, #1
+    bne search
+    b notfound
+use_r5:
+    ldr r0, [sp, #12]          @ the caller&#39;s r5 (pushed: r0, r1, r4, r5, r6, r7, lr)
+    b one
+use_r6:
+    ldr r0, [sp, #16]          @ the caller&#39;s r6
+    b one
+use_summary:
+    ldr r0, =sMonSummaryScreen
+    ldr r0, [r0]
+    adds r0, #0x0C             @ its copy of the Pokemon
+one:
+    movs r1, r4
+    bl kept
+    cmp r0, #0
+    beq notfound
+found:
+    ldr r1, =gLastUsedAbility
+    strh r0, [r1]              @ as the game does
+    add sp, #8                 @ drop the saved r0, r1
+    pop {r4, r5, r6, r7}
+    pop {r1}
+    bx r1
+notfound:
+    pop {r0, r1, r4, r5, r6, r7}
+    pop {r2}
+    mov lr, r2
 game:                          @ the four halfwords the hook replaced, then the rest of the game&#39;s function
     lsls r0, r0, #16
     lsls r1, r1, #24
     push {r4, r5, r6, r7, lr}
     lsrs r5, r0, #16
     ldr r4, =GetAbilityBySpecies_rest
-    bx r4</pre></details>
-            <details class="alt"><summary>Raw form (Charmander: Intimidate)</summary><p class="muted">The last two lines are the species' entry, at 0x09FFA100 + 2 × the species ID (Charmander, 4: 0x09FFA108; the first line ends 18 and then (that address − 0x08000000) ÷ 2), with the ability's ID as its value (Intimidate, 0x16).</p><div class="codebox sm">00000000 18FFD000
+    bx r4
+
+@ kept(r0 = a Pokemon, r1 = the species asked about) -&gt; r0 = the ability kept in it, or 0. Decrypts only the two growth
+@ words and the ability number&#39;s word (the key is personality XOR OT ID; the substructs&#39; order is personality % 24).
+kept:
+    push {r4, r5, r6, r7}
+    movs r7, r0
+    movs r6, r1
+    ldr r4, [r7]               @ personality
+    ldr r5, [r7, #4]
+    eors r5, r4                @ the key
+    lsrs r0, r4, #3
+    movs r1, #3
+    svc #6                     @ BIOS Div: r1 = (personality &gt;&gt; 3) % 3
+    lsls r1, r1, #3
+    lsls r4, r4, #29
+    lsrs r4, r4, #29
+    adds r4, r4, r1            @ personality % 24
+    adr r3, offsets
+    ldrb r2, [r3, r4]          @ the growth substruct&#39;s offset
+    adds r3, #24
+    ldrb r3, [r3, r4]          @ the offset of the misc substruct&#39;s word 8 (IVs, Egg, ability number)
+    ldr r1, [r7, r3]
+    eors r1, r5
+    lsls r1, r1, #1
+    lsrs r1, r1, #30           @ the ability number (bits 29-30)
+    cmp r1, #3
+    bne none
+    adds r2, r7, r2
+    ldr r0, [r2]
+    eors r0, r5                @ growth word 0
+    lsls r1, r0, #21
+    lsrs r1, r1, #21           @ its species (bits 0-10)
+    cmp r1, r6
+    bne none
+    lsrs r0, r0, #26           @ the ability&#39;s low 6 bits
+    ldr r1, [r2, #4]
+    eors r1, r5                @ growth word 1
+    lsrs r1, r1, #29
+    lsls r1, r1, #6            @ its high 3 bits
+    orrs r0, r1
+    beq none
+    ldr r1, =MAX
+    cmp r0, r1
+    bls out
+none:
+    movs r0, #0
+out:
+    pop {r4, r5, r6, r7}
+    bx lr
+    .balign 4
+offsets:                       @ 0x20 + 12 x the growth substruct&#39;s place, then 0x28 + 12 x the misc substruct&#39;s
+    .byte 0x20,0x20,0x20,0x20,0x20,0x20,0x2C,0x2C,0x38,0x44,0x38,0x44,0x2C,0x2C,0x38,0x44,0x38,0x44,0x2C,0x2C,0x38,0x44,0x38,0x44
+    .byte 0x4C,0x40,0x4C,0x40,0x34,0x34,0x4C,0x40,0x4C,0x40,0x34,0x34,0x4C,0x40,0x4C,0x40,0x34,0x34,0x28,0x28,0x28,0x28,0x28,0x28</pre></details>
+            <details class="alt"><summary>Raw forms (the Any ability code; a party edit keeping Intimidate on slot 1, Charmander)</summary><p class="muted">The Any ability code (the same for every Pokémon)</p><div class="codebox sm">00000000 18FFD000
 0000060A 00000000
 00000000 18FFD001
 00000E12 00000000
 00000000 18FFD002
 00002A03 00000000
 00000000 18FFD003
-0000D110 00000000
+0000D136 00000000
 00000000 18FFD004
-00000402 00000000
+0000B5F3 00000000
 00000000 18FFD005
-00000C12 00000000
+00000404 00000000
 00000000 18FFD006
-00004B0A 00000000
+00000C24 00000000
 00000000 18FFD007
-0000429A 00000000
+00004677 00000000
 00000000 18FFD008
-0000D20B 00000000
+00004A3D 00000000
 00000000 18FFD009
-00000052 00000000
+00004297 00000000
 00000000 18FFD00A
-00004B09 00000000
+0000D01A 00000000
 00000000 18FFD00B
-00005A9B 00000000
+00004A3D 00000000
 00000000 18FFD00C
-00002B00 00000000
+00004297 00000000
 00000000 18FFD00D
-0000D006 00000000
+0000D017 00000000
 00000000 18FFD00E
-00004A08 00000000
+00004A3C 00000000
 00000000 18FFD00F
-00004293 00000000
+00004297 00000000
 00000000 18FFD010
-0000D803 00000000
+0000D016 00000000
 00000000 18FFD011
-00004A08 00000000
+00004A3C 00000000
 00000000 18FFD012
-00008013 00000000
+00004297 00000000
 00000000 18FFD013
-00000018 00000000
+0000D013 00000000
 00000000 18FFD014
-00004770 00000000
+00004A3B 00000000
 00000000 18FFD015
-00000400 00000000
+00004297 00000000
 00000000 18FFD016
-00000609 00000000
+0000D012 00000000
 00000000 18FFD017
-0000B5F0 00000000
+00004A3B 00000000
 00000000 18FFD018
-00000C05 00000000
+00004297 00000000
 00000000 18FFD019
-00004C05 00000000
+0000D00F 00000000
 00000000 18FFD01A
-00004720 00000000
+00004E3A 00000000
 00000000 18FFD01B
-00000000 00000000
+0000250C 00000000
 00000000 18FFD01C
-00000628 00000000
+00000030 00000000
 00000000 18FFD01D
-00000000 00000000
+00000021 00000000
 00000000 18FFD01E
-0000A100 00000000
+0000F000 00000000
 00000000 18FFD01F
-000009FF 00000000
+0000F821 00000000
 00000000 18FFD020
-0000014C 00000000
+00002800 00000000
 00000000 18FFD021
-00000000 00000000
+0000D10F 00000000
 00000000 18FFD022
-0000027A 00000000
+00003664 00000000
 00000000 18FFD023
-00000200 00000000
+00003D01 00000000
 00000000 18FFD024
-0000A899 00000000
+0000D1F6 00000000
 00000000 18FFD025
+0000E011 00000000
+00000000 18FFD026
+00009803 00000000
+00000000 18FFD027
+0000E004 00000000
+00000000 18FFD028
+00009804 00000000
+00000000 18FFD029
+0000E002 00000000
+00000000 18FFD02A
+00004833 00000000
+00000000 18FFD02B
+00006800 00000000
+00000000 18FFD02C
+0000300C 00000000
+00000000 18FFD02D
+00000021 00000000
+00000000 18FFD02E
+0000F000 00000000
+00000000 18FFD02F
+0000F811 00000000
+00000000 18FFD030
+00002800 00000000
+00000000 18FFD031
+0000D005 00000000
+00000000 18FFD032
+00004930 00000000
+00000000 18FFD033
+00008008 00000000
+00000000 18FFD034
+0000B002 00000000
+00000000 18FFD035
+0000BCF0 00000000
+00000000 18FFD036
+0000BC02 00000000
+00000000 18FFD037
+00004708 00000000
+00000000 18FFD038
+0000BCF3 00000000
+00000000 18FFD039
+0000BC04 00000000
+00000000 18FFD03A
+00004696 00000000
+00000000 18FFD03B
+00000400 00000000
+00000000 18FFD03C
+00000609 00000000
+00000000 18FFD03D
+0000B5F0 00000000
+00000000 18FFD03E
+00000C05 00000000
+00000000 18FFD03F
+00004C2B 00000000
+00000000 18FFD040
+00004720 00000000
+00000000 18FFD041
+0000B4F0 00000000
+00000000 18FFD042
+00000007 00000000
+00000000 18FFD043
+0000000E 00000000
+00000000 18FFD044
+0000683C 00000000
+00000000 18FFD045
+0000687D 00000000
+00000000 18FFD046
+00004065 00000000
+00000000 18FFD047
+000008E0 00000000
+00000000 18FFD048
+00002103 00000000
+00000000 18FFD049
+0000DF06 00000000
+00000000 18FFD04A
+000000C9 00000000
+00000000 18FFD04B
+00000764 00000000
+00000000 18FFD04C
+00000F64 00000000
+00000000 18FFD04D
+00001864 00000000
+00000000 18FFD04E
+0000A30E 00000000
+00000000 18FFD04F
+00005D1A 00000000
+00000000 18FFD050
+00003318 00000000
+00000000 18FFD051
+00005D1B 00000000
+00000000 18FFD052
+000058F9 00000000
+00000000 18FFD053
+00004069 00000000
+00000000 18FFD054
+00000049 00000000
+00000000 18FFD055
+00000F89 00000000
+00000000 18FFD056
+00002903 00000000
+00000000 18FFD057
+0000D110 00000000
+00000000 18FFD058
+000018BA 00000000
+00000000 18FFD059
+00006810 00000000
+00000000 18FFD05A
+00004068 00000000
+00000000 18FFD05B
+00000541 00000000
+00000000 18FFD05C
+00000D49 00000000
+00000000 18FFD05D
+000042B1 00000000
+00000000 18FFD05E
+0000D109 00000000
+00000000 18FFD05F
+00000E80 00000000
+00000000 18FFD060
+00006851 00000000
+00000000 18FFD061
+00004069 00000000
+00000000 18FFD062
+00000F49 00000000
+00000000 18FFD063
+00000189 00000000
+00000000 18FFD064
+00004308 00000000
+00000000 18FFD065
+0000D002 00000000
+00000000 18FFD066
+00004918 00000000
+00000000 18FFD067
+00004288 00000000
+00000000 18FFD068
+0000D900 00000000
+00000000 18FFD069
+00002000 00000000
+00000000 18FFD06A
+0000BCF0 00000000
+00000000 18FFD06B
+00004770 00000000
+00000000 18FFD06C
+00002020 00000000
+00000000 18FFD06D
+00002020 00000000
+00000000 18FFD06E
+00002020 00000000
+00000000 18FFD06F
+00002C2C 00000000
+00000000 18FFD070
+00004438 00000000
+00000000 18FFD071
+00004438 00000000
+00000000 18FFD072
+00002C2C 00000000
+00000000 18FFD073
+00004438 00000000
+00000000 18FFD074
+00004438 00000000
+00000000 18FFD075
+00002C2C 00000000
+00000000 18FFD076
+00004438 00000000
+00000000 18FFD077
+00004438 00000000
+00000000 18FFD078
+0000404C 00000000
+00000000 18FFD079
+0000404C 00000000
+00000000 18FFD07A
+00003434 00000000
+00000000 18FFD07B
+0000404C 00000000
+00000000 18FFD07C
+0000404C 00000000
+00000000 18FFD07D
+00003434 00000000
+00000000 18FFD07E
+0000404C 00000000
+00000000 18FFD07F
+0000404C 00000000
+00000000 18FFD080
+00003434 00000000
+00000000 18FFD081
+00002828 00000000
+00000000 18FFD082
+00002828 00000000
+00000000 18FFD083
+00002828 00000000
+00000000 18FFD084
+0000A931 00000000
+00000000 18FFD085
 0000081C 00000000
+00000000 18FFD086
+0000B945 00000000
+00000000 18FFD087
+0000081C 00000000
+00000000 18FFD088
+0000AA2F 00000000
+00000000 18FFD089
+0000081C 00000000
+00000000 18FFD08A
+0000B51D 00000000
+00000000 18FFD08B
+0000081C 00000000
+00000000 18FFD08C
+00005669 00000000
+00000000 18FFD08D
+0000081E 00000000
+00000000 18FFD08E
+000056ED 00000000
+00000000 18FFD08F
+0000081E 00000000
+00000000 18FFD090
+00003664 00000000
+00000000 18FFD091
+00000203 00000000
+00000000 18FFD092
+00004058 00000000
+00000000 18FFD093
+00000203 00000000
+00000000 18FFD094
+0000027A 00000000
+00000000 18FFD095
+00000200 00000000
+00000000 18FFD096
+0000A899 00000000
+00000000 18FFD097
+0000081C 00000000
+00000000 18FFD098
+0000014C 00000000
+00000000 18FFD099
+00000000 00000000
 00000000 180E5448
 00004A00 00000000
 00000000 180E5449
@@ -4877,9 +5450,284 @@ game:                          @ the four halfwords the hook replaced, then the 
 00000000 180E544A
 0000A001 00000000
 00000000 180E544B
-000009FF 00000000
-00000000 18FFD084
-00000016 00000000</div></details>
+000009FF 00000000</div><p class="muted">The party edit: its table's entries are field 0xFF (not the game's: the routine keeps the ability, low byte first: 0x16, Intimidate) then 0x37 (ability number) = 3</p><div class="codebox sm">00000000 18FFA000
+0000B530 00000000
+00000000 18FFA001
+0000A541 00000000
+00000000 18FFA002
+000078A8 00000000
+00000000 18FFA003
+00002164 00000000
+00000000 18FFA004
+00004348 00000000
+00000000 18FFA005
+00004C34 00000000
+00000000 18FFA006
+00001824 00000000
+00000000 18FFA007
+00000020 00000000
+00000000 18FFA008
+00002112 00000000
+00000000 18FFA009
+00004B33 00000000
+00000000 18FFA00A
+0000F000 00000000
+00000000 18FFA00B
+0000F827 00000000
+00000000 18FFA00C
+00008829 00000000
+00000000 18FFA00D
+00004288 00000000
+00000000 18FFA00E
+0000D11E 00000000
+00000000 18FFA00F
+00000020 00000000
+00000000 18FFA010
+00002136 00000000
+00000000 18FFA011
+00004B2F 00000000
+00000000 18FFA012
+0000F000 00000000
+00000000 18FFA013
+0000F81F 00000000
+00000000 18FFA014
+00002800 00000000
+00000000 18FFA015
+0000D117 00000000
+00000000 18FFA016
+00003503 00000000
+00000000 18FFA017
+00007829 00000000
+00000000 18FFA018
+00002900 00000000
+00000000 18FFA019
+0000D00F 00000000
+00000000 18FFA01A
+000029FF 00000000
+00000000 18FFA01B
+0000D106 00000000
+00000000 18FFA01C
+00007868 00000000
+00000000 18FFA01D
+000078A9 00000000
+00000000 18FFA01E
+00000209 00000000
+00000000 18FFA01F
+00004308 00000000
+00000000 18FFA020
+0000F000 00000000
+00000000 18FFA021
+0000F812 00000000
+00000000 18FFA022
+0000E004 00000000
+00000000 18FFA023
+00000020 00000000
+00000000 18FFA024
+00001C6A 00000000
+00000000 18FFA025
+00004B26 00000000
+00000000 18FFA026
+0000F000 00000000
+00000000 18FFA027
+0000F80B 00000000
+00000000 18FFA028
+00003503 00000000
+00000000 18FFA029
+0000E7EC 00000000
+00000000 18FFA02A
+00000020 00000000
+00000000 18FFA02B
+00004B24 00000000
+00000000 18FFA02C
+0000F000 00000000
+00000000 18FFA02D
+0000F805 00000000
+00000000 18FFA02E
+0000BC30 00000000
+00000000 18FFA02F
+0000BC08 00000000
+00000000 18FFA030
+0000469E 00000000
+00000000 18FFA031
+00004B22 00000000
+00000000 18FFA032
+00004718 00000000
+00000000 18FFA033
+00004718 00000000
+00000000 18FFA034
+0000B5E0 00000000
+00000000 18FFA035
+00000006 00000000
+00000000 18FFA036
+00006827 00000000
+00000000 18FFA037
+00006865 00000000
+00000000 18FFA038
+0000407D 00000000
+00000000 18FFA039
+000008F8 00000000
+00000000 18FFA03A
+00002103 00000000
+00000000 18FFA03B
+0000DF06 00000000
+00000000 18FFA03C
+000000C9 00000000
+00000000 18FFA03D
+0000077F 00000000
+00000000 18FFA03E
+00000F7F 00000000
+00000000 18FFA03F
+0000187F 00000000
+00000000 18FFA040
+0000A31B 00000000
+00000000 18FFA041
+00005DDF 00000000
+00000000 18FFA042
+000019E7 00000000
+00000000 18FFA043
+00006838 00000000
+00000000 18FFA044
+00004068 00000000
+00000000 18FFA045
+00006879 00000000
+00000000 18FFA046
+00004069 00000000
+00000000 18FFA047
+00008BA2 00000000
+00000000 18FFA048
+00000403 00000000
+00000000 18FFA049
+00000C1B 00000000
+00000000 18FFA04A
+00001AD2 00000000
+00000000 18FFA04B
+00000C03 00000000
+00000000 18FFA04C
+00001AD2 00000000
+00000000 18FFA04D
+0000040B 00000000
+00000000 18FFA04E
+00000C1B 00000000
+00000000 18FFA04F
+00001AD2 00000000
+00000000 18FFA050
+00000C0B 00000000
+00000000 18FFA051
+00001AD2 00000000
+00000000 18FFA052
+00000180 00000000
+00000000 18FFA053
+00000980 00000000
+00000000 18FFA054
+000006B3 00000000
+00000000 18FFA055
+00004318 00000000
+00000000 18FFA056
+000000C9 00000000
+00000000 18FFA057
+000008C9 00000000
+00000000 18FFA058
+000009B3 00000000
+00000000 18FFA059
+0000075B 00000000
+00000000 18FFA05A
+00004319 00000000
+00000000 18FFA05B
+00000403 00000000
+00000000 18FFA05C
+00000C1B 00000000
+00000000 18FFA05D
+000018D2 00000000
+00000000 18FFA05E
+00000C03 00000000
+00000000 18FFA05F
+000018D2 00000000
+00000000 18FFA060
+0000040B 00000000
+00000000 18FFA061
+00000C1B 00000000
+00000000 18FFA062
+000018D2 00000000
+00000000 18FFA063
+00000C0B 00000000
+00000000 18FFA064
+000018D2 00000000
+00000000 18FFA065
+000083A2 00000000
+00000000 18FFA066
+00004068 00000000
+00000000 18FFA067
+00006038 00000000
+00000000 18FFA068
+00004069 00000000
+00000000 18FFA069
+00006079 00000000
+00000000 18FFA06A
+0000BCE0 00000000
+00000000 18FFA06B
+0000BC08 00000000
+00000000 18FFA06C
+00004718 00000000
+00000000 18FFA06D
+00000000 00000000
+00000000 18FFA06E
+00003664 00000000
+00000000 18FFA06F
+00000203 00000000
+00000000 18FFA070
+00004E8D 00000000
+00000000 18FFA071
+0000081C 00000000
+00000000 18FFA072
+00006E49 00000000
+00000000 18FFA073
+0000081C 00000000
+00000000 18FFA074
+0000B9F9 00000000
+00000000 18FFA075
+0000081C 00000000
+00000000 18FFA076
+0000B311 00000000
+00000000 18FFA077
+00000821 00000000
+00000000 18FFA078
+00002020 00000000
+00000000 18FFA079
+00002020 00000000
+00000000 18FFA07A
+00002020 00000000
+00000000 18FFA07B
+00002C2C 00000000
+00000000 18FFA07C
+00004438 00000000
+00000000 18FFA07D
+00004438 00000000
+00000000 18FFA07E
+00002C2C 00000000
+00000000 18FFA07F
+00004438 00000000
+00000000 18FFA080
+00004438 00000000
+00000000 18FFA081
+00002C2C 00000000
+00000000 18FFA082
+00004438 00000000
+00000000 18FFA083
+00004438 00000000
+00000000 18FFA084
+00000004 00000000
+00000000 18FFA085
+0000FF00 00000000
+00000000 18FFA086
+00000016 00000000
+00000000 18FFA087
+00000337 00000000
+00000000 18FFA088
+00000000 00000000
+00000000 186D21E2
+00004001 00000000
+00000000 186D21E3
+000009FF 00000000</div></details>
           
           </div>
           <div class="how">
@@ -5000,15 +5848,15 @@ epilogue_rest:                  @ 0x080B68EC: mov sb, r7 ...</pre></details>
             <figure><img alt="Summary, Pokémon Info: a shiny Electrode, ability Electric Surge, Cherish Ball" src="img/1.0.26/editor_info.png" width="240" height="160" loading="lazy"><figcaption><b>Party editor</b> on slot 2, an Electrode: shiny, its hidden ability (Electric Surge) and a Cherish Ball.</figcaption></figure>
             <figure><img alt="Summary, Pokémon Skills: nature Adamant, HP 167, Attack 77 in red, Defense 91, Sp. Atk 90 in blue, Sp. Def 100, Speed 202" src="img/1.0.26/editor_stats.png" width="240" height="160" loading="lazy"><figcaption><b>Same edit:</b> Adamant for stats (Attack raised in red, Sp. Atk lowered in blue), EVs 252 HP / 4 Def / 252 Speed. The stats are exactly what the game's formula gives.</figcaption></figure>
             <figure><img alt="Summary, Pokémon Skills, IV view: every IV 31" src="img/1.0.26/editor_ivs.png" width="240" height="160" loading="lazy"><figcaption><b>Its IVs</b> (A on the Skills page): all 31.</figcaption></figure>
-            <figure><img alt="Summary, Pokémon Info: Charmander, ability Intimidate, Lowers the foe's Attack on entry" src="img/1.0.26/editor_anyability.png" width="240" height="160" loading="lazy"><figcaption><b>Any ability:</b> a Charmander given Intimidate, which its species can't have; in battle it lowers the foe's Attack too.</figcaption></figure>
+            <figure><img alt="Summary, Pokémon Info: Charmander, ability Intimidate, Lowers the foe's Attack on entry" src="img/1.0.26/editor_anyability.png" width="240" height="160" loading="lazy"><figcaption><b>Any ability:</b> a Charmander given Intimidate, which its species can't have, kept in the Pokémon; in battle it lowers the foe's Attack too, and it still has it after evolving.</figcaption></figure>
           
           </div>
-          <p class="muted" style="font-size:14px">Tested on 1.0.26 in mGBA 0.10.5, through the real Start menu (Start → POKéMON) like a player. Each edited Pokémon was read back: every field the code set, its stats against the game's stat formula (with the nature it uses for stats), the ability the game uses (GetMonAbility), and every field it must not touch, field by field, from the personality and moves to the ribbons and where it was met (a self-check flips each of those 672 bits in turn and confirms the comparison catches every one). The safeguard tests give it the wrong species, a reordered party, an empty slot and an Egg of the right species, and check that nothing changes. Edits are made to the lead and to a Pokémon received with the game's own <code>givemon</code>; some open the menu twice, some end with save → untick → reset → Continue. One run ticks it together with every other code on the page (all but No random encounters, since that run needs a wild battle). The Any ability tests read the ability the game uses (GetMonAbility, and the battle's own copy of each Pokémon with its stat stages: Intimidate has to lower the foe's Attack as it comes in) and call GetAbilityBySpecies for every species and ability number with and without the codes. The EXP tests win a real battle (the lead, a Lv5 Charmander, given 999 HP, Attack and Speed in its party data so it wins with one move, against a Lv30 Kecleon with 1 HP) or catch one, and read the EXP the game gives. The egg tests give an Egg with <code>giveegg</code> and walk (with No random encounters ticked), counting steps. Each ends with save → untick → reset → Continue where it says so.</p>
+          <p class="muted" style="font-size:14px">Tested on 1.0.26 in mGBA 0.10.5, through the real Start menu (Start → POKéMON) like a player. Each edited Pokémon was read back: every field the code set, its stats against the game's stat formula (with the nature it uses for stats), the ability the game uses (GetMonAbility), and every field it must not touch, field by field, from the personality and moves to the ribbons and where it was met (a self-check flips each of those 672 bits in turn and confirms the comparison catches every one). The safeguard tests give it the wrong species, a reordered party, an empty slot and an Egg of the right species, and check that nothing changes. Edits are made to the lead and to a Pokémon received with the game's own <code>givemon</code>; some open the menu twice, some end with save → untick → reset → Continue. One run ticks it together with every other code on the page (all but No random encounters, since that run needs a wild battle). The Any ability tests read the ability the game uses (GetMonAbility, the summary screen, and the battle's own copy of each Pokémon with its stat stages: Intimidate has to lower the foe's Attack as it comes in), check it after evolving, after save → untick → reset → Continue and after the game's own writes to the Pokémon, give two species (Articuno, Zapdos) and two of one species different abilities, and call GetAbilityBySpecies for every species and ability number with and without the code. The EXP tests win a real battle (the lead, a Lv5 Charmander, given 999 HP, Attack and Speed in its party data so it wins with one move, against a Lv30 Kecleon with 1 HP) or catch one, and read the EXP the game gives. The egg tests give an Egg with <code>giveegg</code> and walk (with No random encounters ticked), counting steps. Each ends with save → untick → reset → Continue where it says so.</p>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">slot 2 (Electrode Lv50, a givemon gift): IVs 31, EVs 252/0/4/252/0/0, hidden ability, Cherish Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander Lv5): IVs only</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: IVs 31 but Speed 0 (Trick Room)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: EVs 0 (cleared)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: EVs 252 / 252 / 6 (510 in all)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: second ability, Premier Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): first ability -&gt; the game uses Soundproof</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): hidden ability -&gt; the game uses Electric Surge</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Metapod, one ability): hidden ability picked -&gt; the game uses its first (Shed Skin)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Metapod): second ability picked -&gt; the game uses its first (Shed Skin)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: a code made for Charmeleon, slot 1 holds Charmander: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: a code made for Electrode in slot 1 (Electrode is in slot 2): nothing changes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: empty slot 6: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: a Bulbasaur Egg in slot 2, a code made for Bulbasaur: left alone</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: shiny on</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: shiny off (Electrode made shiny by Always shiny first)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: shiny on when already shiny (Always shiny): stays shiny</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: friendship 0</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: friendship 255</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: every field, the menu opened twice: the second time changes nothing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander): every field, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: every field, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">self-check: other_fields_changed() catches a flip of every bit outside the fields the editor may set</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every nature for stats (25), slot 2 (Electrode): the nature set, the personality&#39;s nature kept, stats by the formula <small class="muted">(25 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every Poké Ball (28), slot 1 (Charmander): the ball set, nothing else changed <small class="muted">(28 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">12 random mixes of fields on slot 1 or 2: each field set, the others unchanged, stats by the formula <small class="muted">(12 runs)</small></td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">slot 2 (Electrode Lv50, a givemon gift): IVs 31, EVs 252/0/4/252/0/0, hidden ability, Cherish Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander Lv5): IVs only</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: IVs 31 but Speed 0 (Trick Room)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: EVs 0 (cleared)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: EVs 252 / 252 / 6 (510 in all)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: second ability, Premier Ball</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): first ability -&gt; the game uses Soundproof</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): hidden ability -&gt; the game uses Electric Surge</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Metapod, one ability): hidden ability picked -&gt; the game uses its first (Shed Skin)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Metapod): second ability picked -&gt; the game uses its first (Shed Skin)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: a code made for Charmeleon, slot 1 holds Charmander: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: a code made for Electrode in slot 1 (Electrode is in slot 2): nothing changes</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: empty slot 6: nothing changes, the menu opens</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">safeguard: a Bulbasaur Egg in slot 2, a code made for Bulbasaur: left alone</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: shiny on</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: shiny off (Electrode made shiny by Always shiny first)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: shiny on when already shiny (Always shiny): stays shiny</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: friendship 0</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: friendship 255</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: every field, the menu opened twice: the second time changes nothing</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander): every field, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2: every field, save, untick, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): Any ability Intimidate kept, number 3; with the Any ability code the game uses Intimidate</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander): Any ability Temporal Rift (the last, 332: all 9 bits used)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander): Any ability Stench (the first, 1)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 1 (Charmander): Any ability 256 (Neutralizing Gas: only the high bits)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): Any ability Intimidate without the Any ability code: the game uses its hidden ability (Electric Surge), as it does for number 3</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">slot 2 (Electrode): Any ability Intimidate with every other field, save, untick both, reset, Continue: kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">self-check: other_fields_changed() catches a flip of every bit outside the fields the editor may set</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every nature for stats (25), slot 2 (Electrode): the nature set, the personality&#39;s nature kept, stats by the formula <small class="muted">(25 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Every Poké Ball (28), slot 1 (Charmander): the ball set, nothing else changed <small class="muted">(28 runs)</small></td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">12 random mixes of fields on slot 1 or 2: each field set, the others unchanged, stats by the formula <small class="muted">(12 runs)</small></td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Charmander given Intimidate (ability number 3 through Start -&gt; POKeMON, with its species&#39; Any ability code): the edit reads back and changes nothing else, GetMonAbility says Intimidate; in battle the lead has Intimidate and the foe&#39;s Attack drops one stage as it comes in; the battle is won and the Pokémon is intact; it evolves (Charmeleon): without a Charmeleon code it has Charmeleon&#39;s hidden ability, with one ticked too Intimidate again</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">saved with the codes, unticked, reset, Continue: the save loads, the Pokémon is intact with number 3, without the code it has its hidden ability (Solar Power; also in a won battle, where the foe&#39;s Attack stays) and the game&#39;s function is back; ticked again it has Intimidate; saved again without the code: loads, party intact</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">two species&#39; codes ticked (Charmander: Intimidate, Electrode: Speed Boost), a Pikachu with its first ability and a Castform form (no hidden ability) with number 3 and no code: each as expected; untick one, then the other: the game&#39;s abilities come back and the ROM is restored</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">GetAbilityBySpecies for all 1,574 species (1172 is a blank slot) and ability numbers 0-3, without codes and with three species&#39; codes ticked: 0-2 never change (the species&#39; own slots); 3 is the code&#39;s ability for those species and otherwise what the game gives without the code (its hidden ability, or its first for a species without one)</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Charmander given Intimidate (the party editor, then unticked; only the Any ability code ticked): kept in it with number 3, nothing else changed; GetMonAbility and the summary screen say Intimidate; in battle the lead has it and the foe&#39;s Attack drops one stage as it comes in; won, it evolves into Charmeleon and still has Intimidate (also in its next battle), with no other code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">saved, every code unticked, reset, Continue: the Pokémon is byte-for-byte the same; with no code it has its hidden ability (Solar Power; also in a won battle, the foe&#39;s Attack unchanged) and the game&#39;s function is back; the Any ability code ticked again: Intimidate (in battle too) with no new edit; saved without any code, Continue: party intact, the ability still kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">Articuno with Snow Warning and Zapdos with Drizzle (Lv50 givemon gifts), one Any ability code for both: each has its own; the party reordered: still; each leading a battle; their summaries; unticked: their hidden abilities</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">two Charmanders, one Intimidate and one Levitate: GetMonAbility, the summaries and each leading a battle give each its own</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the game&#39;s own writes keep it: SetMonData on the held item, the EXP and the friendship, CalculateMonStats, the item taken back: still kept and Intimidate; a later &quot;first ability&quot; edit replaces it</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">GetAbilityBySpecies for all 1,574 species (1172 is a blank slot) and ability numbers 0-3: without the code, with it ticked and nothing kept (identical), and with the Charmander keeping Intimidate (only Charmander&#39;s number 3 changes)</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
           <div class="tablewrap" style="max-width:860px">
             <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">no code: one win (Kecleon Lv30 beaten by the Lv5 Charmander) gives 8,366 EXP</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">x2: 16,732</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">x4: 33,464</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">x8: 66,928</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">max: 457,151 every win below level 100; level 100 after 3 wins, no EXP at level 100, no overflow (5 wins)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">x8, save, untick, reset, Continue: the EXP and level are kept</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">reference: one Pokémon, no charm, no code: 8,366</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">one Pokémon, Exp. Charm in the Bag, no code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">one Pokémon, Exp. Charm in the Bag, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">one Pokémon, Exp. Charm in the Bag, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">two Pokémon (Electrode Lv20 second), only the lead battles, no code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">two Pokémon (Electrode Lv20 second), only the lead battles, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">two Pokémon (Electrode Lv20 second), only the lead battles, x8</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">a catch (Kecleon Lv30, one Poké Ball with Catch on the first ball) instead of a win, no code</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">a catch (Kecleon Lv30, one Poké Ball with Catch on the first ball) instead of a win, x2</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">a catch (Kecleon Lv30, one Poké Ball with Catch on the first ball) instead of a win, x8</td><td><span class="pass">PASS</span></td></tr></tbody></table>
@@ -5017,7 +5865,7 @@ epilogue_rest:                  @ 0x080B68EC: mov sb, r7 ...</pre></details>
             <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">no code: 40 steps, still an Egg (Bulbasaur: 20 egg cycles)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">fast, a Flame Body Pokémon in the party (the base state&#39;s Charmander): not hatched after 10 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">fast, Flame Body in the party: hatched within 12 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">fast, no Flame Body (the Charmander edited to Blaze first): not hatched after 20 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">fast, no Flame Body: hatched within 22 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">at once: hatched within 3 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">at once, no Flame Body: hatched within 3 steps</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">at once, save, untick, reset, Continue: the hatched Pokémon is kept</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
           <div class="tablewrap" style="max-width:860px">
-            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Every code on the page at once (but No random encounters: the run needs a wild battle) with the party editor (slot 1, Charmeleon: every field, Any ability: Intimidate, with Charmeleon&#39;s Any ability code), Any item x999 (Rare Candy), EXP x2 and Eggs hatch fast (at once): an Egg given and hatched after two steps; a won battle (twice the EXP of the same run without the EXP code; Charmander evolves); a givemon gift and a wild Pokémon caught with one Poké Ball (both a shiny, perfect-IV, Modest, female Eevee with its hidden ability), money, coins, BP, the Bag (999), the party menu (the edit applied), walking, save, untick all, reset, Continue: all kept and valid</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">Every code on the page at once (but No random encounters: the run needs a wild battle) with the party editor (slot 1, Charmeleon: every field, Any ability: Intimidate) and the Any ability code, Any item x999 (Rare Candy), EXP x2, Fill the Pokédex (1-151) and Eggs hatch fast (at once): an Egg given and hatched after two steps; a won battle (twice the EXP of the same run without the EXP code; Charmander evolves); a givemon gift and a wild Pokémon caught with one Poké Ball (both a shiny, perfect-IV, Modest, female Eevee with its hidden ability), money, coins, BP, the Bag (999), the party menu (the edit applied), the Pokédex (1-151 seen and caught), walking, save, untick all, reset, Continue: all kept and valid</td><td><span class="pass">PASS</span></td></tr></tbody></table>
           </div>
         </div>
     
@@ -5287,6 +6135,118 @@ C3DE24B7 258EA056
   </section>
   <section class="panel" id="species" role="tabpanel" aria-labelledby="tab-species" data-scope="gift" hidden>
 
+    <div data-ver="1.0.26">
+    <div class="row cctl"><button class="copy" type="button" data-cards="collapse">Collapse all</button><button class="copy" type="button" data-cards="expand">Expand all</button></div>
+    <div class="clist">
+      <article class="ccard" id="card-dex">
+        <h3 class="chead-h"><button class="chead" type="button" aria-expanded="true" aria-controls="cb-dex"><span class="ctitle">Fill the Pokédex</span><span class="csub">seen and caught, any range</span><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></h3>
+        <div class="cbody" id="cb-dex">
+          <div class="cleft">
+
+            <div class="field frrow">
+              <label class="chk" for="dex-first">From #</label>
+              <input type="number" id="dex-first" class="num" min="1" max="1025" value="1" inputmode="numeric" aria-label="First Pokédex number, 1 to 1025">
+              <label class="chk" for="dex-last">to #</label>
+              <input type="number" id="dex-last" class="num" min="1" max="1025" value="1025" inputmode="numeric" aria-label="Last Pokédex number, 1 to 1025">
+            </div>
+            <p class="pickmsg" id="dex-msg">#1 Bulbasaur to #1025 Pecharunt, both included: all 1,025 entries.</p>
+            <div class="codebox sm" id="code-dex">83DADDD4 16E1EFE5
+5EA6204A 578728BC
+5E8F0B90 26566DCB
+205C4EF8 8B69A549
+BE5FEFE7 A09AE0CF
+032C5EBA F8CDDB68
+2CB4A408 6363E2F9
+EE726809 E0AC78B3
+3349F5E5 8BB3FB18
+80AA2DC8 7B91DE96
+231A305A 74FF5983
+B6E5CE99 38A13749
+9BE48F12 14AD6B6C
+65A27213 79F74E72
+483F25BB 471B7218
+937E576E C62915BE
+05030765 06F9017B
+5417C275 72476BA3
+50776BE4 F7872285
+D036ADF9 855E93F2
+E8F07DAF 8B779FA9
+B55822DE 8D8BB74C
+D2FF7ED3 E666BB95
+C53C83DC B9E43219
+2042BA16 8ED5E31B
+906D7251 31E49065
+C7798E6F 3B777564
+00939804 4086FF3B
+A6C788C2 41E6F599
+A4FE6A3D 7FD7A543
+6A21850A BF5D49C9
+0B519E51 3FC76B8F
+402133F8 956CE901
+2BFECC4D 7B814631
+85A3D8E0 722930AE
+906D7251 31E49065
+FC3A88F1 13D4B679
+2BD38F05 D5A578B1
+41F94452 99E991EA
+1EDF0BA3 FC84033C
+CF1CC64A 19C10372
+0B519E51 3FC76B8F
+A189A1E4 F1522154
+DD6FB01B C20EE682
+51EB5104 C18F8202
+AA4B241E 59AE11C8
+CBC288B7 1241C68D
+65439170 93645A77
+B4AA126D 544FA88B
+F7F32C06 2640E525
+6D806319 2024FC77
+1E3A9C01 D6034965
+9B9A1023 E95A8448
+A05F2156 B6AB532A
+F9A58DF0 B3152CCE
+15775642 8225CF46
+6569E5B5 384DE5EB
+4B2B8CEF 72458C84
+6E72348E 83085717
+4B2B8CEF 72458C84
+5D51DEEF 5EEF1227
+AA5F9AB9 D5F87330
+75586202 43288F4E
+A05A144C 078B0074
+17BC2D14 8C4631E0
+1040A325 CC220DEB
+13CCEF22 D43C9C3A
+AE7CE911 F3AEEA07
+607525FB 9D0E0351
+122D693B 63BA7F9F
+71ABE06A AD66D262
+2B5B4D14 8192E928
+7DDC123E B3CA80E5
+7FD49BC1 DBCF6C10
+A66D2C9A 0110E61C
+A05A144C 078B0074
+05A71EC5 654EE9F4
+AA5F9AB9 D5F87330
+F322EC30 27508DFA
+A05A144C 078B0074
+4376804F 70F6FF90
+3BD21FD8 54B45406
+9C20C050 5FE9CE6B
+6677DE16 32816BDD</div>
+<div class="row"><button class="copy" type="button" data-copy="code-dex">Copy code</button><span class="lines" data-lines="code-dex"></span></div>
+        
+          </div>
+          <div class="cright">
+
+            <p>Every Pokédex entry from the first number to the last, both included, is marked seen and caught when you open the Pokédex from the Start menu. For version 1.0.26.</p>
+            <ul class="gtk"><li>Tick it, open <b>POKéDEX</b> from the Start menu, then untick it: what it marked is saved with your game like anything you catch.</li><li>The numbers are the National Pokédex numbers the game shows (0001 Bulbasaur to 1025 Pecharunt).</li><li>It only adds: nothing already seen or caught is taken away, and nothing outside the range changes.</li><li>The Pokédex's own SEEN and OWN counts include them. It marks entries; it doesn't give you the Pokémon.</li><li>Made for 1.0.26 only.</li></ul>
+        
+          </div>
+        </div>
+      </article>
+    </div>
+    </div>
     <div class="block">
       <h2>Every species</h2>
       <p>Every Pokémon in the game with its ID, types and abilities: 1575 entries, 555 of them forms. <b>Type</b> lists the species with that type, alone or with another; pick a second type for that pair, or <b>No second type</b> for the ones with only the first. <b>Copy code</b> copies the <a href="#card-species">Pick the species</a> code for that species; <b>Moves</b> shows what it learns (hover a move for a summary, click it to open it in <a href="#list-moves">Moves &amp; TMs</a>). Click or tap a Pokémon's name for its card: sprite (<b>Shiny</b> and <b>Back</b> under it show the shiny colours and the back), base stats, catch rate, gender ratio, how it evolves and where to find it (click a Pokémon in its evolution line to switch the card to it). Hover or tap an ability on the card for what it does; <b>Where to find</b> searches the <a href="#encounters">Encounter map</a> for it. The card stays open while you scroll, until you close it (×, Escape) or click elsewhere; drag it by its top bar (or <b>Move</b>) to put it anywhere, or <b>Pin</b> it where it is. Searching for an ability's exact name lists the species that have it.</p>
@@ -5320,9 +6280,158 @@ C3DE24B7 258EA056
     </div>
 
     <details class="uth">
-      <summary><span class="uth-t">Under the hood</span><span class="uth-s">Raw species template, where the data, sprites and evolutions come from</span></summary>
+      <summary><span class="uth-t">Under the hood</span><span class="uth-s">Fill the Pokédex (1.0.26), the raw species template, where the data, sprites and evolutions come from</span></summary>
       <div class="uth-body">
 
+        <div class="block" data-ver="1.0.26">
+          <h3>Fill the Pokédex</h3>
+          <div class="how">
+            <h4>Fill the Pokédex</h4>
+
+            <p class="muted">The Pokédex keeps one bit per National Pokédex number (1–1,025; bit n − 1): seen at SaveBlock1 + 0x2BD4 and caught at SaveBlock1 + 0x2C55, 129 bytes each (found by catching a Kecleon, #352, and comparing the save before and after). The game's GetSetPokedexFlag (0x081B6E58: the number, then 0 or 1 to read seen or caught, 2 or 3 to set them) is the only code that writes them, and the Pokédex's counts (0x081B6EC8) read them. The code points the Start menu's POKéDEX entry (0x08DA43BC) at a routine at 0x09FFB000 (<code>asm/dex_fill.s</code>). Each time it runs it calls GetSetPokedexFlag with 2 and with 3 for every number from the first to the last, then goes on to the game's own callback (0x0821B39C), which opens the Pokédex once the screen has faded. The game calls it on every frame of that fade, and setting a bit that's already set changes nothing. The range is the two words after the routine; the routine takes a first number below 1 as 1 and a last above 1,025 as 1,025, so it can't write past the two arrays.</p>
+            <details class="alt"><summary>The routine (Thumb assembly, asm/dex_fill.s)</summary><pre class="codebox sm asm">@ Generation 3 Evolved 1.0.26: &quot;Fill the Pokedex&quot; (seen and caught for a range of National Pokedex numbers). Assembled
+@ at DEX_BASE (codes.py, 0x09FFB000, in the ROM&#39;s free space); the code writes START and END (the range&#39;s first and
+@ last numbers, inclusive) into the two words after it. tests.py asm checks that the bytes codes.py stores still match.
+@
+@ The Pokedex keeps one bit per National Pokedex number (1-1025, bit n-1): seen at SaveBlock1 + 0x2BD4, caught at
+@ SaveBlock1 + 0x2C55, 129 bytes each. The game&#39;s GetSetPokedexFlag (0x081B6E58: number, case) reads (0 seen, 1 caught)
+@ and sets (2 seen, 3 caught) them; everything that counts the Pokedex (GetNationalPokedexCount 0x081B6EC8 and so on)
+@ reads the same bits. The code points the Start menu&#39;s POKeDEX entry (sStartMenuItems[0].func, 0x08DA43BC) here: each
+@ call sets seen and caught for every number from START to END through GetSetPokedexFlag, then goes on to the game&#39;s
+@ StartMenuPokedexCallback (0x0821B39C), which opens the Pokedex once the screen has faded. The game calls it every
+@ frame of the fade; setting a bit that is already set changes nothing. START below 1 is taken as 1 and END above 1025
+@ as 1025, so nothing outside the two arrays is ever written.
+
+DexFill:
+    push {r4, r5, lr}
+    ldr r4, first
+    ldr r5, last
+    cmp r4, #0
+    bne 1f
+    movs r4, #1
+1:
+    ldr r3, =COUNT
+    cmp r5, r3
+    bls loop
+    movs r5, r3
+loop:
+    cmp r4, r5
+    bhi done
+    movs r0, r4
+    movs r1, #2                @ FLAG_SET_SEEN
+    ldr r3, =GetSetPokedexFlag
+    bl via
+    movs r0, r4
+    movs r1, #3                @ FLAG_SET_CAUGHT
+    ldr r3, =GetSetPokedexFlag
+    bl via
+    adds r4, #1
+    b loop
+done:
+    pop {r4, r5}
+    pop {r3}
+    mov lr, r3
+    ldr r3, =StartMenuPokedexCallback
+    bx r3
+via:
+    bx r3
+    .ltorg
+    .balign 4
+first:                         @ START: written by the code
+    .word 0xFFFFFFFF
+last:                          @ END: written by the code
+    .word 0xFFFFFFFF</pre></details>
+            <details class="alt"><summary>Raw form (1–150)</summary><p class="muted">The range is the 2nd-to-last pair of line pairs before the hook: the first number (0x0001) and the last (0x0096 = 150), each with 0x0000 after it.</p><div class="codebox sm">00000000 18FFD800
+0000B530 00000000
+00000000 18FFD801
+00004C11 00000000
+00000000 18FFD802
+00004D11 00000000
+00000000 18FFD803
+00002C00 00000000
+00000000 18FFD804
+0000D100 00000000
+00000000 18FFD805
+00002401 00000000
+00000000 18FFD806
+00004B0B 00000000
+00000000 18FFD807
+0000429D 00000000
+00000000 18FFD808
+0000D900 00000000
+00000000 18FFD809
+0000001D 00000000
+00000000 18FFD80A
+000042AC 00000000
+00000000 18FFD80B
+0000D80B 00000000
+00000000 18FFD80C
+00000020 00000000
+00000000 18FFD80D
+00002102 00000000
+00000000 18FFD80E
+00004B08 00000000
+00000000 18FFD80F
+0000F000 00000000
+00000000 18FFD810
+0000F80C 00000000
+00000000 18FFD811
+00000020 00000000
+00000000 18FFD812
+00002103 00000000
+00000000 18FFD813
+00004B06 00000000
+00000000 18FFD814
+0000F000 00000000
+00000000 18FFD815
+0000F807 00000000
+00000000 18FFD816
+00003401 00000000
+00000000 18FFD817
+0000E7F1 00000000
+00000000 18FFD818
+0000BC30 00000000
+00000000 18FFD819
+0000BC08 00000000
+00000000 18FFD81A
+0000469E 00000000
+00000000 18FFD81B
+00004B03 00000000
+00000000 18FFD81C
+00004718 00000000
+00000000 18FFD81D
+00004718 00000000
+00000000 18FFD81E
+00000401 00000000
+00000000 18FFD81F
+00000000 00000000
+00000000 18FFD820
+00006E59 00000000
+00000000 18FFD821
+0000081B 00000000
+00000000 18FFD822
+0000B39D 00000000
+00000000 18FFD823
+00000821 00000000
+00000000 18FFD824
+00000001 00000000
+00000000 18FFD825
+00000000 00000000
+00000000 18FFD826
+00000096 00000000
+00000000 18FFD827
+00000000 00000000
+00000000 186D21DE
+0000B001 00000000
+00000000 186D21DF
+000009FF 00000000</div></details>
+          
+          </div>
+          <p class="muted" style="font-size:14px">Tested on 1.0.26 in mGBA: each run opens the Pokédex from the Start menu, reads both arrays and the game's own counts, and compares the rest of SaveBlock1 with the same trip there and back made without the code (the game itself changes the same 1,463 bytes on that trip, with or without the code). Another run ticks it with every other code on the Your Pokémon tab.</p>
+          <div class="tablewrap" style="max-width:860px">
+            <table class="vtable"><thead><tr><th>Test</th><th>Result</th></tr></thead><tbody><tr><td class="nm">1-150 (Bulbasaur to Mewtwo): every one seen and caught, nothing else (SaveBlock1 compared with the same trip to the Pokedex and back without the code); the game counts 150 / 150</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">one number: 352 (Kecleon)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the last: 1025 (Pecharunt)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">the middle: 252-386 (Treecko to Deoxys)</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">all 1,025, with a screenshot of the Pokedex</td><td><span class="pass">PASS</span></td></tr><tr><td class="nm">1-151, save, untick, reset, Continue: kept; the Pokedex opens and closes without the code and changes nothing</td><td><span class="pass">PASS</span></td></tr></tbody></table>
+          </div>
+        </div>
         <div class="block">
           <h3>Raw template</h3>
           <p class="muted">For the version picked above: the code's own lines, which come after the 296 lines every species, nature, gender and ability code starts with (Catching tab, Under the hood). Put a species' Hex ID in place of <span class="hl-i">SSSS</span><span class="sc-all"> (both places)</span><span class="sc-gift"> (all three places)</span>, and add the whole code as Autodetect.</p>
@@ -5656,7 +6765,7 @@ C3DE24B7 258EA056
 <link rel="modulepreload" href="../assets/species-list.BYf6dkkk.js">
 <link rel="modulepreload" href="../assets/party-editor.C8HuDRbl.js">
 <link rel="modulepreload" href="../assets/game-version.Cxhh0vIx.js">
-<script type="module" src="../assets/generation-3-evolved.D8VpAbIs.js"></script>
+<script type="module" src="../assets/generation-3-evolved.-JlZ1s5n.js"></script>
   
 
 <script type="module">function e(){let e=document.documentElement,t=e.dataset.theme===`light`?`light`:`dark`;function n(n){t=n,e.dataset.theme=n,document.querySelectorAll(`.theme-toggle`).forEach(e=>{e.setAttribute(`aria-checked`,n===`dark`?`true`:`false`),e.title=n===`dark`?`Switch to light mode`:`Switch to dark mode`})}function r(e){try{localStorage.setItem(`prc-theme`,e)}catch{}document.startViewTransition?document.startViewTransition(()=>n(e)):n(e)}n(t),document.querySelectorAll(`.theme-toggle`).forEach(e=>e.addEventListener(`click`,()=>r(t===`dark`?`light`:`dark`))),window.addEventListener(`storage`,e=>{e.key===`prc-theme`&&(e.newValue===`light`||e.newValue===`dark`)&&n(e.newValue)})}e();</script>
