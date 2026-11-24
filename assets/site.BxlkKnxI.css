@@ -552,6 +552,11 @@ input.num:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 .lazybox table.big{min-width:640px}
 .lazyend{height:1px}
 td.name small.abil{color:var(--ink); opacity:.8}
+/* an item's icon before its name (client/widgets/item-list.ts `icons`): its cell of the picture of every icon (--iicons,
+   cells --isz square, set on the table), drawn at the game's own size, pixels kept sharp; it fills the first column
+   beside both lines, and the name and its TM's move stay the cell's own text */
+td.iname{display:grid; grid-template-columns:var(--isz) minmax(0,1fr); column-gap:8px; align-items:center}
+.iicon{grid-row:span 2; width:var(--isz); height:var(--isz); background:var(--iicons) no-repeat; image-rendering:pixelated}
 /* where an item is found: the row its "Where" button opens (client/widgets/item-list.ts whereCell), laid out like a
    Pokédex entry's learnset (.lset / .lgrp) */
 .wlist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; font-size:14px}
